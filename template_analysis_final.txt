@@ -1,0 +1,453 @@
+﻿
+======================================================================
+  LABEL KIRI: TEMPLATE lot kiri.xlsx
+  Sheet: 'Sheet1', Rows: 20, Cols: 16
+======================================================================
+
+--- Column Widths ---
+  Col A (1): width = 9.57
+  Col B (2): width = 9.29
+  Col C (3): width = 10.00
+  Col D (4): width = 6.57
+  Col E (5): width = 2.71
+  Col F (6): width = 3.14
+  Col G (7): width = 6.29
+  Col H (8): width = 4.71
+  Col I (9): width = 2.43
+  Col J (10): width = 26.29
+  Col K (11): width = 7.00
+  Col L (12): width = 2.14
+  Col M (13): width = 2.29
+  Col N (14): width = 6.43
+  Col O (15): width = 1.71
+  Col P (16): width = 1.29
+  TOTAL width units = 101.83
+
+--- Row Heights ---
+  Row 1: height = 16.50 pt
+  Row 2: height = 38.25 pt
+  Row 3: height = 15.00 pt
+  Row 4: height = 9.00 pt
+  Row 5: height = 13.50 pt
+  Row 6: height = 9.00 pt
+  Row 7: height = 14.25 pt
+  Row 8: height = 9.75 pt
+  Row 9: height = 12.75 pt
+  Row 10: height = 3.75 pt
+  Row 11: height = 5.25 pt
+  Row 12: height = 9.00 pt
+  Row 13: height = 9.00 pt
+  Row 14: height = 7.50 pt
+  Row 15: height = 6.00 pt
+  Row 16: height = 12.00 pt
+  Row 17: height = 12.00 pt
+  Row 18: height = 10.15 pt
+  Row 19: height = 15.00 pt
+  Row 20: height = 15.00 pt
+  TOTAL height = 242.65 pt
+
+--- Merged Cells ---
+  A1:E1  (rowspan=1, colspan=5)  = 015 - PT. NIHON SEIKI INDONESIA - IJP
+  F1:G2  (rowspan=2, colspan=2)  = (empty)
+  D2:E2  (rowspan=1, colspan=2)  = 4M
+  D3:G3  (rowspan=1, colspan=4)  = (part name)
+  B4:C4  (rowspan=1, colspan=2)  = 194221098
+  B6:C6  (rowspan=1, colspan=2)  = 111119888098
+  B10:C11  (rowspan=2, colspan=2)  = HLAJDBBDBDBDBDB
+  E11:F14  (rowspan=4, colspan=2)  = (empty)
+  G11:G14  (rowspan=4, colspan=1)  = (empty)
+
+--- Cell Details (row by row) ---
+
+  Row 1:
+    A1: 015 - PT. NIHON SEIKI INDONESI border=[T(thin) B(thin) L(thin) R(thin)] [size=10.0, font=Calibri] align(h=left)
+    B1: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    C1: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    D1: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    E1: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    F1: . border=[T(thin) B(thin) L(thin) R(thin)] [size=11.0, font=Calibri] align(h=center)
+    G1: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 2:
+    A2: . border=[T(thin) B(thin) L(thin) R(thin)] [size=11.0, font=Calibri]
+    B2: Lot Guarantee border=[T(thin) B(thin) L(thin) R(thin)] [size=10.0, font=Calibri] align(h=center, v=center, wrap)
+    C2: Lot SA border=[T(thin) B(thin) L(thin) R(thin)] [size=10.0, font=Calibri] align(h=center, v=center)
+    D2: 4M border=[T(thin) B(thin) L(thin) R(thin)] [size=10.0, font=Calibri] align(h=center, v=center)
+    E2: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    F2: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    G2: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 3:
+    A3: Part Code: border=[T(thin) L(thin)] [size=9.0, font=Calibri]
+    B3: . border=[T(thin)] [size=9.0, font=Calibri]
+    C3: . border=[T(thin)] [size=9.0, font=Calibri]
+    D3: (part name) border=[T(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    E3: . border=[T(thin)] [size=11.0, font=Calibri]
+    F3: . border=[T(thin)] [size=11.0, font=Calibri]
+    G3: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 4:
+    A4: . border=[L(thin)] [size=9.0, font=Calibri]
+    B4: 194221098 [size=9.0, font=Calibri] align(h=left, v=center)
+    G4: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 5:
+    A5: Lot No.: border=[L(thin)] [size=9.0, font=Calibri]
+    G5: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 6:
+    A6: . border=[L(thin)] [size=9.0, font=Calibri]
+    B6: 111119888098 [size=9.0, font=Calibri] align(h=left, v=center)
+    G6: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 7:
+    A7: Qty: border=[L(thin)] [size=9.0, font=Calibri]
+    G7: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 8:
+    A8: . border=[L(thin)] [size=9.0, font=Calibri]
+    B8: 500 [size=9.0, font=Calibri] align(h=left, v=center)
+    G8: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 9:
+    A9: Ref No.: border=[L(thin)] [size=9.0, font=Calibri]
+    G9: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 10:
+    A10: . border=[L(thin)] [size=9.0, font=Calibri]
+    B10: HLAJDBBDBDBDBDB [size=9.0, font=Calibri] align(h=center, v=center)
+    G10: . border=[R(thin)] [size=9.0, font=Calibri]
+
+  Row 11:
+    A11: . border=[L(thin)] [size=9.0, font=Calibri]
+    E11: . border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    F11: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    G11: . border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+
+  Row 12:
+    A12: Remark: border=[L(thin)] [size=9.0, font=Calibri] align(h=left, v=center)
+    B12: oke  [size=9.0, font=Calibri]
+    E12: . border=[L(thin)] [size=11.0, font=Calibri]
+    F12: . border=[R(thin)] [size=11.0, font=Calibri]
+    G12: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 13:
+    A13: . border=[L(thin)] [size=11.0, font=Calibri]
+    E13: . border=[L(thin)] [size=11.0, font=Calibri]
+    F13: . border=[R(thin)] [size=11.0, font=Calibri]
+    G13: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 14:
+    A14: date time border=[B(thin) L(thin)] [size=8.0, font=Calibri] align(h=left, v=center)
+    B14: . border=[B(thin)] [size=11.0, font=Calibri]
+    C14: . border=[B(thin)] [size=11.0, font=Calibri]
+    D14: . border=[B(thin)] [size=11.0, font=Calibri]
+    E14: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    F14: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    G14: . border=[B(thin) L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 15:
+
+  Row 16:
+
+  Row 17:
+
+  Row 18:
+
+  Row 19:
+
+  Row 20:
+
+======================================================================
+  LABEL KANAN: TEMPLATE lot kanan.xlsx
+  Sheet: 'Sheet1', Rows: 21, Cols: 10
+======================================================================
+
+--- Column Widths ---
+  Col A (1): width = 2.57
+  Col B (2): width = 10.86
+  Col C (3): width = 9.71
+  Col D (4): width = 4.86
+  Col E (5): width = 5.14
+  Col F (6): width = 2.71
+  Col G (7): width = 2.57
+  Col H (8): width = 1.71
+  Col I (9): width = 2.86
+  Col J (10): width = 2.14
+  TOTAL width units = 45.12
+
+--- Row Heights ---
+  Row 1: height = 12.75 pt
+  Row 2: height = 10.50 pt
+  Row 3: height = 12.75 pt
+  Row 4: height = 10.50 pt
+  Row 5: height = 9.75 pt
+  Row 6: height = 10.50 pt
+  Row 7: height = 11.25 pt
+  Row 8: height = 12.00 pt
+  Row 9: height = 12.00 pt
+  Row 10: height = 9.75 pt
+  Row 11: height = 1.50 pt
+  Row 12: height = 5.25 pt
+  Row 13: height = 8.25 pt
+  Row 14: height = 6.75 pt
+  Row 15: height = 3.75 pt
+  Row 16: height = 5.25 pt
+  Row 17: height = 9.00 pt
+  Row 18: height = 7.50 pt
+  Row 19: height = 9.75 pt
+  Row 20: height = 9.00 pt
+  Row 21: height = 9.75 pt
+  TOTAL height = 187.50 pt
+
+--- Merged Cells ---
+  B1:C1  (rowspan=1, colspan=2)  = REV : 2/190916
+  D1:F1  (rowspan=1, colspan=3)  = NR (no document)
+  G1:J1  (rowspan=1, colspan=4)  = FM-QCA-18
+  B2:D2  (rowspan=1, colspan=3)  = PT. NIHON SEIKI INDONESIA
+  E2:I6  (rowspan=5, colspan=5)  = (empty)
+  B3:D3  (rowspan=1, colspan=3)  = QUALITY CONTROL OK
+  B4:D4  (rowspan=1, colspan=3)  = PT. (CUSTOMER
+  B5:D5  (rowspan=1, colspan=3)  = DATE : (data dari query)
+  B6:D6  (rowspan=1, colspan=3)  = PART NAME :
+  B7:D7  (rowspan=1, colspan=3)  = (DARI query)
+  E7:I7  (rowspan=1, colspan=5)  = BACK NO (DINAMIS)
+  B8:I8  (rowspan=1, colspan=8)  = PART NO : 090909099
+  B9:I9  (rowspan=1, colspan=8)  = (empty)
+  B10:D11  (rowspan=2, colspan=3)  = LOTNO : 26218B52Q11
+  E10:F10  (rowspan=1, colspan=2)  = Treat/Plat
+  E11:F12  (rowspan=2, colspan=2)  = (empty)
+  G11:I12  (rowspan=2, colspan=3)  = 756
+  B12:D13  (rowspan=2, colspan=3)  = (empty)
+  E13:F13  (rowspan=1, colspan=2)  = Marking
+  G13:I13  (rowspan=1, colspan=3)  = ROHS FREE
+  B14:D15  (rowspan=2, colspan=3)  = QTY : 500
+  E14:F14  (rowspan=1, colspan=2)  = (empty)
+  G14:I14  (rowspan=1, colspan=3)  = YES
+  E15:F16  (rowspan=2, colspan=2)  = (empty)
+  G15:I16  (rowspan=2, colspan=3)  = WHFGL
+  B16:D17  (rowspan=2, colspan=3)  = (empty)
+  E17:F17  (rowspan=1, colspan=2)  = PRINT DATE
+  G17:I17  (rowspan=1, colspan=3)  = 2026-09-01 00:00:00
+  B18:E19  (rowspan=2, colspan=4)  = (empty)
+  F19:G19  (rowspan=1, colspan=2)  = User
+  B20:C20  (rowspan=1, colspan=2)  = HSIRUSHRBSJHEIROD
+
+--- Cell Details (row by row) ---
+
+  Row 1:
+    A1: . border=[T(thin) L(thin)] [size=9.0, font=Calibri]
+    B1: REV : 2/190916 border=[T(thin)] [bold, size=9.0, font=Calibri] align(h=left)
+    C1: . border=[T(thin)] [size=11.0, font=Calibri]
+    D1: NR (no document) border=[T(thin) B(thin)] [size=9.0, font=Calibri] align(h=center)
+    E1: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    F1: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    G1: FM-QCA-18 border=[T(thin) R(thin)] [bold, size=9.0, font=Calibri] align(h=center)
+    H1: . border=[T(thin)] [size=11.0, font=Calibri]
+    I1: . border=[T(thin)] [size=11.0, font=Calibri]
+    J1: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 2:
+    A2: . border=[L(thin)] [size=9.0, font=Calibri]
+    B2: PT. NIHON SEIKI INDONESIA border=[T(thin) L(thin) R(thin)] [bold, size=9.0, font=Calibri] align(h=left, v=center)
+    C2: . border=[T(thin)] [size=11.0, font=Calibri]
+    D2: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    E2: . border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    F2: . border=[T(thin)] [size=11.0, font=Calibri]
+    G2: . border=[T(thin)] [size=11.0, font=Calibri]
+    H2: . border=[T(thin)] [size=11.0, font=Calibri]
+    I2: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    J2: . border=[R(thin)] [size=11.0, font=Calibri]
+
+  Row 3:
+    A3: . border=[L(thin)] [size=9.0, font=Calibri]
+    B3: QUALITY CONTROL OK border=[B(thin) L(thin) R(thin)] [bold, size=9.0, font=Calibri] align(h=left, v=center)
+    C3: . border=[B(thin)] [size=11.0, font=Calibri]
+    D3: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    E3: . border=[L(thin)] [size=11.0, font=Calibri]
+    I3: . border=[R(thin)] [size=11.0, font=Calibri]
+    J3: . border=[R(thin)] [size=11.0, font=Calibri]
+
+  Row 4:
+    A4: . border=[L(thin)] [size=9.0, font=Calibri]
+    B4: PT. (CUSTOMER border=[T(thin) L(thin) R(thin)] [bold, size=9.0, font=Calibri] align(h=left, v=center)
+    C4: . border=[T(thin)] [size=11.0, font=Calibri]
+    D4: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    E4: . border=[L(thin)] [size=11.0, font=Calibri]
+    I4: . border=[R(thin)] [size=11.0, font=Calibri]
+    J4: . border=[R(thin)] [size=11.0, font=Calibri] align(v=top)
+
+  Row 5:
+    A5: . border=[L(thin)] [size=9.0, font=Calibri]
+    B5: DATE : (data dari query) border=[B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=left, v=center)
+    C5: . border=[B(thin)] [size=11.0, font=Calibri]
+    D5: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    E5: . border=[L(thin)] [size=11.0, font=Calibri]
+    I5: . border=[R(thin)] [size=11.0, font=Calibri]
+    J5: . border=[R(thin)] [size=11.0, font=Calibri] align(v=top)
+
+  Row 6:
+    A6:   border=[L(thin)] [size=9.0, font=Calibri]
+    B6: PART NAME : border=[T(thin) L(thin) R(thin)] [bold, size=9.0, font=Calibri] align(h=left, v=center)
+    C6: . border=[T(thin)] [size=11.0, font=Calibri]
+    D6: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    E6: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    F6: . border=[B(thin)] [size=11.0, font=Calibri]
+    G6: . border=[B(thin)] [size=11.0, font=Calibri]
+    H6: . border=[B(thin)] [size=11.0, font=Calibri]
+    I6: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    J6: . border=[R(thin)] [size=11.0, font=Calibri]
+
+  Row 7:
+    A7: . border=[L(thin)] [size=9.0, font=Calibri]
+    B7: (DARI query) border=[B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=left)
+    C7: . border=[B(thin)] [size=11.0, font=Calibri]
+    D7: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    E7: BACK NO (DINAMIS) border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    F7: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    G7: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    H7: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    I7: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    J7: . border=[R(thin)] [size=11.0, font=Calibri]
+
+  Row 8:
+    A8: . border=[L(thin)] [size=9.0, font=Calibri]
+    B8: PART NO : 090909099 border=[T(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=left, v=center)
+    C8: . border=[T(thin)] [size=11.0, font=Calibri]
+    D8: . border=[T(thin)] [size=11.0, font=Calibri]
+    E8: . border=[T(thin)] [size=11.0, font=Calibri]
+    F8: . border=[T(thin)] [size=11.0, font=Calibri]
+    G8: . border=[T(thin)] [size=11.0, font=Calibri]
+    H8: . border=[T(thin)] [size=11.0, font=Calibri]
+    I8: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    J8: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 9:
+    A9: . border=[L(thin)] [size=9.0, font=Calibri]
+    B9: . border=[L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    I9: . border=[R(thin)] [size=11.0, font=Calibri]
+    J9: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 10:
+    A10: . border=[L(thin)] [size=9.0, font=Calibri]
+    B10: LOTNO : 26218B52Q11 border=[T(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=left, v=center)
+    C10: . border=[T(thin)] [size=11.0, font=Calibri]
+    D10: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    E10: Treat/Plat border=[T(thin) B(thin) R(thin)] [size=8.0, font=Calibri] align(h=left, v=center)
+    F10: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    G10: Inspection border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(v=center)
+    H10: . border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri]
+    I10: . border=[T(thin) B(thin) L(thin) R(thin)] [size=11.0, font=Calibri]
+    J10: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 11:
+    A11: . border=[L(thin)] [size=9.0, font=Calibri]
+    B11: . border=[L(thin)] [size=11.0, font=Calibri]
+    D11: . border=[R(thin)] [size=11.0, font=Calibri]
+    E11: . border=[T(thin) B(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    F11: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    G11: 756 border=[T(thin) B(thin) L(thin) R(thin)] [bold, size=8.0, font=Calibri] align(h=center, v=center)
+    H11: . border=[T(thin)] [size=11.0, font=Calibri]
+    I11: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    J11: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 12:
+    A12: . border=[L(thin)] [size=9.0, font=Calibri]
+    B12: . border=[B(thin) L(thin) R(thin)] [size=11.0, font=Calibri] align(h=center)
+    D12: . border=[R(thin)] [size=11.0, font=Calibri]
+    E12: . border=[B(thin)] [size=11.0, font=Calibri]
+    F12: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    G12: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    H12: . border=[B(thin)] [size=11.0, font=Calibri]
+    I12: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    J12: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 13:
+    A13: . border=[L(thin)] [size=9.0, font=Calibri]
+    B13: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    C13: . border=[B(thin)] [size=11.0, font=Calibri]
+    D13: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    E13: Marking border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(h=left, v=center)
+    F13: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    G13: ROHS FREE border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(h=center, v=center)
+    H13: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    I13: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    J13: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 14:
+    A14: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B14: QTY : 500 border=[T(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=left, v=center)
+    C14: . border=[T(thin)] [size=11.0, font=Calibri]
+    D14: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    E14: . border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    F14: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    G14: YES border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(h=left, v=center)
+    H14: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    I14: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    J14: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 15:
+    A15: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B15: . border=[L(thin)] [size=11.0, font=Calibri]
+    D15: . border=[R(thin)] [size=11.0, font=Calibri]
+    E15: . border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    F15: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    G15: WHFGL border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(h=left, v=center)
+    H15: . border=[T(thin)] [size=11.0, font=Calibri]
+    I15: . border=[T(thin) R(thin)] [size=11.0, font=Calibri]
+    J15: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 16:
+    A16: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B16: . border=[B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center)
+    D16: . border=[R(thin)] [size=11.0, font=Calibri]
+    E16: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    F16: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    G16: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    H16: . border=[B(thin)] [size=11.0, font=Calibri]
+    I16: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    J16: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 17:
+    A17: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B17: . border=[B(thin) L(thin)] [size=11.0, font=Calibri]
+    C17: . border=[B(thin)] [size=11.0, font=Calibri]
+    D17: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]
+    E17: PRINT DATE border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(h=center, v=center)
+    F17: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    G17: 2026-09-01 00:00:00 border=[T(thin) B(thin) L(thin) R(thin)] [size=8.0, font=Calibri] align(h=center, v=center)
+    H17: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    I17: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    J17: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 18:
+    A18: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B18: . border=[T(thin) L(thin)] [size=9.0, font=Calibri] align(h=center)
+    C18: . border=[T(thin)] [size=11.0, font=Calibri]
+    D18: . border=[T(thin)] [size=11.0, font=Calibri]
+    E18: . border=[T(thin)] [size=11.0, font=Calibri]
+    J18: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 19:
+    A19: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B19: . border=[L(thin)] [size=11.0, font=Calibri]
+    F19: User border=[T(thin) B(thin) L(thin) R(thin)] [size=9.0, font=Calibri] align(h=center, v=center)
+    G19: . border=[T(thin) B(thin) R(thin)] [size=11.0, font=Calibri]
+    J19: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 20:
+    A20: . border=[L(thin) R(thin)] [size=9.0, font=Calibri]
+    B20: HSIRUSHRBSJHEIROD [size=9.0, font=Calibri] align(h=center, v=center)
+    J20: . border=[L(thin) R(thin)] [size=11.0, font=Calibri]
+
+  Row 21:
+    A21: . border=[B(thin) L(thin)] [size=9.0, font=Calibri]
+    B21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    C21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    D21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    E21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    F21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    G21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    H21: . border=[T(thin) B(thin)] [size=9.0, font=Calibri]
+    I21: . border=[T(thin) B(thin)] [size=11.0, font=Calibri]
+    J21: . border=[B(thin) R(thin)] [size=11.0, font=Calibri]

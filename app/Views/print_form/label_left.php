@@ -1,192 +1,127 @@
 <?php
 /**
- * PARTIAL TEMPLATE — Label Kiri (Pabrik)
+ * PARTIAL — Label Kiri (Pabrik)
  * Ukuran: 9.6cm × 7.2cm
  *
- * Menggunakan lebar kolom & tinggi baris PERSIS seperti Excel "TEMPLATE lot kiri.xlsx".
+ * PERSIS dari TEMPLATE lot kiri.xlsx
+ * 7 kolom (A–G), 14 baris data (Row 15-20 kosong)
  *
- * Col A = 9.57 (20.12%)
- * Col B = 9.29 (19.53%)
- * Col C = 10.00 (21.02%)
- * Col D = 6.57 (13.81%)
- * Col E = 2.71 (5.70%)
- * Col F = 3.14 (6.60%)
- * Col G = 6.29 (13.22%)
+ * Kolom (Excel units → mm proporsional dlm 96mm, total=47.57):
+ *   A=9.57→19.31mm  B=9.29→18.75mm  C=10.00→20.18mm  D=6.57→13.26mm
+ *   E=2.71→5.47mm   F=3.14→6.34mm   G=6.29→12.70mm
+ *
+ * Baris (Excel pt → mm, 1pt=0.3528mm):
+ *   R1=16.50pt→5.82mm   R2=38.25pt→13.50mm  R3=15.00pt→5.29mm
+ *   R4=9.00pt→3.18mm    R5=13.50pt→4.76mm   R6=9.00pt→3.18mm
+ *   R7=14.25pt→5.03mm   R8=9.75pt→3.44mm    R9=12.75pt→4.50mm
+ *   R10=3.75pt→1.32mm   R11=5.25pt→1.85mm   R12=9.00pt→3.18mm
+ *   R13=9.00pt→3.18mm   R14=7.50pt→2.65mm
+ *
+ * Merged cells:
+ *   A1:E1(cs5)  F1:G2(rs2,cs2)  D2:E2(cs2)  D3:G3(cs4)
+ *   B4:C4(cs2)  B6:C6(cs2)  B10:C11(rs2,cs2)
+ *   E11:F14(rs4,cs2)  G11:G14(rs4)
  */
 ?>
-<table style="width:96mm;height:72mm;table-layout:fixed;border-collapse:collapse;">
+<table style="width:96mm;table-layout:fixed;border-collapse:collapse;">
 <colgroup>
-  <col style="width:20.12%"> <!-- A -->
-  <col style="width:19.53%"> <!-- B -->
-  <col style="width:21.02%"> <!-- C -->
-  <col style="width:13.81%"> <!-- D -->
-  <col style="width:5.70%">  <!-- E -->
-  <col style="width:6.60%">  <!-- F -->
-  <col style="width:13.22%"> <!-- G -->
+  <col style="width:19.31mm"><!-- A -->
+  <col style="width:18.75mm"><!-- B -->
+  <col style="width:20.18mm"><!-- C -->
+  <col style="width:13.26mm"><!-- D -->
+  <col style="width:5.47mm"> <!-- E -->
+  <col style="width:6.34mm"> <!-- F -->
+  <col style="width:12.70mm"><!-- G -->
 </colgroup>
 
-<!-- ── Row 1 (Height: 16.50 pt) ── -->
-<tr style="height:16.50pt;">
-  <td colspan="5" style="border:0.1mm solid #000;padding:1pt;font-weight:bold;">
-    015 - PT. NIHON SEIKI INDONESIA - <?= esc($productName) ?>
-  </td>
-  <td colspan="2" rowspan="2" style="border:0.1mm solid #000;text-align:center;vertical-align:middle;padding:1pt;">
-    <?= $qrCodeImg($qrLeft, $qrSize) ?>
-  </td>
+<!-- R1: A1:E1="015-PT..." all-border | F1:G2=QR rs2,cs2 -->
+<tr>
+  <td colspan="5" style="height:5.82mm;border:0.1mm solid #000;padding:0.5mm 1mm;">015 - PT. NIHON SEIKI INDONESIA - <?= esc($productName) ?></td>
+  <td colspan="2" rowspan="2" style="border:0.1mm solid #000;text-align:center;vertical-align:middle;"><?= $qrCodeImg($qrLeft, $qrSize) ?></td>
 </tr>
-
-<!-- ── Row 2 (Height: 38.25 pt) ── -->
-<tr style="height:38.25pt;">
-  <td style="border:0.1mm solid #000;"></td>
-  <td style="border:0.1mm solid #000;text-align:center;font-size:10pt;">
-    <?php if ($lotGuarantee): ?>Lot Guarantee<?php endif; ?>
-  </td>
-  <td style="border:0.1mm solid #000;text-align:center;font-size:10pt;">
-    <?php if ($lotSa): ?>Lot SA<?php endif; ?>
-  </td>
-  <td colspan="2" style="border:0.1mm solid #000;text-align:center;font-size:10pt;">
-    <?php if ($is4m): ?>4M<?php endif; ?>
-  </td>
+<!-- R2: A2=bordered | B2="Lot Guarantee" | C2="Lot SA" | D2:E2="4M" -->
+<tr>
+  <td style="height:13.50mm;border:0.1mm solid #000;"></td>
+  <td style="border:0.1mm solid #000;text-align:center;vertical-align:middle;"><?php if($lotGuarantee):?>Lot Guarantee<?php endif;?></td>
+  <td style="border:0.1mm solid #000;text-align:center;vertical-align:middle;"><?php if($lotSa):?>Lot SA<?php endif;?></td>
+  <td colspan="2" style="border:0.1mm solid #000;text-align:center;vertical-align:middle;"><?php if($is4m):?>4M<?php endif;?></td>
 </tr>
-
-<!-- ── Row 3 (Height: 15.00 pt) ── -->
-<tr style="height:15.00pt;">
-  <td style="border-top:0.1mm solid #000;border-left:0.1mm solid #000;padding:1pt;vertical-align:top;">
-    Part Code:
-  </td>
+<!-- R3: A3="Part Code:" bdr-TL | B3 bdr-T | C3 bdr-T | D3:G3=description cs4 bdr-TR -->
+<tr>
+  <td style="height:5.29mm;border-top:0.1mm solid #000;border-left:0.1mm solid #000;padding:0.5mm 1mm;">Part Code:</td>
   <td style="border-top:0.1mm solid #000;"></td>
   <td style="border-top:0.1mm solid #000;"></td>
-  <td colspan="4" style="border-top:0.1mm solid #000;border-right:0.1mm solid #000;text-align:center;font-weight:bold;padding:1pt;">
-    <?= esc($description) ?>
-  </td>
+  <td colspan="4" style="border-top:0.1mm solid #000;border-right:0.1mm solid #000;text-align:center;padding:0.5mm 1mm;"><?= esc($description) ?></td>
 </tr>
-
-<!-- ── Row 4 (Height: 9.00 pt) ── -->
-<tr style="height:9.00pt;">
-  <td style="border-left:0.1mm solid #000;"></td>
-  <td colspan="2" style="padding:1pt;vertical-align:center;">
-    <?= esc($itemCode) ?>
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R4: A4 bdr-L | B4:C4=itemCode cs2 | D4-F4 empty | G4 bdr-R -->
+<tr>
+  <td style="height:3.18mm;border-left:0.1mm solid #000;"></td>
+  <td colspan="2" style="padding:0 1mm;"><?= esc($itemCode) ?></td>
+  <td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 5 (Height: 13.50 pt) ── -->
-<tr style="height:13.50pt;">
-  <td style="border-left:0.1mm solid #000;padding:1pt;vertical-align:top;">
-    Lot No.:
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R5: A5="Lot No.:" bdr-L | G5 bdr-R -->
+<tr>
+  <td style="height:4.76mm;border-left:0.1mm solid #000;padding:0.5mm 1mm;">Lot No.:</td>
+  <td></td><td></td><td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 6 (Height: 9.00 pt) ── -->
-<tr style="height:9.00pt;">
-  <td style="border-left:0.1mm solid #000;"></td>
-  <td colspan="2" style="padding:1pt;vertical-align:center;">
-    <?= esc($lotNoCombined) ?>
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R6: A6 bdr-L | B6:C6=lotNo cs2 | G6 bdr-R -->
+<tr>
+  <td style="height:3.18mm;border-left:0.1mm solid #000;"></td>
+  <td colspan="2" style="padding:0 1mm;"><?= esc($lotNoCombined) ?></td>
+  <td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 7 (Height: 14.25 pt) ── -->
-<tr style="height:14.25pt;">
-  <td style="border-left:0.1mm solid #000;padding:1pt;vertical-align:top;">
-    Qty:
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R7: A7="Qty:" bdr-L | G7 bdr-R -->
+<tr>
+  <td style="height:5.03mm;border-left:0.1mm solid #000;padding:0.5mm 1mm;">Qty:</td>
+  <td></td><td></td><td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 8 (Height: 9.75 pt) ── -->
-<tr style="height:9.75pt;">
-  <td style="border-left:0.1mm solid #000;"></td>
-  <td style="padding:1pt;vertical-align:center;">
-    <?= esc($lotQty) ?>
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R8: A8 bdr-L | B8=qty | G8 bdr-R -->
+<tr>
+  <td style="height:3.44mm;border-left:0.1mm solid #000;"></td>
+  <td style="padding:0 1mm;"><?= esc($lotQty) ?></td>
+  <td></td><td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 9 (Height: 12.75 pt) ── -->
-<tr style="height:12.75pt;">
-  <td style="border-left:0.1mm solid #000;padding:1pt;vertical-align:top;">
-    Ref No.:
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R9: A9="Ref No.:" bdr-L | G9 bdr-R -->
+<tr>
+  <td style="height:4.50mm;border-left:0.1mm solid #000;padding:0.5mm 1mm;">Ref No.:</td>
+  <td></td><td></td><td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 10 (Height: 3.75 pt) ── -->
-<tr style="height:3.75pt;">
-  <td style="border-left:0.1mm solid #000;"></td>
-  <td colspan="2" rowspan="2" style="padding:1pt;vertical-align:center;text-align:center;">
-    <?= esc($refNo) ?><br>
-    <?= $barcodeSvg($refNo, $barcodeH * 0.4) ?>
-  </td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R10: A10 bdr-L | B10:C11=refNo rs2,cs2 center | D10 empty | G10 bdr-R -->
+<tr>
+  <td style="height:1.32mm;border-left:0.1mm solid #000;"></td>
+  <td colspan="2" rowspan="2" style="padding:0 1mm;text-align:center;vertical-align:middle;"><?= esc($refNo) ?></td>
+  <td></td><td></td><td></td>
   <td style="border-right:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 11 (Height: 5.25 pt) ── -->
-<tr style="height:5.25pt;">
-  <td style="border-left:0.1mm solid #000;"></td>
-  <!-- B10:C11 is rowspan 2 -->
+<!-- R11: A11 bdr-L | (B,C covered) | D11 | E11:F14=stamp rs4,cs2 all-bdr | G11:G14=stamp rs4 all-bdr -->
+<tr>
+  <td style="height:1.85mm;border-left:0.1mm solid #000;"></td>
   <td></td>
-  <td colspan="2" rowspan="4" style="border:0.1mm solid #000;text-align:center;"></td>
-  <td rowspan="4" style="border:0.1mm solid #000;text-align:center;"></td>
+  <td colspan="2" rowspan="4" style="border:0.1mm solid #000;"></td>
+  <td rowspan="4" style="border:0.1mm solid #000;"></td>
 </tr>
-
-<!-- ── Row 12 (Height: 9.00 pt) ── -->
-<tr style="height:9.00pt;">
-  <td style="border-left:0.1mm solid #000;padding:1pt;vertical-align:center;">
-    Remark:
-  </td>
-  <td style="padding:1pt;vertical-align:center;"><?= esc($remark) ?></td>
-  <td></td>
-  <td></td>
-  <!-- E, F, G are rowspan 4 -->
+<!-- R12: A12="Remark:" bdr-L | B12=remark | C12 | D12 -->
+<tr>
+  <td style="height:3.18mm;border-left:0.1mm solid #000;padding:0.5mm 1mm;">Remark:</td>
+  <td style="padding:0 1mm;"><?= esc($remark) ?></td>
+  <td></td><td></td>
 </tr>
-
-<!-- ── Row 13 (Height: 9.00 pt) ── -->
-<tr style="height:9.00pt;">
-  <td style="border-left:0.1mm solid #000;"></td>
-  <td></td>
-  <td></td>
-  <td></td>
+<!-- R13: A13 bdr-L | B-D empty -->
+<tr>
+  <td style="height:3.18mm;border-left:0.1mm solid #000;"></td>
+  <td></td><td></td><td></td>
 </tr>
-
-<!-- ── Row 14 (Height: 7.50 pt) ── -->
-<tr style="height:7.50pt;">
-  <td style="border-bottom:0.1mm solid #000;border-left:0.1mm solid #000;padding:1pt;vertical-align:center;font-size:8pt;">
-    <?= $now ?>
-  </td>
+<!-- R14: A14="datetime" bdr-BL | B14 bdr-B | C14 bdr-B | D14 bdr-B | (E,F=stamp end) | (G=stamp end) -->
+<tr>
+  <td style="height:2.65mm;border-bottom:0.1mm solid #000;border-left:0.1mm solid #000;padding:0 1mm;font-size:8pt;"><?= $now ?></td>
   <td style="border-bottom:0.1mm solid #000;"></td>
   <td style="border-bottom:0.1mm solid #000;"></td>
   <td style="border-bottom:0.1mm solid #000;"></td>
 </tr>
-
-<!-- Sisa tinggi bisa dibiarkan kosong, tabel akan mentok 72mm -->
 </table>
