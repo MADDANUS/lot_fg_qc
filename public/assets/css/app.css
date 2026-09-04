@@ -1,0 +1,11 @@
+.upper-input {
+    text-transform: uppercase;
+}
+
+.master-table td, .master-table th {
+    vertical-align: middle;
+}
+
+#tableItems input {
+    min-width: 90px;
+}
