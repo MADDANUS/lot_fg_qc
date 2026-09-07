@@ -34,7 +34,7 @@
 <tr>
   <td style="height:3.5mm;border-left:0.2mm solid #000;"></td>
   <td colspan="3" style="border-top:0.2mm solid #000;border-left:0.2mm solid #000;border-right:0.2mm solid #000;padding:0.2mm 0.7mm;font-weight:bold;font-size:7pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
-  <td colspan="5" rowspan="5" style="border:0.2mm solid #000;text-align:center;vertical-align:middle;"><?= $qrCodeImg($qrRight, 45, '15mm', 1) ?></td>
+  <td colspan="5" rowspan="5" style="border:0.2mm solid #000;text-align:center;vertical-align:middle;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 150, '15mm', 0) ?></td>
   <td style="border-right:0.2mm solid #000;"></td>
 </tr>
 <!-- R3 -->
@@ -132,7 +132,7 @@
 <!-- R17 -->
 <tr>
   <td style="height:2.9mm;border-left:0.2mm solid #000;border-right:0.2mm solid #000;"></td>
-  <td colspan="2" style="border:0.2mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;padding:0.2mm;">PRINT DATE</td>
+  <td colspan="2" style="border:0.2mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;padding:0.2mm;white-space:nowrap;">PRINT DATE</td>
   <td colspan="3" style="border:0.2mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;"><?= $printDateLong ?></td>
   <td style="border-left:0.2mm solid #000;border-right:0.2mm solid #000;"></td>
 </tr>

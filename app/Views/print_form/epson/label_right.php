@@ -46,7 +46,7 @@
 <tr>
   <td style="height:4.59mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
   <td colspan="2" style="border-top:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">REV : 2/190916</td>
-  <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;">NR <?= esc($docNumber) ?></td>
+  <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
   <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">FM-QCA-18</td>
 </tr>
 
@@ -54,7 +54,7 @@
 <tr>
   <td style="height:3.83mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
-  <td colspan="5" rowspan="5" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;"><?= $qrCodeImg($qrRight, $qrSize) ?></td>
+  <td colspan="5" rowspan="5" style="border:0.3mm solid #000;text-align:center;vertical-align:top;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 200, '19mm') ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -167,7 +167,7 @@
 <!-- ═══ R17 ═══: A17 bdr-LR | (B-D covered barcode) | E17:F17="PRINT DATE" cs2 bdr-all center | G17:I17=date cs3 bdr-all center | J17 bdr-LR -->
 <tr>
   <td style="height:3.23mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;padding:0.3mm;">PRINT DATE</td>
+  <td colspan="2" style="border:0.3mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;padding:0.3mm;white-space:nowrap;">PRINT DATE</td>
   <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;"><?= $printDateLong ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>

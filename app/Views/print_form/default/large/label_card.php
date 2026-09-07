@@ -34,7 +34,7 @@
 <tr>
   <td style="height:6.9mm;border-left:0.4mm solid #000;"></td>
   <td colspan="3" style="border-top:0.4mm solid #000;border-left:0.4mm solid #000;border-right:0.4mm solid #000;padding:0.5mm 1.5mm;font-weight:bold;font-size:14pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
-  <td colspan="5" rowspan="5" style="border:0.4mm solid #000;text-align:center;vertical-align:middle;"><?= $qrCodeImg($qrRight, 120, '37mm', 2) ?></td>
+  <td colspan="5" rowspan="5" style="border:0.4mm solid #000;text-align:center;vertical-align:top;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 200, '37mm', 0) ?></td>
   <td style="border-right:0.4mm solid #000;"></td>
 </tr>
 <!-- R3 -->
