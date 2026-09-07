@@ -266,20 +266,44 @@ class PrintForm extends Controller
         // -- Konfigurasi grid sesuai size mode --
         $grid = LabelHelper::getGridConfig($header['size_mode'] ?? 'medium');
 
-        // -- Render HTML template --
-        $html = view('print_form/label_pdf', [
-            'header'    => $header,
-            'lots'      => $lots,
-            'shiftName' => $shiftName,
-            'grid'      => $grid,
-        ]);
+        // -- Tentukan template sesuai size_mode --
+        $sizeMode = strtolower(str_replace(['/', ' ', '-'], '', $header['size_mode'] ?? 'medium'));
+
+        if ($sizeMode === 'mediumepson') {
+            // Template lama: label kiri + kanan berdampingan
+            $tplView    = 'print_form/epson/label_pdf';
+            $perPage    = 3;  // 3 pasang per halaman
+        } else {
+            // Template baru: hanya label kanan
+            $tplView = match($sizeMode) {
+                'small'  => 'print_form/default/small/label_pdf',
+                'large'  => 'print_form/default/large/label_pdf',
+                'yamaha' => 'print_form/yamaha/label_pdf',
+                default  => 'print_form/default/medium/label_pdf',
+            };
+            $perPage = match($sizeMode) {
+                'large' => 2,   // 1 kolom × 2 baris = 2 per halaman
+                default => 6,   // small: 3×2, medium/yamaha: 2×3 = 6 per halaman
+            };
+        }
+
+        // DEBUG: jika ada ?debug=1 di URL, tampilkan HTML mentah tanpa mPDF
+        if ($this->request->getGet('debug') === '1') {
+            $debugHtml = view($tplView, [
+                'header'    => $header,
+                'lots'      => $lots,
+                'shiftName' => $shiftName,
+                'grid'      => $grid,
+            ]);
+            return $this->response->setHeader('Content-Type', 'text/html')->setBody($debugHtml);
+        }
 
         // -- Generate PDF dengan mPDF --
         try {
             $mpdf = new \Mpdf\Mpdf([
                 'mode'              => 'utf-8',
                 'format'            => 'A4',
-                'orientation'       => 'P',          // Portrait
+                'orientation'       => 'P',
                 'margin_top'        => 5,
                 'margin_bottom'     => 5,
                 'margin_left'       => 5,
@@ -287,19 +311,30 @@ class PrintForm extends Controller
                 'default_font_size' => $grid['font_size_pt'],
                 'default_font'      => 'dejavusans',
             ]);
-            $mpdf->SetAutoPageBreak(true, 5);
+            $mpdf->SetAutoPageBreak(false);
+            $mpdf->shrink_tables_to_fit = 0;
 
-            // DEBUG: jika ada ?debug=1 di URL, tampilkan HTML mentah tanpa mPDF
-            if ($this->request->getGet('debug') === '1') {
-                return $this->response->setHeader('Content-Type', 'text/html')->setBody($html);
+            // Bagi lots menjadi grup sesuai perPage
+            $groups = array_chunk($lots, $perPage);
+
+            foreach ($groups as $gi => $group) {
+                if ($gi > 0) {
+                    $mpdf->AddPage();
+                }
+
+                // Render HTML untuk grup ini menggunakan template yang sudah dipilih
+                $groupHtml = view($tplView, [
+                    'header'    => $header,
+                    'lots'      => $group,
+                    'shiftName' => $shiftName,
+                    'grid'      => $grid,
+                ]);
+
+                $mpdf->WriteHTML($groupHtml, \Mpdf\HTMLParserMode::DEFAULT_MODE, $gi === 0, false);
             }
 
-            $mpdf->WriteHTML($html);
-
             $filename   = 'label_' . $headerId . '_' . date('Ymd_His') . '.pdf';
-            $outputMode = $inline ? 'I' : 'D'; // I = inline, D = download
-
-            $pdfContent = $mpdf->Output('', 'S'); // S = return as string
+            $pdfContent = $mpdf->Output('', 'S');
 
             return $this->response
                 ->setHeader('Content-Type', 'application/pdf')
@@ -312,3 +347,4 @@ class PrintForm extends Controller
         }
     }
 }
+

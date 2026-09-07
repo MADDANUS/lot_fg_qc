@@ -388,6 +388,7 @@ legend.groupbox-legend {
                     <option value="Medium/Epson">Medium/Epson</option>
                     <option value="Medium" selected>Medium</option>
                     <option value="Large">Large</option>
+                    <option value="Yamaha">Yamaha</option>
                 </select>
             </div>
             

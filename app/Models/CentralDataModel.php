@@ -53,7 +53,7 @@ class CentralDataModel
                     'warehouse'     => 'WH-A1',
                     'back_no'       => 'BN-99',
                     'standard_pack' => '500',
-                    'operator'      => 'Budi',
+                    'operator'      => '890',
                 ],
                 [
                     'customer'      => 'PT. BENGKEL MAJU',
@@ -64,7 +64,7 @@ class CentralDataModel
                     'warehouse'     => 'WH-A2',
                     'back_no'       => 'BN-98',
                     'standard_pack' => '500',
-                    'operator'      => 'Budi',
+                    'operator'      => '890',
                 ],
             ];
         }

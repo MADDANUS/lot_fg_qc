@@ -27,24 +27,28 @@ $barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor 
     $generator = new BarcodeGeneratorSVG();
     $svg = $generator->getBarcode($value, BarcodeGeneratorSVG::TYPE_CODE_128, $widthFactor, $heightMm * 3.78);
     $encoded = 'data:image/svg+xml;base64,' . base64_encode($svg);
-    return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm;display:block;" alt="' . htmlspecialchars($value) . '">';
+    return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm;max-width:100%;display:block;" alt="' . htmlspecialchars($value) . '">';
 };
 
 // ── Helper: QR Code PNG ────────────────────────────────────────────────────────
-$qrCodeImg = function (string $data, int $sizePx = 70): string {
+$qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm', int $margin = 2): string {
     if ($data === '') return '';
     try {
-        $qrCode = QrCode::create($data)
-            ->setEncoding(new Encoding('UTF-8'))
-            ->setErrorCorrectionLevel(ErrorCorrectionLevel::Medium)
-            ->setSize($sizePx)->setMargin(2)
-            ->setForegroundColor(new Color(0, 0, 0))
-            ->setBackgroundColor(new Color(255, 255, 255));
+        $qrCode = new QrCode(
+            $data,
+            new Encoding('UTF-8'),
+            ErrorCorrectionLevel::Medium,
+            $sizePx,
+            $margin,
+            \Endroid\QrCode\RoundBlockSizeMode::Margin,
+            new Color(0, 0, 0),
+            new Color(255, 255, 255)
+        );
         $writer = new PngWriter();
         $result = $writer->write($qrCode);
-        return '<img src="' . $result->getDataUri() . '" style="width:' . $sizePx . 'px;height:' . $sizePx . 'px;" alt="QR">';
+        return '<img src="' . $result->getDataUri() . '" style="width:' . $displayMm . ';height:' . $displayMm . ';" alt="QR">';
     } catch (\Throwable $e) {
-        return '<div style="width:' . $sizePx . 'px;height:' . $sizePx . 'px;border:1px solid #000;font-size:6pt;text-align:center;padding-top:25px;">QR ERR</div>';
+        return '<div style="width:' . $displayMm . ';height:' . $displayMm . ';border:0.1mm solid #000;font-size:6pt;text-align:center;padding-top:5px;">QR ERR</div>';
     }
 };
 
@@ -68,6 +72,7 @@ $lotGuarantee = !empty($header['lot_guarantee']);
 $lotSa        = !empty($header['lot_sa']);
 $is4m         = !empty($header['flag_4m']);
 $rohsFree     = true;
+$docNumber    = $header['doc_number'] ?? '';
 
 // ── Konfigurasi Grid ───────────────────────────────────────────────────────────
 $fontPt   = $grid['font_size_pt'];
@@ -78,27 +83,32 @@ $qrSize   = match(true) {
     default      => 65,
 };
 
-$now           = date('d/m/Y H:i');
-$printDateLong = date('d-M-Y');
+$dtWib         = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
+$now           = $dtWib->format('d/m/Y H:i');
+$printDateLong = $dtWib->format('d-M-Y');
 
 // ── Path partial templates ─────────────────────────────────────────────────────
-$viewPath  = APPPATH . 'Views/print_form/';
-$leftTpl   = $viewPath . 'label_left.php';
-$rightTpl  = $viewPath . 'label_right.php';
+$leftTpl   = __DIR__ . '/label_left.php';
+$rightTpl  = __DIR__ . '/label_right.php';
 ?>
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:'Calibri', 'dejavusans', Arial, sans-serif; font-size:10pt; color:#000; }
-table { border-collapse:collapse; }
-td   { vertical-align:middle; }
+body { font-family:'Calibri', 'dejavusans', Arial, sans-serif; font-size:10pt; color:#000; line-height: 1; }
+table { border-collapse:collapse; line-height: 1; }
+td   { vertical-align:middle; line-height: 1; }
 </style>
 </head><body>
 
-<?php foreach ($lots as $pi => $lot):
-
-    // ── Variabel per lot ───────────────────────────────────────────────────────
+<?php
+// Bagi lots menjadi grup @3 per halaman
+$groups = array_chunk($lots, 3);
+foreach ($groups as $gi => $group):
+?>
+<?php if ($gi > 0): ?><pagebreak><?php endif; ?>
+<div style="margin:0;padding:0;">
+<?php foreach ($group as $pi => $lot):
     $lotNoCombined = $lot['lot_no_combined'] ?? '';
     $refNo         = $lot['ref_no']          ?? '';
     $lotQty        = (string)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? ''));
@@ -108,32 +118,19 @@ td   { vertical-align:middle; }
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-
-    // QR data
     $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $refNo, $remark]);
     $qrRight = implode('|', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
-
 ?>
-<!-- ═══ LOT <?= $pi + 1 ?> ═══ -->
-<table style="width:100%;table-layout:fixed;margin-bottom:4mm;">
-<tr>
-
-  <!-- ▐ Label Kiri ▐ -->
-  <td style="width:96mm;padding:0;vertical-align:top;">
-    <?php include $leftTpl; ?>
-  </td>
-
-  <!-- ▐ Gap tengah ▐ -->
-  <td style="width:5mm;border:none;">&nbsp;</td>
-
-  <!-- ▐ Label Kanan ▐ -->
-  <td style="width:95mm;padding:0;vertical-align:top;">
-    <?php include $rightTpl; ?>
-  </td>
-
-</tr>
-</table>
-
+<table style="width:195mm;border-collapse:collapse;border:none;"><tr>
+  <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $leftTpl; ?></td>
+  <td style="width:5mm;padding:0;border:none;"></td>
+  <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $rightTpl; ?></td>
+</tr></table>
+<?php if ($pi < count($group) - 1): ?>
+<div style="height:10mm;"></div>
+<?php endif; ?>
+<?php endforeach; ?>
+</div>
 <?php endforeach; ?>
 
 </body></html>
