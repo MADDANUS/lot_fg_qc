@@ -66,9 +66,21 @@ class LabelHelper
         if ($dateMode === 'production_date' && $dateStr) {
             $ts       = strtotime($dateStr);
             $year     = date('y', $ts);   // 2 digit tahun
-            $month    = (int) date('n', $ts); // bulan tanpa leading zero
+            $month    = (int) date('n', $ts); // bulan
+            
+            // Konversi bulan khusus
+            if ($month === 10) {
+                $monthStr = 'X';
+            } elseif ($month === 11) {
+                $monthStr = 'Y';
+            } elseif ($month === 12) {
+                $monthStr = 'Z';
+            } else {
+                $monthStr = (string) $month;
+            }
+            
             $day      = date('d', $ts);   // 2 digit hari
-            $datePart = $year . $month . $day;
+            $datePart = $year . $monthStr . $day;
         }
         // Jika job_order dipilih, datePart dikosongkan (tidak ada tanggal produksi)
         // — sesuaikan jika ada kebutuhan lain
@@ -86,8 +98,12 @@ class LabelHelper
             $linePart = ((string) $moldId) . ((string) $cavityId);
         }
 
+        // -- Bagian From Series (selalu 4 digit) --
+        // contoh: '1' -> '0001'
+        $seriesPart = str_pad(strtoupper($fromSeries), 4, '0', STR_PAD_LEFT);
+
         // -- Gabungkan semua --
-        return '015' . $datePart . $shiftPart . $linePart . strtoupper($fromSeries);
+        return '015' . $datePart . $shiftPart . $linePart . $seriesPart;
     }
 
     /**

@@ -214,7 +214,6 @@ $(function () {
                 // Production Date di form tetap sebagai tanggal cetak (tidak di-overwrite)
                 if (res.doc_date) {
                     $('#doc_date').val(res.doc_date);
-                    $('#production_date').val(res.doc_date);
                 }
 
                 // 2. Filter dropdown Customer berdasarkan ItemCode yang ditemukan
