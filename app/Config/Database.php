@@ -47,28 +47,28 @@ class Database extends Config
     ];
 
     /**
-     * Database server pusat — READ ONLY.
-     * Idealnya user MySQL di sini memang cuma dikasih hak akses SELECT di sisi server-nya,
-     * ini lapisan pertahanan tambahan di kode, bukan pengganti pembatasan hak akses di DB.
+     * Database server pusat SAP Business One — READ ONLY.
+     * Koneksi ke 10.1.70.250 hanya untuk SELECT (tarik data by Doc Number & Customer).
+     * JANGAN PERNAH panggil insert/update/delete lewat koneksi ini.
      */
-    public array $central = [
+    public array $sqlsvr = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => 'user_readonly',
+        'hostname'     => '10.1.70.250',
+        'username'     => 'sa',
         'password'     => '',
-        'database'     => 'nama_db_pusat',
-        'DBDriver'     => 'MySQLi',
+        'database'     => 'SBO_NSI_USD_LIVE',
+        'DBDriver'     => 'SQLSRV',
         'DBPrefix'     => '',
         'pConnect'     => false,
-        'DBDebug'      => true,
-        'charset'      => 'utf8mb4',
-        'DBCollat'     => 'utf8mb4_general_ci',
+        'DBDebug'      => false,   // false agar error koneksi tidak crash app
+        'charset'      => 'utf8',
+        'DBCollat'     => '',
         'swapPre'      => '',
         'encrypt'      => false,
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => 3306,
+        'port'         => 1433,
         'numberNative' => false,
     ];
 

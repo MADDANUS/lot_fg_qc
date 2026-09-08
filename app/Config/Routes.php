@@ -9,6 +9,7 @@ $routes->get('/', 'PrintForm::index');
 
 // Form Print QR Code Label
 $routes->get('print-form', 'PrintForm::index');
+$routes->get('print-form/get-customers', 'PrintForm::getCustomers');
 $routes->post('print-form/search-doc', 'PrintForm::searchDoc');
 $routes->post('print-form/store', 'PrintForm::store');
 $routes->get('print-form/preview/(:segment)', 'PrintForm::preview/$1');

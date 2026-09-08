@@ -43,7 +43,12 @@ $fmtDate = function (?string $d): string {
 
 $productName  = $header['product_name']    ?? '';
 $dateMode     = $header['date_mode']       ?? 'production_date';
-$displayDate  = $dateMode === 'production_date' ? $fmtDate($header['production_date'] ?? null) : ($header['job_order'] ?? '');
+// DATE di label: pakai DocDate dari SAP jika ada; fallback ke production_date / job_order
+$displayDate  = !empty($header['doc_date'])
+    ? $fmtDate($header['doc_date'])
+    : ($dateMode === 'production_date'
+        ? $fmtDate($header['production_date'] ?? null)
+        : ($header['job_order'] ?? ''));
 $customer     = $header['customer']        ?? '';
 $userInitial  = $header['user_initial']    ?? '';
 $remark       = $header['remark']          ?? '';
@@ -82,10 +87,14 @@ foreach ($pages as $pageIdx => $pageLots):
 ?>
 <?php if ($pageIdx > 0): ?><pagebreak><?php endif; ?>
 <div style="margin:0;padding:0;">
+<table style="width:210mm;table-layout:fixed;border-collapse:collapse;border:none;">
 <?php foreach ($rows as $rowIdx => $rowLots): ?>
-<?php if ($rowIdx > 0): ?><div style="height:<?= $gapRow ?>;"></div><?php endif; ?>
-<table style="width:210mm;border-collapse:collapse;border:none;"><tr>
-<?php foreach ($rowLots as $colIdx => $lot):
+<?php if ($rowIdx > 0): ?><tr><td colspan="<?= ($cols * 2) - 1 ?>" style="height:<?= $gapRow ?>;border:none;"></td></tr><?php endif; ?>
+<tr>
+<?php for ($colIdx = 0; $colIdx < $cols; $colIdx++): ?>
+<?php if ($colIdx > 0): ?><td style="width:5mm;border:none;"></td><?php endif; ?>
+<?php if (isset($rowLots[$colIdx])): 
+    $lot = $rowLots[$colIdx];
     $lotNoCombined = $lot['lot_no_combined'] ?? '';
     $refNo         = $lot['ref_no']          ?? '';
     $lotQty        = (string)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? ''));
@@ -95,13 +104,19 @@ foreach ($pages as $pageIdx => $pageLots):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrRight = implode('|', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+    $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
-<?php if ($colIdx > 0): ?><td style="width:5mm;border:none;"></td><?php endif; ?>
 <td style="width:70mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>
+<?php else: ?>
+<td style="width:70mm;padding:0;vertical-align:top;border:none;">
+    <!-- Tabel dummy agar mPDF tetap mengalokasikan / memeras ukuran kolom ini sama persis dengan kolom yang ada isinya -->
+    <table style="width:70mm;min-width:70mm;max-width:70mm;border-collapse:collapse;border:none;"><tr><td style="border:none;">&nbsp;</td></tr></table>
+</td>
+<?php endif; ?>
+<?php endfor; ?>
+</tr>
 <?php endforeach; ?>
-</tr></table>
-<?php endforeach; ?>
+</table>
 </div>
 <?php endforeach; ?>
 

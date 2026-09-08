@@ -57,9 +57,12 @@ $fmtDate = function (?string $d): string {
 // ── Variabel dari Header ─────────────────────────────────────────────────────
 $productName  = $header['product_name']    ?? '';
 $dateMode     = $header['date_mode']       ?? 'production_date';
-$displayDate  = $dateMode === 'production_date'
-    ? $fmtDate($header['production_date'] ?? null)
-    : ($header['job_order'] ?? '');
+// DATE di label: pakai DocDate dari SAP jika ada; fallback ke production_date / job_order
+$displayDate  = !empty($header['doc_date'])
+    ? $fmtDate($header['doc_date'])
+    : ($dateMode === 'production_date'
+        ? $fmtDate($header['production_date'] ?? null)
+        : ($header['job_order'] ?? ''));
 $customer     = $header['customer']        ?? '';
 $userInitial  = $header['user_initial']    ?? '';
 $remark       = $header['remark']          ?? '';
@@ -90,7 +93,7 @@ $gapRow       = '5mm';      // jarak antar baris
 body { font-family:'Calibri','dejavusans',Arial,sans-serif; font-size:9pt; color:#000; line-height:1; }
 table { border-collapse:collapse; line-height:1; }
 td { vertical-align:top; line-height:1; }
-.grid-table { width:195mm; border-collapse:collapse; border:none; }
+.grid-table { width:195mm; table-layout:fixed; border-collapse:collapse; border:none; }
 .grid-gap-col { width:<?= $gapCol ?>; padding:0; border:none; }
 .grid-gap-row { height:<?= $gapRow ?>; padding:0; border:none; }
 </style>
@@ -105,10 +108,14 @@ foreach ($pages as $pageIdx => $pageLots):
 ?>
 <?php if ($pageIdx > 0): ?><pagebreak><?php endif; ?>
 <div style="margin:0;padding:0;">
+<table class="grid-table">
 <?php foreach ($rows as $rowIdx => $rowLots): ?>
-<?php if ($rowIdx > 0): ?><div style="height:<?= $gapRow ?>;"></div><?php endif; ?>
-<table class="grid-table"><tr>
-<?php foreach ($rowLots as $colIdx => $lot):
+<?php if ($rowIdx > 0): ?><tr><td colspan="<?= ($cols * 2) - 1 ?>" style="height:<?= $gapRow ?>;border:none;"></td></tr><?php endif; ?>
+<tr>
+<?php for ($colIdx = 0; $colIdx < $cols; $colIdx++): ?>
+<?php if ($colIdx > 0): ?><td class="grid-gap-col"></td><?php endif; ?>
+<?php if (isset($rowLots[$colIdx])):
+    $lot = $rowLots[$colIdx];
     $lotNoCombined = $lot['lot_no_combined'] ?? '';
     $refNo         = $lot['ref_no']          ?? '';
     $lotQty        = (string)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? ''));
@@ -118,13 +125,18 @@ foreach ($pages as $pageIdx => $pageLots):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrRight = implode('|', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+    $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
-<?php if ($colIdx > 0): ?><td class="grid-gap-col"></td><?php endif; ?>
 <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>
+<?php else: ?>
+<td style="width:95mm;padding:0;vertical-align:top;border:none;">
+    <table style="width:95mm;min-width:95mm;max-width:95mm;border-collapse:collapse;border:none;"><tr><td style="border:none;">&nbsp;</td></tr></table>
+</td>
+<?php endif; ?>
+<?php endfor; ?>
+</tr>
 <?php endforeach; ?>
-</tr></table>
-<?php endforeach; ?>
+</table>
 </div>
 <?php endforeach; ?>
 

@@ -35,7 +35,34 @@ class PrintForm extends Controller
     }
 
     /**
+     * AJAX: ambil semua customer (CardCode + CardName + ItemCode) dari SAP B1.
+     * Dipanggil saat halaman load untuk mengisi dropdown Customer
+     * dan menyimpan lookup map ItemCode → Customer di JavaScript.
+     */
+    public function getCustomers()
+    {
+        $centralModel = new CentralDataModel();
+
+        // Kembalikan dummy jika ada param ?dummy=1 (untuk testing tanpa koneksi SAP)
+        if ($this->request->getGet('dummy') === '1') {
+            return $this->response->setJSON([
+                'success' => true,
+                'data'    => $centralModel->getByDocNumber('DUMMY_CUSTOMERS'),  // trigger dummy
+            ]);
+        }
+
+        $rows = $centralModel->getCustomers();
+
+        return $this->response->setJSON([
+            'success' => true,
+            'data'    => $rows,   // [ {CardCode, CardName, ItemCode}, ... ]
+        ]);
+    }
+
+    /**
      * AJAX: cari data by Doc Number ke database server PUSAT (read-only).
+     * Mengembalikan daftar item (dengan DocDate) dari tabel OIGN SAP B1.
+     * ItemCode di setiap item dipakai JS untuk memfilter dropdown Customer.
      * Endpoint ini TIDAK PERNAH menulis ke server pusat, hanya SELECT.
      */
     public function searchDoc()
@@ -59,13 +86,24 @@ class PrintForm extends Controller
             ]);
         }
 
-        // Customer diambil dari baris pertama (asumsi 1 doc number = 1 customer)
-        $customer = $rows[0]['customer'] ?? '';
+        // Ambil ItemCode unik dari semua baris hasil query
+        $itemCodes = array_unique(array_column($rows, 'ItemCode'));
+
+        // DocDate dari baris pertama (semua baris satu doc punya tanggal sama)
+        $docDate = $rows[0]['DocDate'] ?? null;
+        if ($docDate instanceof \DateTime) {
+            $docDate = $docDate->format('Y-m-d');
+        } elseif (is_string($docDate)) {
+            // SQL Server bisa kembalikan format berbeda, normalkan ke Y-m-d
+            $ts = strtotime($docDate);
+            $docDate = $ts ? date('Y-m-d', $ts) : $docDate;
+        }
 
         return $this->response->setJSON([
-            'success'  => true,
-            'customer' => $customer,
-            'items'    => $rows,
+            'success'    => true,
+            'doc_date'   => $docDate,     // untuk auto-fill production_date
+            'item_codes' => $itemCodes,   // untuk filter dropdown customer di JS
+            'items'      => $rows,        // baris lengkap untuk grid
         ]);
     }
 
@@ -81,6 +119,7 @@ class PrintForm extends Controller
         $headerData = [
             'doc_number'      => $request->getPost('doc_number'),
             'customer'        => $request->getPost('customer'),
+            'doc_date'        => $request->getPost('doc_date') ?: null,   // DocDate SAP → untuk label DATE
             'product_name'    => $request->getPost('product_name'),
             'date_mode'       => $request->getPost('date_mode'),
             'production_date' => $request->getPost('production_date') ?: null,

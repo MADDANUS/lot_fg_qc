@@ -26,7 +26,7 @@
 <!-- R1: A1:E1 = header (cs5, border semua) | F1:G2 = QR (cs2, rs2) -->
 <tr>
   <td colspan="5" style="height:4.95mm;border:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">015 - PT. NIHON SEIKI INDONESIA - <?= esc($productName) ?></td>
-  <td colspan="2" rowspan="2" style="border:0.3mm solid #000;padding:0;text-align:center;vertical-align:middle;"><?= $qrCodeImg($qrLeft, $qrSize, '25mm', 0) ?></td>
+  <td colspan="2" rowspan="2" style="border:0.3mm solid #000;padding:0;text-align:center;vertical-align:middle;"><?= $qrCodeImg($qrLeft, 150, '16.4mm', 0) ?></td>
 </tr>
 
 <!-- R2: A2=kotak (border) | B2="Lot Guarantee" | C2="Lot SA" | D2:E2="4M" | F-G covered -->
@@ -49,7 +49,7 @@
   <td style="height:2.7mm;border-left:0.3mm solid #000;"></td>
   <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($itemCode) ?></td>
   <td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
+  <td rowspan="7" text-rotate="90" style="border-right:0.3mm solid #000;text-align:right;vertical-align:bottom;font-size:7pt;padding:1mm;">1.5.6786.18740</td>
 </tr>
 
 <!-- R5: A5="Lot No.:" bdr-L | B5:C5=barcode(cs2) | D-F empty | G5 bdr-R -->
@@ -57,7 +57,6 @@
   <td style="height:4.05mm;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:9pt;vertical-align:middle;">Lot No.:</td>
   <td colspan="2" style="padding:1mm;vertical-align:middle;"><?= $barcodeSvg($lotNoCombined, 4, 1.0) ?></td>
   <td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
 <!-- R6: A6 bdr-L | B6:C6=lotNo text(cs2) | D-F empty | G6 bdr-R -->
@@ -65,7 +64,6 @@
   <td style="height:2.7mm;border-left:0.3mm solid #000;"></td>
   <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($lotNoCombined) ?></td>
   <td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
 <!-- R7: A7="Qty:" bdr-L | B7:C7=barcode(cs2) | D-F empty | G7 bdr-R -->
@@ -73,7 +71,6 @@
   <td style="height:4.28mm;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:9pt;vertical-align:middle;">Qty:</td>
   <td colspan="2" style="padding:1mm;vertical-align:middle;"><?= $barcodeSvg($lotQty, 4, 1.0) ?></td>
   <td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
 <!-- R8: A8 bdr-L | B8=qty text | C-F empty | G8 bdr-R -->
@@ -81,7 +78,6 @@
   <td style="height:2.92mm;border-left:0.3mm solid #000;"></td>
   <td style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($lotQty) ?></td>
   <td></td><td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
 <!-- R9: A9="Ref No.:" bdr-L | B9:C9=barcode(cs2) | D-F empty | G9 bdr-R -->
@@ -89,7 +85,6 @@
   <td style="height:3.83mm;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:9pt;vertical-align:middle;">Ref No.:</td>
   <td colspan="2" style="padding:1mm;vertical-align:middle;"><?= $barcodeSvg($refNo, 4, 1.0) ?></td>
   <td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
 <!-- R10: A10 bdr-L | B10:C11=refNo(cs2,rs2,center) | D-F empty | G10 bdr-R -->
@@ -97,7 +92,6 @@
   <td style="height:1.12mm;border-left:0.3mm solid #000;"></td>
   <td colspan="2" rowspan="2" style="text-align:center;vertical-align:middle;font-size:9pt;padding:0.2mm;"><?= esc($refNo) ?></td>
   <td></td><td></td><td></td>
-  <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
 <!-- R11: A11 bdr-L | B-C covered | D11 | E11:F14=stamp(cs2,rs4) | G11:G14=stamp(rs4) -->

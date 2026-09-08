@@ -139,10 +139,10 @@
   <td style="height:5mm;border-left:0.3mm solid #000;"></td>
   <td colspan="4" rowspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-bottom:0.3mm solid #000;padding:1mm 1mm 0.5mm 1mm;vertical-align:middle;text-align:center;">
     <?= $barcodeSvg($refNo, 7, 1.0) ?>
-    <div style="font-size:7pt;margin-top:0.5mm;"><?= esc($refNo) ?></div>
+    <div style="font-size:9pt;margin-top:0.5mm;"><?= esc($refNo) ?></div>
   </td>
-  <td colspan="4" rowspan="3" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:1mm 0.5mm 0.5mm 0.5mm;">
-    <?= $qrCodeImg($qrRight, 50, '15mm') ?>
+  <td colspan="4" rowspan="3" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0.5mm;">
+    <?= $qrCodeImg($qrBottom, 120, '18mm', 0) ?>
     <div style="font-size:6pt;font-weight:bold;margin-top:0.5mm;line-height:1.2;">QRCODE YAMAHA</div>
   </td>
   <td style="border-right:0.3mm solid #000;"></td>

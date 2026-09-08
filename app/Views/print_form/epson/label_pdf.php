@@ -62,9 +62,12 @@ $fmtDate = function (?string $d): string {
 // ── Variabel dari Header ───────────────────────────────────────────────────────
 $productName  = $header['product_name']    ?? '';
 $dateMode     = $header['date_mode']       ?? 'production_date';
-$displayDate  = $dateMode === 'production_date'
-    ? $fmtDate($header['production_date'] ?? null)
-    : ($header['job_order'] ?? '');
+// DATE di label: pakai DocDate dari SAP jika ada; fallback ke production_date / job_order
+$displayDate  = !empty($header['doc_date'])
+    ? $fmtDate($header['doc_date'])
+    : ($dateMode === 'production_date'
+        ? $fmtDate($header['production_date'] ?? null)
+        : ($header['job_order'] ?? ''));
 $customer     = $header['customer']        ?? '';
 $userInitial  = $header['user_initial']    ?? '';
 $remark       = $header['remark']          ?? '';
@@ -118,8 +121,8 @@ foreach ($groups as $gi => $group):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $refNo, $remark]);
-    $qrRight = implode('|', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+    $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
+    $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $leftTpl; ?></td>

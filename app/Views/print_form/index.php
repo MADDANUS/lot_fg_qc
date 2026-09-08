@@ -214,6 +214,11 @@ legend.groupbox-legend {
     color: #b91c1c;
     border-color: #fca5a5;
 }
+.locked-field {
+    background-color: #f1f5f9 !important;
+    color: #64748b !important;
+    cursor: not-allowed !important;
+}
 </style>
 
 <div class="desktop-app">
@@ -231,9 +236,13 @@ legend.groupbox-legend {
                 </div>
                 <div class="d-flex align-items-center">
                     <label class="me-3 radio-lbl">Customer :</label>
-                    <input type="text" class="form-control-desktop" id="customer" name="customer" style="width: 250px;" readonly>
+                    <select class="form-select-desktop" id="customer" name="customer" style="width: 280px;">
+                        <option value="">-- Memuat customer... --</option>
+                    </select>
                 </div>
             </div>
+            <!-- DocDate dari SAP B1 (disimpan saat klik Cari, dikirim ke PDF sebagai DATE) -->
+            <input type="hidden" id="doc_date" name="doc_date" value="">
         </fieldset>
 
         <!-- Main Form -->

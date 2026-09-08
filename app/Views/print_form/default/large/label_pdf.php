@@ -43,7 +43,12 @@ $fmtDate = function (?string $d): string {
 
 $productName  = $header['product_name']    ?? '';
 $dateMode     = $header['date_mode']       ?? 'production_date';
-$displayDate  = $dateMode === 'production_date' ? $fmtDate($header['production_date'] ?? null) : ($header['job_order'] ?? '');
+// DATE di label: pakai DocDate dari SAP jika ada; fallback ke production_date / job_order
+$displayDate  = !empty($header['doc_date'])
+    ? $fmtDate($header['doc_date'])
+    : ($dateMode === 'production_date'
+        ? $fmtDate($header['production_date'] ?? null)
+        : ($header['job_order'] ?? ''));
 $customer     = $header['customer']        ?? '';
 $userInitial  = $header['user_initial']    ?? '';
 $remark       = $header['remark']          ?? '';
@@ -88,7 +93,7 @@ foreach ($pages as $pageIdx => $pageLots):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrRight = implode('|', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+    $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <?php if ($lotIdx > 0): ?><div style="height:<?= $gapRow ?>;"></div><?php endif; ?>
 <?php include $cardTpl; ?>
