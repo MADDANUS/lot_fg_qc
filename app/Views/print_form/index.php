@@ -249,7 +249,19 @@ legend.groupbox-legend {
         <div class="row">
             <!-- Left Column -->
             <div class="col-4">
-                <div class="row-item">
+                <div class="row-item omron-only" style="display:none; margin-bottom: 15px;">
+                    <span class="lbl-width" style="font-weight:bold;">Omron Label</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input omron-label-type" type="radio" name="omron_label_type" id="omron_inner" value="inner" checked>
+                        <label class="form-check-label" for="omron_inner">Inner</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input omron-label-type" type="radio" name="omron_label_type" id="omron_outer" value="outer">
+                        <label class="form-check-label" for="omron_outer">Outer</label>
+                    </div>
+                </div>
+
+                <div class="row-item epson-only" style="display:none;">
                     <span class="lbl-width">Product Name</span>
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input" type="radio" name="product_name" id="product_ijp" value="IJP" checked>
@@ -261,7 +273,7 @@ legend.groupbox-legend {
                     </div>
                 </div>
                 
-                <div class="row-item">
+                <div class="row-item production-date-container" style="display:none;">
                     <span style="width: 110px; text-align: right; margin-right: 12px;" class="radio-lbl">
                         <input class="form-check-input date-mode-radio me-2" type="radio" name="date_mode" value="production_date" checked>
                         Production Date
@@ -269,7 +281,7 @@ legend.groupbox-legend {
                     <input type="date" class="form-control-desktop" id="production_date" name="production_date" style="flex:1;">
                 </div>
 
-                <div class="row-item">
+                <div class="row-item epson-only" style="display:none;">
                     <span class="lbl-width">Shift</span>
                     <select class="form-select-desktop" id="shift_id" name="shift_id" style="flex:1;">
                         <option value=""></option>
@@ -279,7 +291,7 @@ legend.groupbox-legend {
                     </select>
                 </div>
 
-                <div class="row-item">
+                <div class="row-item epson-only" style="display:none;">
                     <span style="width: 110px; text-align: right; margin-right: 12px;" class="radio-lbl">
                         <input class="form-check-input line-mode-radio me-2" type="radio" name="line_mode" value="line" checked>
                         Line
@@ -292,7 +304,7 @@ legend.groupbox-legend {
                     </select>
                 </div>
 
-                <div class="row-item">
+                <div class="row-item epson-only" style="display:none;">
                     <span class="lbl-width">From Series</span>
                     <input type="text" class="form-control-desktop upper-input" id="from_series" name="from_series" maxlength="4" style="flex:1;">
                 </div>
@@ -300,7 +312,7 @@ legend.groupbox-legend {
 
             <!-- Middle Column -->
             <div class="col-5">
-                <div class="row-item">
+                <div class="row-item epson-only" style="display:none;">
                     <span style="width: 100px; text-align: right; margin-right: 12px;" class="radio-lbl">
                         <input class="form-check-input date-mode-radio me-2" type="radio" name="date_mode" value="job_order">
                         Job Order
@@ -308,7 +320,7 @@ legend.groupbox-legend {
                     <input type="text" class="form-control-desktop" id="job_order" name="job_order" disabled style="width: 210px;">
                 </div>
 
-                <div class="row-item" style="margin-top:28px;"> <!-- spacing for alignment -->
+                <div class="row-item epson-only" style="margin-top:28px; display:none;"> <!-- spacing for alignment -->
                     <span style="width: 100px; text-align: right; margin-right: 12px;" class="radio-lbl">
                         <input class="form-check-input line-mode-radio me-2" type="radio" name="line_mode" value="mold_cavity">
                         Mold-Cavity
@@ -328,19 +340,37 @@ legend.groupbox-legend {
                     </select>
                 </div>
 
-                <div class="row-item">
+                <div class="row-item epson-only" style="display:none;">
                     <span style="width: 100px; text-align: right; margin-right: 12px;" class="radio-lbl">Remark</span>
                     <input type="text" class="form-control-desktop" id="remark" name="remark" style="width: 210px;">
                 </div>
 
-                <div class="row-item">
+                <div class="row-item user-initial-container">
                     <span class="lbl-width-long">User Initial Name (3 Digit Char)</span>
                     <input type="text" class="form-control-desktop upper-input" id="user_initial" name="user_initial" maxlength="3" style="width: 60px;">
+                </div>
+
+                <div class="row-item omron-extra-fields" style="display:none;">
+                    <span class="lbl-width-long">Machine</span>
+                    <input type="text" class="form-control-desktop" id="machine" name="machine" style="width: 150px;">
+                </div>
+
+                <div class="row-item omron-extra-fields" style="display:none;">
+                    <span class="lbl-width-long">Notification</span>
+                    <select class="form-select-desktop" id="notification" name="notification" style="width: 150px;">
+                        <option value="RE-DELIVERY" selected>RE-DELIVERY</option>
+                        <option value="DESIGN CHANGE">DESIGN CHANGE</option>
+                        <option value="FIRST RUN">FIRST RUN</option>
+                        <option value="IFC">IFC</option>
+                        <option value="PROCESS CHANGE">PROCESS CHANGE</option>
+                        <option value="SAMPLE">SAMPLE</option>
+                        <option value="SAR">SAR</option>
+                    </select>
                 </div>
             </div>
 
             <!-- Right Column -->
-            <div class="col-3">
+            <div class="col-3 epson-only" style="display:none;">
                 <fieldset class="groupbox h-100" style="margin-bottom:0;">
                     <legend class="groupbox-legend">Additional</legend>
                     <div class="form-check mb-2">
@@ -359,9 +389,6 @@ legend.groupbox-legend {
             </div>
         </div>
 
-        <div class="mt-2 mb-3 text-end">
-            <button type="button" class="btn-desktop btn-outline-modern" id="btnAddRow" style="padding: 4px 12px;">+ Add Row</button>
-        </div>
 
         <!-- Data Grid -->
         <div class="grid-container">
@@ -375,10 +402,10 @@ legend.groupbox-legend {
                         <th>Description</th>
                         <th style="width: 80px;">Quantity</th>
                         <th>Lotno</th>
-                        <th>Warehouse</th>
-                        <th>Back No</th>
-                        <th>Standard Pack</th>
-                        <th>Operator</th>
+                        <th class="col-whs">Warehouse</th>
+                        <th class="col-backno">Back No</th>
+                        <th class="col-stdpack">Standard Pack</th>
+                        <th class="col-operator">Operator</th>
                         <th style="width:25px;"></th>
                     </tr>
                 </thead>
@@ -422,10 +449,10 @@ legend.groupbox-legend {
         <td><input type="text" data-field="description"></td>
         <td><input type="text" data-field="quantity"></td>
         <td><input type="text" data-field="lotno"></td>
-        <td><input type="text" data-field="warehouse"></td>
-        <td><input type="text" data-field="back_no"></td>
-        <td><input type="text" data-field="standard_pack"></td>
-        <td><input type="text" data-field="operator"></td>
+        <td class="col-whs"><input type="text" data-field="warehouse"></td>
+        <td class="col-backno"><input type="text" data-field="back_no"></td>
+        <td class="col-stdpack"><input type="text" data-field="standard_pack"></td>
+        <td class="col-operator"><input type="text" data-field="operator"></td>
         <td class="text-center" style="padding: 4px;"><button type="button" class="btn-desktop btn-danger-modern btnRemoveRow" style="min-width:auto; padding:2px 8px; font-weight:bold;">&times;</button></td>
     </tr>
 </template>

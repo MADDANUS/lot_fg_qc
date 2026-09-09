@@ -14,7 +14,8 @@
         <a class="navbar-brand" href="<?= base_url('print-form') ?>">Form Print QR Code Label</a>
         <div>
             <a href="<?= base_url('print-form') ?>" class="btn btn-sm btn-outline-light me-2">Form Print</a>
-            <a href="<?= base_url('master') ?>" class="btn btn-sm btn-outline-light">Master Data</a>
+            <a href="<?= base_url('master') ?>" class="btn btn-sm btn-outline-light me-2">Master Data</a>
+            <a href="<?= base_url('omron') ?>" class="btn btn-sm btn-warning me-2">🔖 Omron</a>
         </div>
     </div>
 </nav>

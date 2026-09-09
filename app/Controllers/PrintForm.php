@@ -7,6 +7,8 @@ use App\Models\CavityModel;
 use App\Models\CentralDataModel;
 use App\Models\LineModel;
 use App\Models\MoldModel;
+use App\Models\OmronInnerModel;
+use App\Models\OmronOuterModel;
 use App\Models\PrintLabelItemModel;
 use App\Models\PrintLabelModel;
 use App\Models\ShiftModel;
@@ -136,6 +138,9 @@ class PrintForm extends Controller
             'lot_sa'          => $request->getPost('lot_sa') ? 1 : 0,
             'flag_4m'         => $request->getPost('flag_4m') ? 1 : 0,
             'size_mode'       => $request->getPost('size_mode'),
+            'omron_label_type'=> $request->getPost('omron_label_type'),
+            'machine'         => $request->getPost('machine'),
+            'notification'    => $request->getPost('notification'),
         ];
 
         $items = $request->getPost('items');
@@ -146,6 +151,23 @@ class PrintForm extends Controller
 
         $headerModel = new PrintLabelModel();
 
+        // Validasi Dinamis: Jika Customer = EPSON, maka field lain wajib diisi
+        $isEpson = stripos($headerData['customer'], 'EPSON') !== false;
+        $rules = $headerModel->getValidationRules();
+        if ($isEpson) {
+            $rules['product_name'] = 'required|in_list[IJP,BS]';
+            $rules['date_mode']    = 'required|in_list[production_date,job_order]';
+            $rules['line_mode']    = 'required|in_list[line,mold_cavity]';
+            $rules['from_series']  = 'required|max_length[4]';
+        }
+        
+        // Custom Omron Outer rules
+        if (stripos($headerData['customer'], 'OMRON') !== false && $headerData['omron_label_type'] === 'outer') {
+            unset($rules['user_initial']);
+        }
+
+        $headerModel->setValidationRules($rules);
+
         if (! $headerModel->validate($headerData)) {
             return $this->response->setJSON([
                 'success' => false,
@@ -153,7 +175,62 @@ class PrintForm extends Controller
             ]);
         }
 
-        // Beralih menggunakan Session (Stateless Print), tidak disimpan ke DB
+        // ── Omron: simpan ke database permanen ──────────────────────────────
+        $isOmron = stripos($headerData['customer'] ?? '', 'OMRON') !== false;
+
+        if ($isOmron) {
+            $labelType = $headerData['omron_label_type'] ?? 'inner';
+            $model     = $labelType === 'outer' ? new OmronOuterModel() : new OmronInnerModel();
+
+            $docDate = null;
+            if (! empty($items[0]['doc_date'])) {
+                $ts = strtotime($items[0]['doc_date']);
+                $docDate = $ts ? date('Y-m-d', $ts) : null;
+            }
+
+            $productionDate = null;
+            if (! empty($headerData['production_date'])) {
+                $ts = strtotime($headerData['production_date']);
+                $productionDate = $ts ? date('Y-m-d', $ts) : null;
+            }
+
+            $savedRows = [];
+            foreach ($items as $item) {
+                $savedRows[] = [
+                    'doc_number'      => $headerData['doc_number']   ?? '',
+                    'doc_date'        => $docDate,
+                    'item_code'       => $item['item_code']           ?? '',
+                    'description'     => $item['description']         ?? ($item['Dscription'] ?? ''),
+                    'quantity'        => (int) ($item['quantity']     ?? 0),
+                    'standard_pack'   => (int) ($item['standard_pack'] ?? 0),
+                    'lotno'           => $item['lotno']               ?? ($item['U_MIS_LotNo'] ?? ''),
+                    'whs_code'        => $item['warehouse']           ?? ($item['WhsCode']      ?? ''),
+                    'back_no'         => $item['back_no']             ?? ($item['U_MIS_BackNo'] ?? ''),
+                    'operator'        => $item['operator']            ?? ($item['U_MIS_Operator'] ?? ''),
+                    'production_date' => $productionDate,
+                    'machine'         => $headerData['machine']       ?? '',
+                    'notification'    => $headerData['notification']  ?? '',
+                    'user_initial'    => $headerData['user_initial']  ?? '',
+                    'job_order'       => $headerData['job_order']     ?? null,
+                    'shift_id'        => $headerData['shift_id']      ?? null,
+                    'remark'          => $headerData['remark']        ?? null,
+                    'is_printed'      => 0,
+                ];
+            }
+
+            if (! empty($savedRows)) {
+                $model->insertBatch($savedRows);
+            }
+
+            return $this->response->setJSON([
+                'success'      => true,
+                'omron_saved'  => true,
+                'label_type'   => $labelType,
+                'saved_count'  => count($savedRows),
+            ]);
+        }
+
+        // ── Non-Omron: simpan ke Session (Stateless Print) ──────────────────
         $tempId = uniqid('pdf_');
         $itemRows = [];
 
@@ -225,7 +302,7 @@ class PrintForm extends Controller
                 $standardPack = $qty ?: 1;
             }
 
-            $totalLots = $qty > 0 ? (int) floor($qty / $standardPack) : 1;
+            $totalLots = $qty > 0 ? (int) ceil($qty / $standardPack) : 1;
             if ($totalLots < 1) {
                 $totalLots = 1;
             }
@@ -312,6 +389,10 @@ class PrintForm extends Controller
             // Template lama: label kiri + kanan berdampingan
             $tplView    = 'print_form/epson/label_pdf';
             $perPage    = 3;  // 3 pasang per halaman
+        } elseif ($sizeMode === 'omron') {
+            // Template Omron: label kiri + kanan berdampingan
+            $tplView    = 'print_form/omron/label_pdf';
+            $perPage    = 3;
         } else {
             // Template baru: hanya label kanan
             $tplView = match($sizeMode) {

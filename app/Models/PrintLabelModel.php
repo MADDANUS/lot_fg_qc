@@ -38,10 +38,10 @@ class PrintLabelModel extends Model
 
     protected $validationRules = [
         'doc_number'   => 'required|max_length[50]',
-        'product_name' => 'required|in_list[IJP,BS]',
-        'date_mode'    => 'required|in_list[production_date,job_order]',
-        'line_mode'    => 'required|in_list[line,mold_cavity]',
-        'from_series'  => 'required|max_length[4]',
+        'product_name' => 'in_list[IJP,BS]',
+        'date_mode'    => 'in_list[production_date,job_order]',
+        'line_mode'    => 'in_list[line,mold_cavity]',
+        'from_series'  => 'max_length[4]',
         'user_initial' => 'required|max_length[3]',
     ];
 }

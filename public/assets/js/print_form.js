@@ -62,7 +62,7 @@ $(function () {
             const sel = c.CardCode === currentVal ? ' selected' : '';
             html += `<option value="${escHtml(c.CardCode)}"${sel}>${escHtml(c.CardName)}</option>`;
         });
-        $sel.html(html);
+        $sel.html(html).trigger('change');
     }
 
     /** Escape HTML sederhana untuk nilai option */
@@ -76,6 +76,69 @@ $(function () {
 
     // Jalankan load saat halaman siap
     loadCustomers();
+
+    /* ------------------------------------------------------------------
+     * Deteksi Customer EPSON, YAMAHA, OMRON
+     * ------------------------------------------------------------------ */
+    $('#customer').on('change', function() {
+        const customerName = $(this).find('option:selected').text().toUpperCase().trim();
+        const isEpson = customerName.includes('EPSON');
+        const isYamaha = customerName.includes('YAMAHA');
+        const isOmron = customerName.includes('OMRON');
+        
+        console.log("Customer changed: ", customerName);
+        console.log("isEpson:", isEpson, "isYamaha:", isYamaha, "isOmron:", isOmron);
+
+        // Reset semua
+        $('.epson-only').hide();
+        $('.omron-only').hide();
+        $('.omron-extra-fields').hide();
+        
+        applyTableRules(); // reset table state first
+        
+        if (isEpson) {
+            $('.epson-only').show(); // show defaults to original display
+            $('.epson-only').css('display', 'flex'); // force flex
+            $('#size_mode').html('<option value="Medium/Epson" selected>Medium/Epson</option>');
+        } else if (isYamaha) {
+            $('#size_mode').html('<option value="Yamaha" selected>Yamaha</option>');
+        } else if (isOmron) {
+            $('.omron-only').show();
+            $('.omron-only').css('display', 'flex');
+            
+            // Auto-trigger inner/outer
+            $('.omron-label-type:checked').trigger('change');
+            $('#size_mode').html('<option value="Omron" selected>Omron</option>');
+        } else {
+            $('#size_mode').html(`
+                <option value="Small">Small</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Large">Large</option>
+            `);
+        }
+    });
+
+    /* ------------------------------------------------------------------
+     * Toggle: Omron Label Type (Inner / Outer)
+     * ------------------------------------------------------------------ */
+    $('.omron-label-type').on('change', function () {
+        applyTableRules();
+        if ($(this).val() === 'inner') {
+            $('.omron-extra-fields').show();
+            $('.omron-extra-fields').css('display', 'flex');
+            $('.user-initial-container').show();
+            $('.user-initial-container').css('display', 'flex');
+            $('.production-date-container').hide();
+        } else {
+            // OUTER
+            $('.omron-extra-fields').show();
+            $('.omron-extra-fields').css('display', 'flex');
+            $('.user-initial-container').hide();
+            $('.production-date-container').show();
+            $('.production-date-container').css('display', 'flex');
+            $('#machine').val('');
+        }
+    });
 
     /* ------------------------------------------------------------------
      * Toggle: Production Date <-> Job Order (hanya salah satu yang aktif)
@@ -106,8 +169,53 @@ $(function () {
     });
 
     /* ------------------------------------------------------------------
-     * Grid item: tambah baris kosong manual
+     * Grid item: tambah baris kosong manual & Table Rules
      * ------------------------------------------------------------------ */
+    function applyTableRules() {
+        const isOmronOuter = $('#omron_outer').is(':checked') && $('.omron-only').css('display') !== 'none';
+        
+        if (isOmronOuter) {
+            $('.col-whs, .col-backno, .col-operator').hide();
+            $('th.col-stdpack').text('QTY in carton');
+            
+            $('#tableItems tbody tr').each(function() {
+                $(this).find('[data-field="item_code"]').prop('readonly', false).removeClass('locked-field');
+                const $std = $(this).find('[data-field="standard_pack"]');
+                
+                // Simpan nilai asli dari SAP jika belum disimpan
+                if (typeof $std.data('sap-value') === 'undefined') {
+                    $std.data('sap-value', $std.val());
+                }
+                
+                // Jika belum di-set ke mode outer, set ke 10000
+                if (!$std.data('outer-initialized')) {
+                    $std.val('10000');
+                    $std.data('outer-initialized', true);
+                }
+            });
+        } else {
+            $('.col-whs, .col-backno, .col-operator').show();
+            $('th.col-stdpack').text('Standard Pack');
+            
+            $('#tableItems tbody tr').each(function() {
+                const $itemCode = $(this).find('[data-field="item_code"]');
+                // Lock if it has value (assuming populated from SAP or previously entered)
+                if ($itemCode.val() !== '') {
+                    $itemCode.prop('readonly', true).addClass('locked-field');
+                }
+                
+                // Kembalikan ke nilai SAP jika dari Outer ke Inner
+                const $std = $(this).find('[data-field="standard_pack"]');
+                if ($std.data('outer-initialized')) {
+                    if (typeof $std.data('sap-value') !== 'undefined') {
+                        $std.val($std.data('sap-value'));
+                    }
+                    $std.data('outer-initialized', false);
+                }
+            });
+        }
+    }
+
     function addRow(data, isLocked = false) {
         data = data || {};
         const tpl = document.getElementById('rowTemplate');
@@ -130,6 +238,7 @@ $(function () {
         });
 
         $('#tableItems tbody').append($row);
+        applyTableRules();
     }
 
     $('#btnAddRow').on('click', function () {
@@ -236,7 +345,7 @@ $(function () {
                         populateCustomerDropdown(filteredCustomers);
                         // Auto-select jika hanya 1 customer
                         if (filteredCustomers.length === 1) {
-                            $('#customer').val(filteredCustomers[0].CardCode);
+                            $('#customer').val(filteredCustomers[0].CardCode).trigger('change');
                         }
                     } else {
                         // Tidak ada match di lookup — tampilkan semua
@@ -317,6 +426,9 @@ $(function () {
             from_series:     $('#from_series').val(),
             remark:          $('#remark').val(),
             user_initial:    $('#user_initial').val(),
+            machine:         $('#machine').val(),
+            notification:    $('#notification').val(),
+            omron_label_type:$('input[name="omron_label_type"]:checked').val(),
             lot_guarantee:   $('#lot_guarantee').is(':checked') ? 1 : 0,
             lot_sa:          $('#lot_sa').is(':checked') ? 1 : 0,
             flag_4m:         $('#flag_4m').is(':checked') ? 1 : 0,
@@ -338,6 +450,13 @@ $(function () {
                     if (res.errors) msg += '\n' + Object.values(res.errors).join('\n');
                     alert(msg);
                     if (typeof onError === 'function') onError();
+                    return;
+                }
+                // Jika Omron: tampilkan notifikasi sukses, tidak buka PDF
+                if (res.omron_saved) {
+                    const typeLabel = res.label_type === 'outer' ? 'Outer' : 'Inner';
+                    const msg = `✅ Data Omron ${typeLabel} berhasil disimpan (${res.saved_count} item)!\n\nBuka halaman Omron untuk mencetak massal.`;
+                    alert(msg);
                     return;
                 }
                 if (typeof onSuccess === 'function') onSuccess(res.header_id);
