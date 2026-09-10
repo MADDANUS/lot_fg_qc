@@ -141,6 +141,10 @@ class PrintForm extends Controller
             'omron_label_type'=> $request->getPost('omron_label_type'),
             'machine'         => $request->getPost('machine'),
             'notification'    => $request->getPost('notification'),
+            'omron_cavity'    => $request->getPost('omron_cavity'),
+            'omron_shift'     => $request->getPost('omron_shift'),
+            'omron_die_no'    => $request->getPost('omron_die_no'),
+            'omron_dwg_no'    => $request->getPost('omron_dwg_no'),
         ];
 
         $items = $request->getPost('items');
@@ -162,7 +166,12 @@ class PrintForm extends Controller
         }
         
         // Custom Omron Outer rules
-        if (stripos($headerData['customer'], 'OMRON') !== false && $headerData['omron_label_type'] === 'outer') {
+        if (stripos($headerData['customer'], 'OMRON') !== false && ($headerData['omron_label_type'] ?? 'inner') === 'outer') {
+            unset($rules['user_initial']);
+        }
+
+        // Custom Mitsuba rules
+        if (stripos($headerData['customer'], 'MITSUBA') !== false) {
             unset($rules['user_initial']);
         }
 
@@ -175,16 +184,18 @@ class PrintForm extends Controller
             ]);
         }
 
-        // ── Omron: simpan ke database permanen ──────────────────────────────
+        // ── Omron & Mitsuba: simpan ke database permanen (KECUALI direct print) ────────────────
         $isOmron = stripos($headerData['customer'] ?? '', 'OMRON') !== false;
+        $isMitsuba = stripos($headerData['customer'] ?? '', 'MITSUBA') !== false;
+        $isPreview = !empty($this->request->getPost('is_preview'));
 
-        if ($isOmron) {
+        if ($isOmron && !$isPreview) {
             $labelType = $headerData['omron_label_type'] ?? 'inner';
             $model     = $labelType === 'outer' ? new OmronOuterModel() : new OmronInnerModel();
 
             $docDate = null;
-            if (! empty($items[0]['doc_date'])) {
-                $ts = strtotime($items[0]['doc_date']);
+            if (! empty($headerData['doc_date'])) {
+                $ts = strtotime($headerData['doc_date']);
                 $docDate = $ts ? date('Y-m-d', $ts) : null;
             }
 
@@ -213,7 +224,11 @@ class PrintForm extends Controller
                     'user_initial'    => $headerData['user_initial']  ?? '',
                     'job_order'       => $headerData['job_order']     ?? null,
                     'shift_id'        => $headerData['shift_id']      ?? null,
+                    'cavity'          => $headerData['omron_cavity']  ?? null,
+                    'shift'           => $headerData['omron_shift']   ?? null,
                     'remark'          => $headerData['remark']        ?? null,
+                    'die_no'          => $headerData['omron_die_no']  ?? null,
+                    'dwg_no'          => $headerData['omron_dwg_no']  ?? null,
                     'is_printed'      => 0,
                 ];
             }
@@ -230,7 +245,35 @@ class PrintForm extends Controller
             ]);
         }
 
-        // ── Non-Omron: simpan ke Session (Stateless Print) ──────────────────
+        if ($isMitsuba && !$isPreview) {
+            $model = new \App\Models\MitsubaLabelModel();
+            
+            $savedRows = [];
+            foreach ($items as $item) {
+                $savedRows[] = [
+                    'doc_number'      => $headerData['doc_number']   ?? '',
+                    'item_code'       => $item['item_code']           ?? '',
+                    'description'     => $item['description']         ?? ($item['Dscription'] ?? ''),
+                    'quantity'        => (int) ($item['quantity']     ?? 0),
+                    'lotno'           => $item['lotno']               ?? ($item['U_MIS_LotNo'] ?? ''),
+                    'machine'         => $headerData['machine']       ?? '',
+                    'operator'        => $item['operator']            ?? ($item['U_MIS_Operator'] ?? ''),
+                    'is_printed'      => 0,
+                ];
+            }
+
+            if (! empty($savedRows)) {
+                $model->insertBatch($savedRows);
+            }
+
+            return $this->response->setJSON([
+                'success'        => true,
+                'mitsuba_saved'  => true,
+                'saved_count'    => count($savedRows),
+            ]);
+        }
+
+        // ── Non-Omron/Mitsuba: simpan ke Session (Stateless Print) ──────────────────
         $tempId = uniqid('pdf_');
         $itemRows = [];
 

@@ -142,9 +142,12 @@ if ($omronLabelType === 'outer'):
           $warehouse     = $lot['warehouse']       ?? '';
           $backNo        = $lot['back_no']         ?? '';
           $operator      = $lot['operator']        ?? '';
+          $dieNo         = $lot['die_no']          ?? '';
+          $dwgNo         = $lot['dwg_no']          ?? '';
+          $cavity        = $lot['cavity']          ?? '';
           $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
           $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
-          $randomRefNo   = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+          $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
           ?>
           <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include __DIR__ . '/outer.php'; ?></td>
           <td style="width:5mm;padding:0;border:none;"></td>
@@ -161,9 +164,12 @@ if ($omronLabelType === 'outer'):
               $warehouse     = $lot['warehouse']       ?? '';
               $backNo        = $lot['back_no']         ?? '';
               $operator      = $lot['operator']        ?? '';
+              $dieNo         = $lot['die_no']          ?? '';
+              $dwgNo         = $lot['dwg_no']          ?? '';
+              $cavity        = $lot['cavity']          ?? '';
               $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
               $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
-              $randomRefNo   = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+              $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
           ?>
           <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include __DIR__ . '/outer.php'; ?></td>
           <?php else: ?>
@@ -195,7 +201,7 @@ if ($omronLabelType === 'outer'):
     $operator      = $lot['operator']        ?? '';
     $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
-    $randomRefNo   = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+    $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $leftTpl; ?></td>

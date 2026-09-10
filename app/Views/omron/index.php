@@ -129,7 +129,7 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
     <div class="tab-content-pane active" id="pane-inner" style="border: 2px solid #1e40af; border-top: none; border-radius: 0 8px 8px 8px; padding: 20px;">
         <div class="action-bar">
             <button class="btn-print-selected" id="btnPrintInner" onclick="batchPrint('inner')">
-                🖨️ Print Selected
+                👁️ Preview Selected
             </button>
             <button class="btn-delete-selected" id="btnDeleteInner" onclick="deleteSelected('inner')">
                 🗑️ Delete Selected
@@ -140,16 +140,12 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
             <thead class="table-primary">
                 <tr>
                     <th style="width:30px;"><input type="checkbox" id="chkAllInner" onchange="toggleAll('inner')"></th>
-                    <th>Doc Number</th>
-                    <th>Doc Date</th>
-                    <th>Item Code</th>
-                    <th>Description</th>
+                    <th>Nomor Transaksi</th>
+                    <th>Part No</th>
+                    <th>Item Name</th>
                     <th>Qty</th>
                     <th>Std Pack</th>
                     <th>Lot No</th>
-                    <th>Machine</th>
-                    <th>User</th>
-                    <th>Status</th>
                     <th>Disimpan</th>
                 </tr>
             </thead>
@@ -161,7 +157,7 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
     <div class="tab-content-pane" id="pane-outer" style="border: 2px solid #d97706; border-top: none; border-radius: 0 8px 8px 8px; padding: 20px; display:none;">
         <div class="action-bar">
             <button class="btn-print-selected" id="btnPrintOuter" onclick="batchPrint('outer')" style="background: linear-gradient(135deg, #d97706, #f59e0b);">
-                🖨️ Print Selected
+                👁️ Preview Selected
             </button>
             <button class="btn-delete-selected" id="btnDeleteOuter" onclick="deleteSelected('outer')">
                 🗑️ Delete Selected
@@ -173,15 +169,12 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
                 <tr>
                     <th style="width:30px;"><input type="checkbox" id="chkAllOuter" onchange="toggleAll('outer')"></th>
                     <th>Doc Number</th>
-                    <th>Doc Date</th>
+                    <th>Production Date</th>
                     <th>Item Code</th>
-                    <th>Description</th>
+                    <th>Item Name</th>
                     <th>Qty</th>
-                    <th>Std Pack</th>
                     <th>Lot No</th>
                     <th>Machine</th>
-                    <th>Notification</th>
-                    <th>Status</th>
                     <th>Disimpan</th>
                 </tr>
             </thead>
@@ -190,7 +183,8 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<?= $this->include('templates/footer') ?>
+
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script>
@@ -268,18 +262,14 @@ const dtInner = $('#tableInner').DataTable({
             render: (d) => `<input type="checkbox" class="chk-inner" value="${d}" onchange="updateInfo('inner')">`
         },
         { data: 'doc_number' },
-        { data: 'doc_date' },
         { data: 'item_code' },
         { data: 'description' },
         { data: 'quantity' },
         { data: 'standard_pack' },
         { data: 'lotno' },
-        { data: 'machine' },
-        { data: 'user_initial' },
-        { data: 'is_printed', render: statusBadge },
         { data: 'created_at' },
     ],
-    order: [[11, 'desc']],
+    order: [[7, 'desc']],
     pageLength: 25,
     language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
 });
@@ -296,22 +286,17 @@ function loadOuter() {
                 render: (d) => `<input type="checkbox" class="chk-outer" value="${d}" onchange="updateInfo('outer')">`
             },
             { data: 'doc_number' },
-            { data: 'doc_date' },
+            { data: 'production_date' },
             { data: 'item_code' },
             { data: 'description' },
             { data: 'quantity' },
-            { data: 'standard_pack' },
             { data: 'lotno' },
             { data: 'machine' },
-            { data: 'notification' },
-            { data: 'is_printed', render: statusBadge },
             { data: 'created_at' },
         ],
-        order: [[11, 'desc']],
+        order: [[8, 'desc']],
         pageLength: 25,
         language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
     });
 }
 </script>
-
-<?= $this->include('templates/footer') ?>

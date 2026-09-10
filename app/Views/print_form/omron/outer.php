@@ -41,10 +41,18 @@
 <tr>
   <td colspan="3" style="border-left:0.3mm solid #000; padding:0 1mm 1mm 1mm; text-align:center; height:16mm; vertical-align:middle;">
     <!-- Barcode Item No -->
-    <div style="display:inline-block; margin:auto;">
-      <?= $barcodeSvg($itemCode, 5) ?>
-      <div style="margin-top:-2px; color:#000; text-align:center;"><?= esc($itemCode) ?></div>
-    </div>
+    <table style="margin:auto; border:none; border-collapse:collapse;">
+      <tr>
+        <td style="border:none; text-align:center; padding:0;">
+          <?= $barcodeSvg($itemCode, 5) ?>
+        </td>
+      </tr>
+      <tr>
+        <td style="border:none; text-align:center; padding-top:1.5mm; color:#000;">
+          <?= esc($itemCode) ?>
+        </td>
+      </tr>
+    </table>
   </td>
   <td colspan="2" style="border-left:0.3mm solid #000; padding:0; height:16mm;">
     <table style="width:100%; height:100%; border:none; border-collapse:collapse;">
@@ -103,10 +111,10 @@
 
 <!-- Row 8: Values for table -->
 <tr>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;">-</td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($dwgNo) ?: '-' ?></td>
   <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($displayDate) ?></td>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;">-</td>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;">-</td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($dieNo) ?: '-' ?></td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($cavity) ?: '-' ?></td>
 </tr>
 
 <!-- Row 9: Empty row to fill space -->
@@ -120,7 +128,8 @@
 <!-- Row 10: Notes | Status | Ro | Ref No -->
 <tr>
   <td colspan="2" style="border-left:0.3mm solid #000; border-right:0.3mm solid #000; padding:1mm; font-size:8pt; vertical-align:top; font-weight:bold;">
-    Notes
+    Notes<br>
+    <div style="font-size:8pt; margin-top:2mm; font-weight:normal;"><?= esc($remark) ?></div>
   </td>
   <td colspan="2" style="border-right:0.3mm solid #000; padding:1mm; font-size:8pt; vertical-align:top; font-weight:bold;">
     Status<br>

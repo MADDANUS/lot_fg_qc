@@ -6,7 +6,7 @@
 
         <ul class="nav nav-tabs" id="masterTabs" role="tablist">
             <li class="nav-item"><button class="nav-link active" data-type="shift" data-bs-toggle="tab" data-bs-target="#tab-shift" type="button">Shift</button></li>
-            <li class="nav-item"><button class="nav-link" data-type="line" data-bs-toggle="tab" data-bs-target="#tab-line" type="button">Line</button></li>
+            <li class="nav-item"><button class="nav-link" data-type="line" data-bs-toggle="tab" data-bs-target="#tab-line" type="button">Line / Machine</button></li>
             <li class="nav-item"><button class="nav-link" data-type="mold" data-bs-toggle="tab" data-bs-target="#tab-mold" type="button">Mold</button></li>
             <li class="nav-item"><button class="nav-link" data-type="cavity" data-bs-toggle="tab" data-bs-target="#tab-cavity" type="button">Cavity</button></li>
         </ul>
@@ -18,7 +18,7 @@
             </div>
             <!-- Line -->
             <div class="tab-pane fade" id="tab-line">
-                <?= view('master/_tab', ['type' => 'line', 'label' => 'Line Name', 'manualId' => true]) ?>
+                <?= view('master/_tab', ['type' => 'line', 'label' => 'Line / Machine Name', 'manualId' => true]) ?>
             </div>
             <!-- Mold -->
             <div class="tab-pane fade" id="tab-mold">

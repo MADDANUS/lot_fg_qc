@@ -27,6 +27,7 @@
  *   B18:E19(rs2,cs4)  F19:G19(cs2)
  *   B20:C20(cs2)
  */
+$displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
 ?>
 <table style="width:95mm;min-width:95mm;max-width:95mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:9pt;">
 <colgroup>
@@ -97,7 +98,7 @@
 <!-- ═══ R8 ═══: A8 bdr-L | B8:I8="PART NO:..." cs8 bdr-TLR | J8 bdr-LR -->
 <tr>
   <td style="height:4.34mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="8" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>PART NO :</b> <?= esc($itemCode) ?></td>
+  <td colspan="8" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>PART NO :</b> <?= esc($displayItemCode) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 

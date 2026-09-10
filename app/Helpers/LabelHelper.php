@@ -18,12 +18,12 @@ class LabelHelper
      * Generate Ref No: 16 karakter random UPPERCASE alphanumeric (A-Z, 0-9).
      * Unik per lot — dipanggil sekali per baris lot.
      */
-    public static function generateRefNo(): string
+    public static function generateRefNo(int $length = 16): string
     {
         $chars  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $result = '';
         $max    = strlen($chars) - 1;
-        for ($i = 0; $i < 16; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $result .= $chars[random_int(0, $max)];
         }
         return $result;

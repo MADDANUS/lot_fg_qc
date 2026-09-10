@@ -6,8 +6,6 @@ use App\Models\OmronInnerModel;
 use App\Models\OmronOuterModel;
 use CodeIgniter\Controller;
 use Mpdf\Mpdf;
-use Mpdf\Config\ConfigVariables;
-use Mpdf\Config\FontVariables;
 
 class Omron extends Controller
 {
@@ -139,11 +137,6 @@ class Omron extends Controller
         ]);
 
         // Generate mPDF
-        $defaultConfig = (new ConfigVariables())->getDefaults();
-        $fontDirs      = $defaultConfig['fontDir'];
-        $defaultFontConfig = (new FontVariables())->getDefaults();
-        $fontData      = $defaultFontConfig['fontdata'];
-
         $mpdf = new Mpdf([
             'mode'          => 'utf-8',
             'format'        => 'A4',
@@ -151,13 +144,10 @@ class Omron extends Controller
             'margin_bottom' => 10,
             'margin_left'   => 10,
             'margin_right'  => 10,
-            'fontDir'       => array_merge($fontDirs, [FCPATH . '../app/Fonts/']),
-            'fontdata'      => array_merge($fontData, [
-                'calibri' => ['R' => 'calibri.ttf', 'B' => 'calibrib.ttf'],
-            ]),
-            'default_font'  => 'calibri',
+            'default_font'  => 'dejavusans',
         ]);
 
+        $mpdf->SetAutoPageBreak(false);
         $mpdf->SetTitle('Omron Label - ' . strtoupper($type));
         $mpdf->WriteHTML($html);
         $mpdf->Output('omron_' . $type . '_labels.pdf', 'I');

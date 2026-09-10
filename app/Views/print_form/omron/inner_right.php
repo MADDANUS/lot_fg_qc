@@ -3,6 +3,7 @@
  * Omron Inner - Label Kanan
  * Lebar: 95mm, Tinggi: 80mm
  */
+$displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
 ?>
 <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:8pt;">
 <colgroup>
@@ -41,10 +42,18 @@
 <tr>
   <td colspan="3" style="border-left:0.3mm solid #000; padding:0 1mm 1mm 1mm; text-align:center; height:16mm; vertical-align:middle;">
     <!-- Barcode Item No -->
-    <div style="display:inline-block; margin:auto;">
-      <?= $barcodeSvg($itemCode, 5) ?>
-      <div style="margin-top:-2px; color:#000; text-align:center;"><?= esc($itemCode) ?></div>
-    </div>
+    <table style="margin:auto; border:none; border-collapse:collapse;">
+      <tr>
+        <td style="border:none; text-align:center; padding:0;">
+          <?= $barcodeSvg($displayItemCode, 5) ?>
+        </td>
+      </tr>
+      <tr>
+        <td style="border:none; text-align:center; padding-top:1.5mm; color:#000;">
+          <?= esc($displayItemCode) ?>
+        </td>
+      </tr>
+    </table>
   </td>
   <td colspan="2" style="border-left:0.3mm solid #000; padding:0; height:16mm;">
     <table style="width:100%; height:100%; border:none; border-collapse:collapse;">

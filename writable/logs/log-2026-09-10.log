@@ -1,0 +1,217 @@
+DEBUG - 2026-09-10 00:42:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:42:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 00:42:58 --> ErrorException: Undefined variable $backNo
+[Method: GET, Route: omron/render-pdf/omron_batch_6aa1fd12bd4c0]
+in APPPATH\Views\print_form\omron\inner_left.php on line 93.
+ 1 APPPATH\Views\print_form\omron\inner_left.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $backNo', 'C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_left.php', 93)
+ 2 APPPATH\Views\print_form\omron\batch_pdf.php(105): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_left.php')
+ 3 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\batch_pdf.php')
+ 4 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1268): CodeIgniter\View\View->render('print_form/omron/batch_pdf', [], true)
+ 6 APPPATH\Controllers\Omron.php(136): view('print_form/omron/batch_pdf', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Omron->renderPdf('omron_batch_6aa1fd12bd4c0')
+ 8 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Omron))
+ 9 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 00:44:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:44:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 00:44:18 --> ErrorException: Undefined variable $omronLabelType
+[Method: GET, Route: omron/render-pdf/omron_batch_6aa1fd6229f7b]
+in APPPATH\Views\print_form\omron\inner_right.php on line 23.
+ 1 APPPATH\Views\print_form\omron\inner_right.php(23): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $omronLabelType', 'C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php', 23)
+ 2 APPPATH\Views\print_form\omron\batch_pdf.php(110): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php')
+ 3 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\batch_pdf.php')
+ 4 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1268): CodeIgniter\View\View->render('print_form/omron/batch_pdf', [], true)
+ 6 APPPATH\Controllers\Omron.php(136): view('print_form/omron/batch_pdf', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Omron->renderPdf('omron_batch_6aa1fd6229f7b')
+ 8 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Omron))
+ 9 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 00:44:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:44:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 00:44:26 --> ErrorException: Undefined variable $omronLabelType
+[Method: GET, Route: omron/render-pdf/omron_batch_6aa1fd6a4687e]
+in APPPATH\Views\print_form\omron\inner_right.php on line 23.
+ 1 APPPATH\Views\print_form\omron\inner_right.php(23): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $omronLabelType', 'C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php', 23)
+ 2 APPPATH\Views\print_form\omron\batch_pdf.php(110): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php')
+ 3 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\batch_pdf.php')
+ 4 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1268): CodeIgniter\View\View->render('print_form/omron/batch_pdf', [], true)
+ 6 APPPATH\Controllers\Omron.php(136): view('print_form/omron/batch_pdf', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Omron->renderPdf('omron_batch_6aa1fd6a4687e')
+ 8 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Omron))
+ 9 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 00:45:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:45:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 00:45:16 --> ErrorException: Undefined variable $randomRefNo
+[Method: GET, Route: omron/render-pdf/omron_batch_6aa1fd9c8b971]
+in APPPATH\Views\print_form\omron\inner_right.php on line 137.
+ 1 APPPATH\Views\print_form\omron\inner_right.php(137): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $randomRefNo', 'C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php', 137)
+ 2 APPPATH\Views\print_form\omron\batch_pdf.php(111): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php')
+ 3 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\batch_pdf.php')
+ 4 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1268): CodeIgniter\View\View->render('print_form/omron/batch_pdf', [], true)
+ 6 APPPATH\Controllers\Omron.php(136): view('print_form/omron/batch_pdf', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Omron->renderPdf('omron_batch_6aa1fd9c8b971')
+ 8 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Omron))
+ 9 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 00:45:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:45:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 00:45:24 --> ErrorException: Undefined variable $randomRefNo
+[Method: GET, Route: omron/render-pdf/omron_batch_6aa1fda493e41]
+in APPPATH\Views\print_form\omron\inner_right.php on line 137.
+ 1 APPPATH\Views\print_form\omron\inner_right.php(137): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $randomRefNo', 'C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php', 137)
+ 2 APPPATH\Views\print_form\omron\batch_pdf.php(111): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\inner_right.php')
+ 3 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\lot_fg\\app\\Views\\print_form\\omron\\batch_pdf.php')
+ 4 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1268): CodeIgniter\View\View->render('print_form/omron/batch_pdf', [], true)
+ 6 APPPATH\Controllers\Omron.php(136): view('print_form/omron/batch_pdf', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Omron->renderPdf('omron_batch_6aa1fda493e41')
+ 8 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Omron))
+ 9 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 00:46:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:46:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 00:46:59 --> Mpdf\MpdfException: Cannot find TTF TrueType font file "calibri.ttf" in configured font directories.
+[Method: GET, Route: omron/render-pdf/omron_batch_6aa1fe0352ea0]
+in VENDORPATH\mpdf\mpdf\src\Fonts\FontFileFinder.php on line 33.
+ 1 VENDORPATH\mpdf\mpdf\src\Mpdf.php(3896): Mpdf\Fonts\FontFileFinder->findFontFile('calibri.ttf')
+ 2 VENDORPATH\mpdf\mpdf\src\Mpdf.php(4192): Mpdf\Mpdf->AddFont('calibri', '')
+ 3 VENDORPATH\mpdf\mpdf\src\Mpdf.php(10999): Mpdf\Mpdf->SetFont('calibri')
+ 4 VENDORPATH\mpdf\mpdf\src\Mpdf.php(1507): Mpdf\Mpdf->SetDefaultFont('calibri')
+ 5 APPPATH\Controllers\Omron.php(147): Mpdf\Mpdf->__construct([...])
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Omron->renderPdf('omron_batch_6aa1fe0352ea0')
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Omron))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 00:49:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:49:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:55:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:55:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:55:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:55:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:55:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 00:55:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 01:34:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 01:34:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 01:46:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 01:46:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:00:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:02:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:02:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:07:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:09:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:24:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:25:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:25:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:25:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:45:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:47:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:47:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:48:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 02:51:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 04:21:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 04:21:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 04:31:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 04:31:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 04:31:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 04:31:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 06:37:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 06:37:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-09-10 06:37:23 --> [PrintForm::generatePdf] Undefined variable $dwgNo in C:\xampp\htdocs\lot_fg\app\Views\print_form\omron\outer.php line 114
+ERROR - 2026-09-10 06:37:23 --> [PrintForm::generatePdf] Trace: #0 C:\xampp\htdocs\lot_fg\app\Views\print_form\omron\outer.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 114)
+#1 C:\xampp\htdocs\lot_fg\app\Views\print_form\omron\label_pdf.php(149): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\View\View.php(240): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#4 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\Common.php(1268): CodeIgniter\View\View->render('print_form/omro...', Array, true)
+#5 C:\xampp\htdocs\lot_fg\app\Controllers\PrintForm.php(455): view('print_form/omro...', Array)
+#6 C:\xampp\htdocs\lot_fg\app\Controllers\PrintForm.php(267): App\Controllers\PrintForm->generatePdf('pdf_6aa250237d7...', true)
+#7 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\CodeIgniter.php(974): App\Controllers\PrintForm->preview('pdf_6aa250237d7...')
+#8 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PrintForm))
+#9 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\lot_fg\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\lot_fg\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+DEBUG - 2026-09-10 06:38:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 06:38:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 06:54:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 06:54:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:09:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:14:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:14:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:25:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:26:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:26:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:26:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:26:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:26:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:26:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:27:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 07:27:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:04:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-09-10 08:22:12 --> Error: Class "App\Libraries\QrCodeService" not found
+[Method: GET, Route: mitsuba/render-pdf/mitsuba_batch_6aa268b4463da]
+in APPPATH\Views\print_form\mitsuba\label_pdf.php on line 7.
+ 1 SYSTEMPATH\View\View.php(240): include()
+ 2 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1268): CodeIgniter\View\View->render('print_form/mitsuba/label_pdf', [], true)
+ 4 APPPATH\Controllers\Mitsuba.php(101): view('print_form/mitsuba/label_pdf', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Mitsuba->renderPdf('mitsuba_batch_6aa268b4463da')
+ 6 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mitsuba))
+ 7 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-10 08:23:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:23:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:26:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:26:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:27:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:29:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:33:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:34:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:35:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:36:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:36:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:39:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:41:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:41:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:42:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:42:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:42:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:44:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:45:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:46:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:48:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:49:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:49:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:50:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:53:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-10 08:55:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

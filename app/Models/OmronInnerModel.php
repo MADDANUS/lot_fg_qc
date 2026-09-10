@@ -23,6 +23,8 @@ class OmronInnerModel extends Model
         'back_no',
         'operator',
         'production_date',
+        'cavity',
+        'shift',
         'machine',
         'notification',
         'user_initial',

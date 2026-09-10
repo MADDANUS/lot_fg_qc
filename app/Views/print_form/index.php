@@ -60,6 +60,13 @@ legend.groupbox-legend {
     font-weight: 500;
     color: #475569;
 }
+.lbl-omron {
+    width: 140px;
+    text-align: right;
+    margin-right: 12px;
+    font-weight: 500;
+    color: #475569;
+}
 .lbl-width-long {
     width: 200px;
     text-align: right;
@@ -261,6 +268,24 @@ legend.groupbox-legend {
                     </div>
                 </div>
 
+                <div class="row-item user-initial-container" style="display:flex; margin-bottom: 15px;">
+                    <span class="lbl-width-long" style="width: 140px; margin-right: 12px; text-align: right;">User Initial Name (3 Digit Char)</span>
+                    <input type="text" class="form-control-desktop upper-input" id="user_initial" name="user_initial" maxlength="3" style="width: 60px;">
+                </div>
+
+                <div class="row-item omron-extra-fields" style="display:none; margin-bottom: 15px;">
+                    <span class="lbl-width-long" style="width: 140px; margin-right: 12px; text-align: right;">Notification</span>
+                    <select class="form-select-desktop" id="notification" name="notification" style="width: 150px;">
+                        <option value="RE-DELIVERY" selected>RE-DELIVERY</option>
+                        <option value="DESIGN CHANGE">DESIGN CHANGE</option>
+                        <option value="FIRST RUN">FIRST RUN</option>
+                        <option value="IFC">IFC</option>
+                        <option value="PROCESS CHANGE">PROCESS CHANGE</option>
+                        <option value="SAMPLE">SAMPLE</option>
+                        <option value="SAR">SAR</option>
+                    </select>
+                </div>
+
                 <div class="row-item epson-only" style="display:none;">
                     <span class="lbl-width">Product Name</span>
                     <div class="form-check form-check-inline mb-0">
@@ -345,53 +370,197 @@ legend.groupbox-legend {
                     <input type="text" class="form-control-desktop" id="remark" name="remark" style="width: 210px;">
                 </div>
 
-                <div class="row-item user-initial-container">
-                    <span class="lbl-width-long">User Initial Name (3 Digit Char)</span>
-                    <input type="text" class="form-control-desktop upper-input" id="user_initial" name="user_initial" maxlength="3" style="width: 60px;">
-                </div>
-
-                <div class="row-item omron-extra-fields" style="display:none;">
-                    <span class="lbl-width-long">Machine</span>
-                    <input type="text" class="form-control-desktop" id="machine" name="machine" style="width: 150px;">
-                </div>
-
-                <div class="row-item omron-extra-fields" style="display:none;">
-                    <span class="lbl-width-long">Notification</span>
-                    <select class="form-select-desktop" id="notification" name="notification" style="width: 150px;">
-                        <option value="RE-DELIVERY" selected>RE-DELIVERY</option>
-                        <option value="DESIGN CHANGE">DESIGN CHANGE</option>
-                        <option value="FIRST RUN">FIRST RUN</option>
-                        <option value="IFC">IFC</option>
-                        <option value="PROCESS CHANGE">PROCESS CHANGE</option>
-                        <option value="SAMPLE">SAMPLE</option>
-                        <option value="SAR">SAR</option>
-                    </select>
+                <div class="omron-extra-fields" style="display:none; flex-direction:column;">
+                    <div class="row-item mb-2">
+                        <span style="width: 60px; text-align: left; margin-right: 12px;" class="radio-lbl">Cavity</span>
+                        <input type="text" class="form-control-desktop" id="omron_cavity" name="omron_cavity" list="omron_cavity_list" style="width: 150px;" autocomplete="off">
+                        <datalist id="omron_cavity_list">
+                            <?php foreach ($cavities as $c): ?>
+                                <option value="<?= esc($c['cavity_name']) ?>"></option>
+                            <?php endforeach; ?>
+                        </datalist>
+                    </div>
+                    <div class="row-item mb-2">
+                        <span style="width: 60px; text-align: left; margin-right: 12px;" class="radio-lbl">Machine</span>
+                        <input type="text" class="form-control-desktop" id="machine" name="machine" list="omron_machine_list" style="width: 150px;" autocomplete="off">
+                        <datalist id="omron_machine_list">
+                            <?php foreach ($lines as $l): ?>
+                                <option value="<?= esc($l['line_name']) ?>"></option>
+                            <?php endforeach; ?>
+                        </datalist>
+                    </div>
+                    <div class="row-item mb-2">
+                        <span style="width: 60px; text-align: left; margin-right: 12px;" class="radio-lbl">Shift</span>
+                        <input type="text" class="form-control-desktop" id="omron_shift" name="omron_shift" list="omron_shift_list" style="width: 150px;" autocomplete="off">
+                        <datalist id="omron_shift_list">
+                            <?php foreach ($shifts as $s): ?>
+                                <option value="<?= esc($s['shift_name']) ?>"></option>
+                            <?php endforeach; ?>
+                        </datalist>
+                    </div>
                 </div>
             </div>
 
             <!-- Right Column -->
-            <div class="col-3 epson-only" style="display:none;">
-                <fieldset class="groupbox h-100" style="margin-bottom:0;">
-                    <legend class="groupbox-legend">Additional</legend>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="lot_guarantee" name="lot_guarantee" value="1">
-                        <label class="form-check-label" for="lot_guarantee">Lot Guarantee</label>
-                    </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="lot_sa" name="lot_sa" value="1">
-                        <label class="form-check-label" for="lot_sa">Lot SA</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="flag_4m" name="flag_4m" value="1">
-                        <label class="form-check-label" for="flag_4m">4M</label>
-                    </div>
-                </fieldset>
+            <div class="col-3">
+                <div class="epson-only" style="display:none; flex-direction:column; height:100%;">
+                    <fieldset class="groupbox h-100" style="margin-bottom:0;">
+                        <legend class="groupbox-legend">Additional</legend>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="lot_guarantee" name="lot_guarantee" value="1">
+                            <label class="form-check-label" for="lot_guarantee">Lot Guarantee</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="lot_sa" name="lot_sa" value="1">
+                            <label class="form-check-label" for="lot_sa">Lot SA</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="flag_4m" name="flag_4m" value="1">
+                            <label class="form-check-label" for="flag_4m">4M</label>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
         </div>
 
 
+        <!-- OMRON OUTER FORM (Hidden by default) -->
+        <div id="omronOuterForm" style="display: none; padding: 20px; background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 20px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row-item">
+                        <label class="lbl-omron">Item No Omron :</label>
+                        <select class="form-select-desktop flex-grow-1" id="omron_item_code"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row-item">
+                        <label class="lbl-omron">Item No Vendor :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_item_vendor" readonly>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row-item">
+                        <label class="lbl-omron">Item Name :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_item_name" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row-item">
+                        <label class="lbl-omron">Material No :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_material_no" readonly>
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron">Material Name :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_material_name" readonly>
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron">Unit :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_unit" readonly>
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron">Std. Packing :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_std_packing" readonly>
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron fw-bold">Cavity :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1" id="omron_outer_cavity" list="omron_cavity_list" autocomplete="off">
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="row-item">
+                        <label class="lbl-omron">Production Date :</label>
+                        <input type="date" class="form-control-desktop flex-grow-1" id="omron_production_date">
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron">DWG No. :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_dwg_no" readonly>
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron fw-bold">Shift :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1" id="omron_outer_shift" list="omron_shift_list" autocomplete="off">
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron">Machine :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1" id="omron_machine" list="omron_machine_list" autocomplete="off">
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron">Qty in Carton :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_qty_carton" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row-item">
+                        <label class="lbl-omron">Remark :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_remark" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row-item">
+                        <label class="lbl-omron">Maker :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1 bg-light" id="omron_maker" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="form-check" style="margin-left: 152px;">
+                        <input class="form-check-input" type="checkbox" id="omron_lot_guarantee">
+                        <label class="form-check-label fw-bold" for="omron_lot_guarantee">Lot Guarantee</label>
+                    </div>
+                    <div class="d-flex align-items-center ms-5">
+                        <label class="fw-bold me-2">Die No :</label>
+                        <select class="form-select-desktop" style="width: 80px;" id="omron_die_no">
+                            <option value="-">-</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="row-item">
+                        <label class="lbl-omron fw-bold">Lot No :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1" id="omron_lot_no">
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron fw-bold">Quantity :</label>
+                        <input type="text" class="form-control-desktop flex-grow-1" id="omron_quantity">
+                    </div>
+                    <div class="row-item">
+                        <label class="lbl-omron fw-bold">Notification :</label>
+                        <select class="form-select-desktop flex-grow-1" id="omron_notification">
+                            <option value="RE-DELIVERY">RE-DELIVERY</option>
+                            <option value="DESIGN CHANGE">DESIGN CHANGE</option>
+                            <option value="FIRST RUN">FIRST RUN</option>
+                            <option value="IFC">IFC</option>
+                            <option value="PROCESS CHANGE">PROCESS CHANGE</option>
+                            <option value="SAMPLE">SAMPLE</option>
+                            <option value="SAR">SAR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Data Grid -->
-        <div class="grid-container">
+        <div class="grid-container" id="dataGridContainer">
             <table class="grid-table" id="tableItems">
                 <thead>
                     <tr>
@@ -429,10 +598,11 @@ legend.groupbox-legend {
             </div>
             
             <div class="d-flex gap-3">
-                <a href="<?= base_url('master') ?>" class="btn-desktop btn-outline-modern text-decoration-none text-center">Master</a>
-                <button type="button" class="btn-desktop btn-outline-modern" id="btnPreview">Preview</button>
-                <button type="submit" class="btn-desktop btn-primary-glow" id="btnSave">
+                <button type="button" class="btn-desktop btn-outline-modern" id="btnDirectPrint">
                     <i class="bi bi-printer me-2"></i> Print Label
+                </button>
+                <button type="button" class="btn-desktop btn-primary-glow" id="btnSaveToDb" style="display:none;">
+                    <i class="bi bi-save me-2"></i> Save
                 </button>
                 <a href="<?= base_url('print-form') ?>" class="btn-desktop btn-outline-modern text-decoration-none text-center">Close</a>
             </div>

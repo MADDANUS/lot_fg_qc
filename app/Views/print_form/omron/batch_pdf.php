@@ -79,6 +79,7 @@ td { vertical-align:middle; line-height:1; }
 </head><body>
 <?php
 if ($type === 'inner'):
+    $omronLabelType = 'inner';
     // INNER: setiap lot = 1 baris (kiri + kanan berdampingan)
     $pages = array_chunk($lots, 3); // 3 pasang per halaman A4 portrait
     foreach ($pages as $pgIdx => $pageLots):
@@ -93,12 +94,19 @@ if ($type === 'inner'):
             $userInitial = $lot['user_initial']  ?? '';
             $remark      = $lot['remark']        ?? '';
             $docNumber   = $lot['doc_number']    ?? '';
-            $customer    = 'OMRON';
+            $customer    = $lot['customer'] ?? ($header['customer'] ?? 'PT. OMRON MANUFACTURING OF INDONESIA');
             $displayDate = $fmtDate($lot['production_date'] ?? null) ?: $fmtDate($lot['doc_date'] ?? null);
             $monthYear   = $lot['doc_date'] ? date('M-y', strtotime($lot['doc_date'])) : date('M-y');
-            $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $docNumber]);
-            $qrRight     = implode(',', ['OMRON', $itemCode, $lotno, $lotQty, $docNumber]);
-            $randomRefNo = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $dieNo       = $lot['die_no'] ?? '';
+            $dwgNo       = $lot['dwg_no'] ?? '';
+            $cavity      = $lot['cavity'] ?? '';
+            $backNo      = $lot['back_no'] ?? '';
+            $operator    = $lot['operator'] ?? '';
+            $warehouse   = $lot['whs_code'] ?? '';
+            $refNo       = \App\Helpers\LabelHelper::generateRefNo();
+            $randomRefNo = \App\Helpers\LabelHelper::generateRefNo(8);
+            $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
+            $qrRight     = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <table style="width:195mm;border-collapse:separate;border:none;">
   <tr>
@@ -130,12 +138,19 @@ else:
             $notification= $lot['notification']  ?? '';
             $remark      = $lot['remark']        ?? '';
             $docNumber   = $lot['doc_number']    ?? '';
-            $customer    = 'OMRON';
+            $customer    = $lot['customer'] ?? ($header['customer'] ?? 'PT. OMRON MANUFACTURING OF INDONESIA');
             $displayDate = $fmtDate($lot['production_date'] ?? null) ?: $fmtDate($lot['doc_date'] ?? null);
             $monthYear   = $lot['doc_date'] ? date('M-y', strtotime($lot['doc_date'])) : date('M-y');
-            $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $docNumber]);
-            $qrRight     = implode(',', ['OMRON', $itemCode, $lotno, $lotQty, $docNumber]);
-            $randomRefNo = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $dieNo       = $lot['die_no'] ?? '';
+            $dwgNo       = $lot['dwg_no'] ?? '';
+            $cavity      = $lot['cavity'] ?? '';
+            $backNo      = $lot['back_no'] ?? '';
+            $operator    = $lot['operator'] ?? '';
+            $warehouse   = $lot['whs_code'] ?? '';
+            $refNo       = \App\Helpers\LabelHelper::generateRefNo();
+            $randomRefNo = \App\Helpers\LabelHelper::generateRefNo(8);
+            $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
+            $qrRight     = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <table style="width:195mm;border-collapse:separate;border:none;"><tr>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplOuter; ?></td>
@@ -153,9 +168,16 @@ else:
                 $docNumber   = $lot['doc_number']    ?? '';
                 $displayDate = $fmtDate($lot['production_date'] ?? null) ?: $fmtDate($lot['doc_date'] ?? null);
                 $monthYear   = $lot['doc_date'] ? date('M-y', strtotime($lot['doc_date'])) : date('M-y');
-                $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $docNumber]);
-                $qrRight     = implode(',', ['OMRON', $itemCode, $lotno, $lotQty, $docNumber]);
-                $randomRefNo = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+                $dieNo       = $lot['die_no'] ?? '';
+                $dwgNo       = $lot['dwg_no'] ?? '';
+                $cavity      = $lot['cavity'] ?? '';
+                $backNo      = $lot['back_no'] ?? '';
+                $operator    = $lot['operator'] ?? '';
+                $warehouse   = $lot['whs_code'] ?? '';
+                $refNo       = \App\Helpers\LabelHelper::generateRefNo();
+                $randomRefNo = \App\Helpers\LabelHelper::generateRefNo(8);
+                $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
+                $qrRight     = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
             ?>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplOuter; ?></td>
 <?php       else: ?>

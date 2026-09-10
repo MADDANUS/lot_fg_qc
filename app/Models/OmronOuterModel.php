@@ -18,18 +18,9 @@ class OmronOuterModel extends Model
         'description',
         'quantity',
         'standard_pack',
-        'lotno',
-        'whs_code',
-        'back_no',
-        'operator',
-        'production_date',
-        'machine',
-        'notification',
-        'user_initial',
-        'job_order',
-        'shift_id',
-        'remark',
-        'is_printed',
+        'lotno', 'whs_code', 'back_no', 'operator', 'production_date', 'cavity', 'shift',
+        'machine', 'notification', 'user_initial', 'job_order', 'shift_id', 'remark', 'is_printed',
+        'die_no', 'dwg_no'
     ];
 
     protected $useTimestamps = true;
