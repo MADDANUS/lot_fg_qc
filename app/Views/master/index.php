@@ -1,9 +1,15 @@
 <?= $this->include('templates/header') ?>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h4 class="card-title mb-4">Master Data</h4>
 
+<div class="page-wrapper">
+<div class="global-container">
+    <div class="card-header-bar">
+        <div>
+            <div class="page-title"><span class="title-icon"><i class="bi bi-database"></i></span> Master Data</div>
+            <div class="page-subtitle">Kelola data Shift, Line/Machine, Mold, dan Cavity.</div>
+        </div>
+    </div>
+    <div class="card-body-pad">
         <ul class="nav nav-tabs" id="masterTabs" role="tablist">
             <li class="nav-item"><button class="nav-link active" data-type="shift" data-bs-toggle="tab" data-bs-target="#tab-shift" type="button">Shift</button></li>
             <li class="nav-item"><button class="nav-link" data-type="line" data-bs-toggle="tab" data-bs-target="#tab-line" type="button">Line / Machine</button></li>
@@ -31,10 +37,11 @@
         </div>
 
         <div class="text-end mt-3">
-            <a href="<?= base_url('print-form') ?>" class="btn btn-outline-dark">Close</a>
+            <a href="<?= base_url('print-form') ?>" class="btn-desktop btn-outline-modern">← Kembali ke Form Print</a>
         </div>
-    </div>
-</div>
+    </div><!-- /card-body-pad -->
+</div><!-- /global-container -->
+</div><!-- /page-wrapper -->
 
 <?= $this->include('templates/footer') ?>
 

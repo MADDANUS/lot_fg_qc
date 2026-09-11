@@ -25,14 +25,14 @@ $routes->post('master/delete/(:alpha)/(:any)', 'Master::delete/$1/$2');
 // Omron Saved Labels
 $routes->get('omron', 'Omron::index');
 $routes->get('omron/data/inner', 'Omron::dataInner');
-$routes->post('omron/data/outer', 'Omron::dataOuter');
+$routes->get('omron/data/outer', 'Omron::dataOuter');
 $routes->post('omron/delete-rows', 'Omron::deleteRows');
 $routes->post('omron/batch-print', 'Omron::batchPrint');
 $routes->get('omron/render-pdf/(:segment)', 'Omron::renderPdf/$1');
 
 // Mitsuba Routes
 $routes->get('mitsuba', 'Mitsuba::index');
-$routes->post('mitsuba/data', 'Mitsuba::data');
+$routes->get('mitsuba/data', 'Mitsuba::data');
 $routes->post('mitsuba/delete-rows', 'Mitsuba::deleteRows');
 $routes->post('mitsuba/batch-print', 'Mitsuba::batchPrint');
 $routes->get('mitsuba/render-pdf/(:segment)', 'Mitsuba::renderPdf/$1');

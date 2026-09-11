@@ -40,14 +40,14 @@
 <!-- R3: A3="Part Code:" bdr-TL | B3:C3=barcode(cs2) bdr-T | D3:G3=description(cs4) bdr-TR -->
 <tr>
   <td style="height:4.5mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:9pt;vertical-align:middle;">Part Code:</td>
-  <td colspan="2" style="border-top:0.3mm solid #000;padding:1mm;vertical-align:middle;"><?= $barcodeSvg($itemCode, 5, 1.0) ?></td>
+  <td colspan="2" style="border-top:0.3mm solid #000;padding:1mm;vertical-align:middle;"><?= $barcodeSvg($itemCodeLeft, 5, 1.0) ?></td>
   <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0.3mm 1mm;font-size:9pt;"><?= esc($description) ?></td>
 </tr>
 
 <!-- R4: A4 bdr-L | B4:C4=itemCode(cs2) | D-F empty | G4 bdr-R -->
 <tr>
   <td style="height:2.7mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($itemCode) ?></td>
+  <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($itemCodeLeft) ?></td>
   <td></td><td></td><td></td>
   <td rowspan="7" text-rotate="90" style="border-right:0.3mm solid #000;text-align:right;vertical-align:bottom;font-size:7pt;padding:1mm;">1.5.6786.18740</td>
 </tr>

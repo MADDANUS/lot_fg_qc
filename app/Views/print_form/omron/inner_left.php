@@ -27,25 +27,25 @@
  *   B18:E19(rs2,cs4)  F19:G19(cs2)
  *   B20:C20(cs2)
  */
-$displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
+$displayItemCode = $itemCode;
 ?>
 <table style="width:95mm;min-width:95mm;max-width:95mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:9pt;">
 <colgroup>
-  <col style="width:5mm">  <!-- A -->
-  <col style="width:23mm"> <!-- B -->
-  <col style="width:20mm"> <!-- C -->
+  <col style="width:3mm">  <!-- A -->
+  <col style="width:25mm"> <!-- B -->
+  <col style="width:auto"> <!-- C (akan meregang menyerap sisa ruang) -->
   <col style="width:10mm"> <!-- D -->
   <col style="width:11mm"> <!-- E -->
   <col style="width:6mm">  <!-- F -->
   <col style="width:5mm">  <!-- G -->
   <col style="width:4mm">  <!-- H -->
   <col style="width:6mm">  <!-- I -->
-  <col style="width:5mm">  <!-- J -->
+  <col style="width:3mm">  <!-- J -->
 </colgroup>
 
 <!-- ═══ R1 ═══: A1 bdr-TL | B1:C1="REV" cs2 bdr-T bold | D1:F1="NR" cs3 bdr-TB center | G1:J1="FM-QCA-18" cs4 bdr-TR bold right -->
 <tr>
-  <td style="height:4.59mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
+  <td style="height:4.59mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
   <td colspan="2" style="border-top:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">REV : 2/190916</td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
   <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">FM-QCA-18</td>
@@ -56,7 +56,7 @@ $displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
   <td style="height:3.83mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
   <td colspan="5" rowspan="5" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 200, '19mm') ?></td>
-  <td style="border-right:0.3mm solid #000;"></td>
+  <td style="border-right:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
 </tr>
 
 <!-- ═══ R3 ═══: A3 bdr-L | B3:D3="QC OK" cs3 bdr-BLR bold | (QR covered) | J3 bdr-R -->
@@ -105,7 +105,7 @@ $displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
 <!-- ═══ R9 ═══: A9 bdr-L | B9:I9=barcode cs8 bdr-BLR center | J9 bdr-LR -->
 <tr>
   <td style="height:6mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="8" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($itemCode, 5, 1.0) ?></td>
+  <td colspan="8" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($displayItemCode, 5, 1.0) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -184,7 +184,7 @@ $displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
 <!-- ═══ R19 ═══: A19 bdr-LR | (B-E covered barcode) | F19:G19="User" cs2 bdr-all center | H-I empty | J19 bdr-LR -->
 <tr>
   <td style="height:2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
   <td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>

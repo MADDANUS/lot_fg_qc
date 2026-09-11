@@ -60,29 +60,46 @@ foreach ($pages as $pgIdx => $pageLots):
     ?>
     <td style="width:95mm; padding-bottom:5mm;">
         <table style="width:95mm; height:55mm; border-collapse:collapse; border: 1px solid #000; font-size:12pt; margin: 0; table-layout:fixed;">
+            <colgroup>
+                <col style="width:7mm">
+                <col style="width:25mm">
+                <col style="width:22mm">
+                <col style="width:3mm">
+                <col style="width:auto">
+                <col style="width:7mm">
+            </colgroup>
             <tr>
                 <!-- Top margin for QR is 18mm, so this row is 18mm high -->
-                <td colspan="3" style="height:18mm; vertical-align:top; text-align:center; font-weight:bold; font-size:18pt; padding-top:5mm; padding-bottom:0; margin:0;">
+                <td colspan="6" style="height:18mm; vertical-align:top; text-align:center; font-weight:bold; font-size:16pt; padding-top:5mm; padding-bottom:0; margin:0;">
                     LOT CARD
                 </td>
             </tr>
             <tr>
-                <!-- Left margin 5mm (0.5cm) -->
-                <td style="width:5mm; height:25mm; padding:0; margin:0;"></td>
+                <!-- Left margin 7mm (0.7cm) -->
+                <td rowspan="3" style="padding:0; margin:0; width:7mm;"><div style="width:7mm;"></div></td>
                 <!-- QR Code 25x25mm (margin 0 inside image so it fits exactly) -->
-                <td style="width:25mm; height:25mm; vertical-align:top; padding:0; margin:0;">
+                <td rowspan="3" style="vertical-align:top; padding:0; margin:0; width:25mm;">
                     <?= $qrCodeImg($qrData, 150, '25mm', 0) ?>
                 </td>
-                <!-- Right space 65mm. -->
-                <td style="width:65mm; vertical-align:top; padding:0; padding-top:2mm; padding-left:5mm; margin:0; line-height:1;">
-                    <div style="padding-bottom:7mm;">Suplier : 1001000</div>
-                    <div style="padding-bottom:7mm;">Part No : <?= esc($itemCode) ?></div>
-                    <div>Lot No &nbsp;: <?= esc($lotno) ?></div>
-                </td>
+                <td style="padding:0; padding-top:2mm; padding-left:5mm; padding-bottom:3mm; vertical-align:top;">Supplier</td>
+                <td style="padding:0; padding-top:2mm; padding-bottom:3mm; text-align:center; vertical-align:top;">:</td>
+                <td style="padding:0; padding-top:2mm; padding-bottom:3mm; vertical-align:top;">1001000</td>
+                <!-- Right margin 7mm (0.7cm) -->
+                <td rowspan="3" style="padding:0; margin:0; width:7mm;"><div style="width:7mm;"></div></td>
+            </tr>
+            <tr>
+                <td style="padding:0; padding-left:5mm; padding-bottom:3mm; vertical-align:top;">Part No</td>
+                <td style="padding:0; padding-bottom:3mm; text-align:center; vertical-align:top;">:</td>
+                <td style="padding:0; padding-bottom:3mm; vertical-align:top;"><?= esc($itemCode) ?></td>
+            </tr>
+            <tr>
+                <td style="padding:0; padding-left:5mm; vertical-align:top;">Lot No</td>
+                <td style="padding:0; text-align:center; vertical-align:top;">:</td>
+                <td style="padding:0; vertical-align:top;"><?= esc($lotno) ?></td>
             </tr>
             <tr>
                 <!-- Bottom margin: adjusted to 9mm so total height remains exactly 55mm -->
-                <td colspan="3" style="height:9mm; padding:0; margin:0;"></td>
+                <td colspan="6" style="height:9mm; padding:0; margin:0;"></td>
             </tr>
         </table>
     </td>

@@ -116,12 +116,13 @@ foreach ($groups as $gi => $group):
     $refNo         = $lot['ref_no']          ?? '';
     $lotQty        = (string)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? ''));
     $itemCode      = $lot['item_code']       ?? '';
+    $itemCodeLeft  = str_replace('-', '', $itemCode);
     $description   = $lot['description']     ?? '';
     $lotno         = $lot['lotno']           ?? $lotNoCombined;
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
+    $qrLeft  = implode('|', ["Z1{$itemCodeLeft}", "Z7015", "Z2{$lotno}", "Z3{$lotQty}", "Z4{$remark}", "Z5{$refNo}", "Z6"]);
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>

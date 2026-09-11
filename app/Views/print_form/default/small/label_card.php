@@ -11,21 +11,21 @@
 ?>
 <table style="width:70mm;min-width:70mm;max-width:70mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:7pt;">
 <colgroup>
-  <col style="width:3.7mm">  <!-- A -->
+  <col style="width:2mm">    <!-- A -->
   <col style="width:17mm">   <!-- B -->
-  <col style="width:14.7mm"> <!-- C -->
+  <col style="width:auto">   <!-- C -->
   <col style="width:7.4mm">  <!-- D -->
   <col style="width:8.1mm">  <!-- E -->
   <col style="width:4.4mm">  <!-- F -->
   <col style="width:3.7mm">  <!-- G -->
   <col style="width:2.9mm">  <!-- H -->
   <col style="width:4.4mm">  <!-- I -->
-  <col style="width:3.7mm">  <!-- J -->
+  <col style="width:2mm">    <!-- J -->
 </colgroup>
 
 <!-- R1 -->
 <tr>
-  <td style="height:4.2mm;border-top:0.2mm solid #000;border-left:0.2mm solid #000;"></td>
+  <td style="height:4.2mm;border-top:0.2mm solid #000;border-left:0.2mm solid #000;width:2mm;max-width:2mm;"><div style="width:2mm;"></div></td>
   <td colspan="2" style="border-top:0.2mm solid #000;padding:0.2mm 0.7mm;font-weight:bold;font-size:7pt;vertical-align:middle;">REV : 2/190916</td>
   <td colspan="3" style="border-top:0.2mm solid #000;border-bottom:0.2mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
   <td colspan="4" style="border-top:0.2mm solid #000;border-right:0.2mm solid #000;text-align:right;font-weight:bold;padding:0.2mm 0.7mm;font-size:7pt;vertical-align:middle;">FM-QCA-18</td>
@@ -35,7 +35,7 @@
   <td style="height:3.5mm;border-left:0.2mm solid #000;"></td>
   <td colspan="3" style="border-top:0.2mm solid #000;border-left:0.2mm solid #000;border-right:0.2mm solid #000;padding:0.2mm 0.7mm;font-weight:bold;font-size:7pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
   <td colspan="5" rowspan="5" style="border:0.2mm solid #000;text-align:center;vertical-align:middle;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 150, '15mm', 0) ?></td>
-  <td style="border-right:0.2mm solid #000;"></td>
+  <td style="border-right:0.2mm solid #000;width:2mm;max-width:2mm;"><div style="width:2mm;"></div></td>
 </tr>
 <!-- R3 -->
 <tr>
@@ -146,7 +146,7 @@
 <!-- R19 -->
 <tr>
   <td style="height:3.3mm;border-left:0.2mm solid #000;border-right:0.2mm solid #000;"></td>
-  <td colspan="2" style="border:0.2mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="2" style="border:0.6mm solid #000;text-align:center;font-size:7pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
   <td></td><td></td>
   <td style="border-left:0.2mm solid #000;border-right:0.2mm solid #000;"></td>
 </tr>

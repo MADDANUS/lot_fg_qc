@@ -11,25 +11,25 @@
 ?>
 <table style="width:95mm;min-width:95mm;max-width:95mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:9pt;">
 <colgroup>
-  <col style="width:5mm">  <!-- A: spacer border kiri -->
+  <col style="width:3mm">  <!-- A: spacer border kiri -->
   <col style="width:19mm"> <!-- B -->
-  <col style="width:19mm"> <!-- C -->
+  <col style="width:auto"> <!-- C (akan meregang menyerap sisa ruang) -->
   <col style="width:12mm"> <!-- D -->
   <col style="width:9mm">  <!-- E -->
   <col style="width:6mm">  <!-- F -->
   <col style="width:6mm">  <!-- G -->
   <col style="width:7mm">  <!-- H -->
   <col style="width:7mm">  <!-- I -->
-  <col style="width:5mm">  <!-- J: spacer border kanan -->
+  <col style="width:3mm">  <!-- J: spacer border kanan -->
 </colgroup>
 
 <!-- R1: REV / NR / FM-QCA-18 -->
 <tr>
-  <td style="height:5mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
+  <td style="height:5mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
   <td colspan="2" style="border-top:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">REV : 2/190916</td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
   <td colspan="3" style="border-top:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">FM-QCA-18</td>
-  <td style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
+  <td style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
 </tr>
 
 <!-- R2: PT. NIHON SEIKI | QR besar (rowspan 4: R2–R5) -->
@@ -130,7 +130,7 @@
 <tr>
   <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>QTY :</b> <?= esc($lotQty) ?></td>
-  <td colspan="5" style="border:0.3mm solid #000;text-align:center;font-size:10pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="5" style="border:0.8mm solid #000;text-align:center;font-size:10pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 

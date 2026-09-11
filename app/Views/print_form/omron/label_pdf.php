@@ -67,6 +67,28 @@ $fmtDate = function (?string $d): string {
     return $ts ? date('d-M-Y', $ts) : $d;
 };
 
+// ── Helper: Omron QR Format (Mendekati Sistem Lama) ────────────────────────
+$generateOmronQr = function($lot, $header, $displayDate, $randomRefNo) {
+    $kode_supplier = "I01041";
+    // Menghapus huruf dan spasi di belakang part no untuk QR Code
+    $no_omron = preg_replace('/[a-zA-Z\s]+$/', '', $lot['item_code'] ?? '');
+    $y = (int)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? 0));
+    $qty_str = sprintf("%08d", $y);
+    $ts = strtotime($displayDate);
+    $mfgdate2 = $ts ? date('dmy', $ts) : '';
+    $cavity = $lot['cavity'] ?? '';
+    if (trim($cavity) === '') {
+        $cavity = $header['omron_cavity'] ?? '';
+    }
+    $machine = $header['machine'] ?? '';
+    $dieno = '-    ';
+    $shift = $header['omron_shift'] ?? $header['shift_id'] ?? '';
+    $uniq1 = strtoupper(substr($randomRefNo, -8));
+    $lotno = $lot['lotno'] ?? ($lot['lot_no_combined'] ?? '');
+    $lotno_str = sprintf("% 25s", $lotno);
+    return $kode_supplier . $no_omron . $qty_str . $mfgdate2 . $cavity . "  " . $machine . $dieno . $shift . $uniq1 . $lotno_str;
+};
+
 // ── Variabel dari Header ───────────────────────────────────────────────────────
 $productName  = $header['product_name']    ?? '';
 $dateMode     = $header['date_mode']       ?? 'production_date';
@@ -145,9 +167,9 @@ if ($omronLabelType === 'outer'):
           $dieNo         = $lot['die_no']          ?? '';
           $dwgNo         = $lot['dwg_no']          ?? '';
           $cavity        = $lot['cavity']          ?? '';
-          $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
-          $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
           $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
+          $qrLeft  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
+          $qrRight = $qrLeft;
           ?>
           <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include __DIR__ . '/outer.php'; ?></td>
           <td style="width:5mm;padding:0;border:none;"></td>
@@ -167,9 +189,9 @@ if ($omronLabelType === 'outer'):
               $dieNo         = $lot['die_no']          ?? '';
               $dwgNo         = $lot['dwg_no']          ?? '';
               $cavity        = $lot['cavity']          ?? '';
-              $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
-              $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
               $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
+              $qrLeft  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
+              $qrRight = $qrLeft;
           ?>
           <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include __DIR__ . '/outer.php'; ?></td>
           <?php else: ?>
@@ -199,13 +221,15 @@ if ($omronLabelType === 'outer'):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrLeft  = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
-    $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+    $qrRightOriginal = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
     $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
+    $qrOmronLong  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>
+  <?php $qrRight = $qrRightOriginal; // Left template uses $qrRight ?>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $leftTpl; ?></td>
   <td style="width:5mm;padding:0;border:none;"></td>
+  <?php $qrLeft = $qrOmronLong; $qrRight = $qrOmronLong; // Right template uses both ?>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $rightTpl; ?></td>
 </tr></table>
 <?php if ($pi < count($group) - 1): ?>

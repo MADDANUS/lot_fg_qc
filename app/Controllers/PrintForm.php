@@ -118,6 +118,12 @@ class PrintForm extends Controller
     {
         $request = $this->request;
 
+        $extractId = function($val) {
+            if (!$val) return null;
+            $parts = explode(' - ', $val);
+            return trim($parts[0]);
+        };
+
         $headerData = [
             'doc_number'      => $request->getPost('doc_number'),
             'customer'        => $request->getPost('customer'),
@@ -126,11 +132,11 @@ class PrintForm extends Controller
             'date_mode'       => $request->getPost('date_mode'),
             'production_date' => $request->getPost('production_date') ?: null,
             'job_order'       => $request->getPost('job_order') ?: null,
-            'shift_id'        => $request->getPost('shift_id') ?: null,
+            'shift_id'        => $extractId($request->getPost('shift_id')),
             'line_mode'       => $request->getPost('line_mode'),
-            'line_id'         => $request->getPost('line_id') ?: null,
-            'mold_id'         => $request->getPost('mold_id') ?: null,
-            'cavity_id'       => $request->getPost('cavity_id') ?: null,
+            'line_id'         => $extractId($request->getPost('line_id')),
+            'mold_id'         => $extractId($request->getPost('mold_id')),
+            'cavity_id'       => $extractId($request->getPost('cavity_id')),
             'from_series'     => strtoupper((string) $request->getPost('from_series')),
             'remark'          => $request->getPost('remark'),
             'user_initial'    => strtoupper((string) $request->getPost('user_initial')),
@@ -165,9 +171,20 @@ class PrintForm extends Controller
             $rules['from_series']  = 'required|max_length[4]';
         }
         
-        // Custom Omron Outer rules
-        if (stripos($headerData['customer'], 'OMRON') !== false && ($headerData['omron_label_type'] ?? 'inner') === 'outer') {
-            unset($rules['user_initial']);
+        // Custom Omron rules
+        $isOmron = stripos($headerData['customer'], 'OMRON') !== false;
+        if ($isOmron) {
+            $labelType = $headerData['omron_label_type'] ?? 'inner';
+            if ($labelType === 'outer') {
+                unset($rules['user_initial']);
+                $rules['production_date'] = 'required';
+                $rules['machine']         = 'required';
+                $rules['notification']    = 'required';
+            } else {
+                // Inner
+                $rules['machine']      = 'required';
+                $rules['user_initial'] = 'required|max_length[10]';
+            }
         }
 
         // Custom Mitsuba rules
@@ -176,6 +193,40 @@ class PrintForm extends Controller
         }
 
         $headerModel->setValidationRules($rules);
+
+        $messages = [
+            'doc_number' => [
+                'required' => 'Kolom "Doc Number" wajib diisi.',
+                'max_length' => 'Kolom "Doc Number" maksimal 50 karakter.',
+            ],
+            'product_name' => [
+                'required' => 'Kolom "Product Name" wajib dipilih.',
+                'in_list' => 'Pilihan "Product Name" tidak valid.',
+            ],
+            'date_mode' => [
+                'required' => 'Mode tanggal wajib dipilih.',
+            ],
+            'line_mode' => [
+                'required' => 'Mode line wajib dipilih.',
+            ],
+            'from_series' => [
+                'required' => 'Kolom "From Series" wajib diisi.',
+            ],
+            'production_date' => [
+                'required' => 'Kolom "Production Date" wajib diisi.',
+            ],
+            'machine' => [
+                'required' => 'Kolom "Machine" wajib diisi.',
+            ],
+            'notification' => [
+                'required' => 'Kolom "Notification" wajib dipilih.',
+            ],
+            'user_initial' => [
+                'required' => 'Kolom "User Initial Name" wajib diisi.',
+                'max_length' => 'Kolom "User Initial Name" terlalu panjang.',
+            ],
+        ];
+        $headerModel->setValidationMessages($messages);
 
         if (! $headerModel->validate($headerData)) {
             return $this->response->setJSON([
@@ -427,8 +478,12 @@ class PrintForm extends Controller
 
         // -- Tentukan template sesuai size_mode --
         $sizeMode = strtolower(str_replace(['/', ' ', '-'], '', $header['size_mode'] ?? 'medium'));
+        $isMitsuba = stripos($header['customer'] ?? '', 'MITSUBA') !== false;
 
-        if ($sizeMode === 'mediumepson') {
+        if ($isMitsuba) {
+            $tplView = 'print_form/mitsuba/label_pdf';
+            $perPage = 10;
+        } elseif ($sizeMode === 'mediumepson') {
             // Template lama: label kiri + kanan berdampingan
             $tplView    = 'print_form/epson/label_pdf';
             $perPage    = 3;  // 3 pasang per halaman

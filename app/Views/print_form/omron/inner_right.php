@@ -3,7 +3,7 @@
  * Omron Inner - Label Kanan
  * Lebar: 95mm, Tinggi: 80mm
  */
-$displayItemCode = strlen($itemCode) > 0 ? substr($itemCode, 0, -1) : '';
+$displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
 ?>
 <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:8pt;">
 <colgroup>

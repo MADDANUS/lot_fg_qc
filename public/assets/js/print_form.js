@@ -94,6 +94,7 @@ $(function () {
         $('.epson-only').hide();
         $('.omron-only').hide();
         $('.omron-extra-fields').hide();
+        $('.production-date-container').hide();
         $('.user-initial-container').show();
         $('.user-initial-container').css('display', 'flex');
         
@@ -102,6 +103,8 @@ $(function () {
         if (isEpson) {
             $('.epson-only').show(); // show defaults to original display
             $('.epson-only').css('display', 'flex'); // force flex
+            $('.production-date-container').show();
+            $('.production-date-container').css('display', 'flex');
             $('#size_mode').html('<option value="Medium/Epson" selected>Medium/Epson</option>');
             
             // Pindahkan User Initial Name ke bawah Remark (kolom tengah)
@@ -202,6 +205,30 @@ $(function () {
      * ------------------------------------------------------------------ */
     function applyTableRules() {
         const isOmronOuter = $('#omron_outer').is(':checked') && $('.omron-only').css('display') !== 'none';
+        const isOmronInner = $('#omron_inner').is(':checked') && $('.omron-only').css('display') !== 'none';
+        
+        $('.col-postingdate').hide(); // sembunyikan default
+        
+        // Handle Tanggal PDO vs original Doc Date
+        if (isOmronInner) {
+            const pdo = $('#doc_date').data('tanggal-pdo');
+            if (pdo) $('#doc_date').val(pdo);
+            
+            $('#tableItems tbody tr').each(function() {
+                const $rowDate = $(this).find('[data-field="doc_date"]');
+                const pdoRow = $rowDate.data('tanggal-pdo');
+                if (pdoRow) $rowDate.val(pdoRow);
+            });
+        } else {
+            const orig = $('#doc_date').data('original-doc-date');
+            if (orig) $('#doc_date').val(orig);
+            
+            $('#tableItems tbody tr').each(function() {
+                const $rowDate = $(this).find('[data-field="doc_date"]');
+                const origRow = $rowDate.data('original-doc-date');
+                if (origRow) $rowDate.val(origRow);
+            });
+        }
         
         if (isOmronOuter) {
             $('#dataGridContainer').hide();
@@ -228,6 +255,10 @@ $(function () {
         } else {
             $('#dataGridContainer').show();
             $('#omronOuterForm').hide();
+            
+            if (isOmronInner) {
+                $('.col-postingdate').show();
+            }
             
             $('.col-whs, .col-backno, .col-operator').show();
             $('th.col-stdpack').text('Standard Pack');
@@ -331,7 +362,7 @@ $(function () {
         if (isOmronOuter) {
             const itemCode = $('#omron_item_code').val();
             if (!itemCode) {
-                alert('Silakan pilih Omron Item No terlebih dahulu.');
+                Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Silakan pilih Omron Item No terlebih dahulu.' });
                 // Return array kosong, nanti di-handle oleh validasi di bawah
                 return [];
             }
@@ -377,7 +408,7 @@ $(function () {
     $('#btnSearchDoc').on('click', function () {
         const docNumber = $('#doc_number').val().trim();
         if (!docNumber) {
-            alert('Doc Number wajib diisi.');
+            Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Doc Number wajib diisi.' });
             return;
         }
 
@@ -386,7 +417,7 @@ $(function () {
         $.post(BASE_URL + 'print-form/search-doc', { doc_number: docNumber }, null, 'json')
             .done(function (res) {
                 if (!res.success) {
-                    alert(res.message || 'Doc Number tidak ditemukan.');
+                    Swal.fire({ icon: 'warning', title: 'Perhatian', text: res.message || 'Doc Number tidak ditemukan.' });
                     // Reset customer dropdown ke semua customer
                     populateCustomerDropdown(allCustomers);
                     return;
@@ -396,7 +427,11 @@ $(function () {
                 // Production Date di form tetap sebagai tanggal cetak (tidak di-overwrite)
                 if (res.doc_date) {
                     $('#doc_date').val(res.doc_date);
+                    $('#doc_date').data('original-doc-date', res.doc_date);
                 }
+                
+                const tanggalPdo = (res.items && res.items.length > 0) ? res.items[0]['Tanggal PDO'] : '';
+                $('#doc_date').data('tanggal-pdo', tanggalPdo);
 
                 // 2. Filter dropdown Customer berdasarkan ItemCode yang ditemukan
                 const itemCodes = res.item_codes || [];
@@ -443,7 +478,12 @@ $(function () {
                         back_no      : item.U_MIS_BackNo,
                         standard_pack: stdPack,
                         operator     : item.U_MIS_Operator,
+                        doc_date     : item.DocDate ? item.DocDate.substring(0, 10) : '',
                     }, true); // parameter `true` untuk mengunci kolom selain qty & stdPack
+                    
+                    const $lastRowDate = $('#tableItems tbody tr:last-child').find('[data-field="doc_date"]');
+                    $lastRowDate.data('original-doc-date', item.DocDate ? item.DocDate.substring(0, 10) : '');
+                    $lastRowDate.data('tanggal-pdo', item['Tanggal PDO'] ? item['Tanggal PDO'].substring(0, 10) : '');
                 });
 
                 // 4. Isi dropdown Omron Outer Form
@@ -477,7 +517,7 @@ $(function () {
                 applyTableRules();
             })
             .fail(function () {
-                alert('Gagal menghubungi server. Cek koneksi / konfigurasi database pusat.');
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Gagal menghubungi server. Cek koneksi / konfigurasi database pusat.' });
             })
             .always(function () {
                 $btn.prop('disabled', false).text('Cari');
@@ -551,12 +591,78 @@ $(function () {
         const parsedItems = JSON.parse(payload.items);
         if (parsedItems.length === 0) {
             if (isOmronOuter && !$('#omron_item_code').val()) {
-                alert('GAGAL DISIMPAN: Silakan pilih "Item No Omron" di form bagian bawah terlebih dahulu!');
+                Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'GAGAL DISIMPAN: Silakan pilih "Item No Omron" di form bagian bawah terlebih dahulu!' });
             } else {
-                alert('Silakan centang minimal 1 baris data yang ingin dicetak.');
+                Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Silakan centang minimal 1 baris data yang ingin dicetak.' });
             }
             if (typeof onAlways === 'function') onAlways();
             return;
+        }
+
+        const showError = (msg) => {
+            if (window.Swal) {
+                Swal.fire({ icon: 'warning', title: 'Perhatian', text: msg });
+            } else {
+                alert(msg);
+            }
+            if (typeof onAlways === 'function') onAlways();
+        };
+
+        // Validasi Umum (Berlaku untuk semua jenis label)
+        if (!$('#customer').val()) {
+            showError('Customer wajib dipilih sebelum mencetak atau menyimpan!');
+            return;
+        }
+
+        const isOmronInner = $('#omron_inner').is(':checked') && $('.omron-only').css('display') !== 'none';
+        if (isOmronInner) {
+            if (!payload.user_initial) {
+                showError('Kolom "User Initial Name" wajib diisi untuk Omron Inner.');
+                return;
+            }
+            if (!payload.machine) {
+                showError('Kolom "Machine" wajib diisi untuk Omron Inner.');
+                return;
+            }
+        }
+
+        if (isOmronOuter) {
+            if (!payload.production_date) {
+                showError('Kolom "Production Date" wajib diisi untuk Omron Outer.');
+                return;
+            }
+            if (!payload.machine) {
+                showError('Kolom "Machine" wajib diisi untuk Omron Outer.');
+                return;
+            }
+            if (!payload.notification) {
+                showError('Kolom "Notification" wajib diisi untuk Omron Outer.');
+                return;
+            }
+            
+            if (parsedItems.length > 0) {
+                const item = parsedItems[0];
+                if (!item.item_code) {
+                    showError('Kolom "Item No Omron" wajib dipilih.');
+                    return;
+                }
+                if (!item.description) {
+                    showError('Kolom "Item Name" wajib diisi.');
+                    return;
+                }
+                if (!item.standard_pack) {
+                    showError('Kolom "Qty in Carton" wajib diisi.');
+                    return;
+                }
+                if (!item.lotno) {
+                    showError('Kolom "Lot No" wajib diisi.');
+                    return;
+                }
+                if (!item.quantity) {
+                    showError('Kolom "Quantity" wajib diisi.');
+                    return;
+                }
+            }
         }
 
         $.post(BASE_URL + 'print-form/store', payload)
@@ -564,29 +670,25 @@ $(function () {
                 if (!res.success) {
                     let msg = res.message || 'Gagal menyimpan.';
                     if (res.errors) msg += '\n' + Object.values(res.errors).join('\n');
-                    alert(msg);
+                    Swal.fire({ icon: 'error', title: 'Gagal', text: msg });
                     if (typeof onError === 'function') onError();
                     return;
                 }
-                // Jika Omron: tampilkan notifikasi sukses, tidak buka PDF
+                
                 if (res.omron_saved) {
-                    const typeLabel = res.label_type === 'outer' ? 'Outer' : 'Inner';
-                    const msg = `✅ Data Omron ${typeLabel} berhasil disimpan (${res.saved_count} item)!\n\nBuka halaman Omron untuk mencetak massal.`;
-                    alert(msg);
+                    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Data berhasil disimpan', timer: 2000, showConfirmButton: false });
                     return;
                 }
-                
-                // Jika Mitsuba: tampilkan notifikasi sukses, tidak buka PDF
+
                 if (res.mitsuba_saved) {
-                    const msg = `✅ Data Mitsuba berhasil disimpan (${res.saved_count} item)!\n\nBuka halaman Mitsuba untuk mencetak massal.`;
-                    alert(msg);
+                    Swal.fire({ icon: 'success', title: 'Berhasil', text: 'Data berhasil disimpan', timer: 2000, showConfirmButton: false });
                     return;
                 }
 
                 if (typeof onSuccess === 'function') onSuccess(res.header_id);
             })
             .fail(function () {
-                alert('Gagal menghubungi server.');
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Gagal menghubungi server.' });
                 if (typeof onError === 'function') onError();
             })
             .always(function () {

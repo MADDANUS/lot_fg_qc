@@ -3,6 +3,7 @@
  * Omron Outer - Label Utuh
  * Lebar: 95mm, Tinggi: 80mm
  */
+$displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
 ?>
 <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:8pt;">
 <colgroup>
@@ -44,12 +45,12 @@
     <table style="margin:auto; border:none; border-collapse:collapse;">
       <tr>
         <td style="border:none; text-align:center; padding:0;">
-          <?= $barcodeSvg($itemCode, 5) ?>
+          <?= $barcodeSvg($displayItemCode, 5) ?>
         </td>
       </tr>
       <tr>
         <td style="border:none; text-align:center; padding-top:1.5mm; color:#000;">
-          <?= esc($itemCode) ?>
+          <?= esc($displayItemCode) ?>
         </td>
       </tr>
     </table>

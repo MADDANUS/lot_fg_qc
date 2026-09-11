@@ -11,7 +11,8 @@ class MitsubaLabelModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-
+    protected $protectFields    = true;
+    
     protected $allowedFields    = [
         'doc_number',
         'item_code',
@@ -21,10 +22,10 @@ class MitsubaLabelModel extends Model
         'machine',
         'operator',
         'is_printed',
-        'created_at'
     ];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = '';
+    protected $deletedField  = '';
 }

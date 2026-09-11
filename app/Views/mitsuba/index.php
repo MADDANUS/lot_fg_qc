@@ -1,36 +1,21 @@
 <?= $this->include('templates/header', ['title' => 'Mitsuba Saved Labels']) ?>
 
-<style>
-.mitsuba-container { max-width: 1200px; margin: 20px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 25px; }
-.mitsuba-title { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 5px; }
-.mitsuba-subtitle { font-size: 14px; color: #64748b; margin-bottom: 20px; }
-.action-bar { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-.btn-print-selected { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(59,130,246,0.3); }
-.btn-print-selected:hover { background: linear-gradient(135deg, #1e3a8a, #2563eb); transform: translateY(-1px); color: white; }
-.btn-delete-selected { background: white; color: #ef4444; border: 1px solid #fca5a5; padding: 8px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; margin-left: 10px; }
-.btn-delete-selected:hover { background: #fef2f2; border-color: #ef4444; color: #dc2626; }
-.selected-info { font-size: 14px; color: #64748b; font-weight: 500; }
-table.dataTable thead th { font-weight: 600; font-size: 13px; }
-table.dataTable td { font-size: 13px; vertical-align: middle; }
-</style>
+<div class="page-wrapper">
+<div class="global-container">
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-
-<div class="mitsuba-container">
-    <div class="mitsuba-title">🔖 Mitsuba Saved Labels</div>
-    <div class="mitsuba-subtitle">Kelola dan cetak massal dokumen Mitsuba yang telah disimpan.</div>
-
-    <div class="action-bar">
+    <div class="card-header-bar">
         <div>
-            <button class="btn-print-selected" id="btnPrintMitsuba" onclick="batchPrint()">
-                👁️ Preview Selected
-            </button>
-            <button class="btn-delete-selected" id="btnDeleteMitsuba" onclick="deleteSelected()">
-                🗑️ Delete Selected
-            </button>
+            <div class="page-title"><span class="title-icon">🔖</span> Mitsuba Saved Labels</div>
+            <div class="page-subtitle">Kelola dan cetak massal dokumen Mitsuba yang telah disimpan.</div>
         </div>
-        <span class="selected-info" id="infoMitsuba">0 dipilih</span>
     </div>
+
+    <div class="card-body-pad">
+        <div class="action-bar">
+            <button class="btn-print-selected" id="btnPrintMitsuba" onclick="batchPrint()">🖨️ Print Label</button>
+            <button class="btn-delete-selected" id="btnDeleteMitsuba" onclick="deleteSelected()">🗑️ Delete</button>
+            <span class="selected-info" id="infoMitsuba">0 dipilih</span>
+        </div>
 
     <table id="tableMitsuba" class="table table-hover table-bordered w-100" style="font-size:13px;">
         <thead class="table-info">
@@ -46,7 +31,11 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
         </thead>
         <tbody></tbody>
     </table>
-</div>
+    </div><!-- /card-body-pad -->
+</div><!-- /global-container -->
+</div><!-- /page-wrapper -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
 <?= $this->include('templates/footer') ?>
 
@@ -56,18 +45,18 @@ table.dataTable td { font-size: 13px; vertical-align: middle; }
 const BASE_URL = '<?= base_url() ?>';
 
 const dtMitsuba = $('#tableMitsuba').DataTable({
-    ajax: { url: BASE_URL + 'mitsuba/data', type: 'POST', dataSrc: 'data' },
+    ajax: { url: BASE_URL + 'mitsuba/data', dataSrc: 'data' },
     columns: [
         {
             data: 'id',
             render: (d) => `<input type="checkbox" class="chk-mitsuba" value="${d}" onchange="updateInfo()">`
         },
-        { data: 'doc_number' },
-        { data: 'item_code' },
-        { data: 'description' },
-        { data: 'quantity' },
-        { data: 'lotno' },
-        { data: 'created_at' },
+        { data: 'doc_number', defaultContent: '-' },
+        { data: 'item_code', defaultContent: '-' },
+        { data: 'description', defaultContent: '-' },
+        { data: 'quantity', defaultContent: '0' },
+        { data: 'lotno', defaultContent: '-' },
+        { data: 'created_at', defaultContent: '-' },
     ],
     order: [[6, 'desc']],
     pageLength: 25,
@@ -113,7 +102,7 @@ function batchPrint() {
         })
         .fail(function() { alert('Gagal menghubungi server.'); })
         .always(function() {
-            $('#btnPrintMitsuba').prop('disabled', false).html('👁️ Preview Selected');
+            $('#btnPrintMitsuba').prop('disabled', false).html('Print Label');
         });
 }
 

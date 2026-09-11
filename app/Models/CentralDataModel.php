@@ -55,6 +55,7 @@ class CentralDataModel
                 'U_MIS_BackNo'    => 'BN-99',
                 'U_MIS_StdPacking'=> '500',
                 'U_MIS_Operator'  => '890',
+                'Tanggal PDO'     => date('Y-m-d'),
             ],
             [
                 'DocNum'          => $docNumber,
@@ -67,6 +68,7 @@ class CentralDataModel
                 'U_MIS_BackNo'    => 'BN-98',
                 'U_MIS_StdPacking'=> '500',
                 'U_MIS_Operator'  => '890',
+                'Tanggal PDO'     => date('Y-m-d'),
             ],
         ];
     }
@@ -151,10 +153,12 @@ class CentralDataModel
                     T1.[WhsCode],
                     T2.[U_MIS_BackNo],
                     T2.[U_MIS_StdPacking],
-                    T0.[U_MIS_Operator]
+                    T0.[U_MIS_Operator],
+                    T3.[PostDate] as 'Tanggal PDO'
                 FROM OIGN T0
                 INNER JOIN IGN1 T1 ON T0.[DocEntry] = T1.[DocEntry]
                 INNER JOIN OITM T2 ON T1.[ItemCode]  = T2.[ItemCode]
+                INNER JOIN OWOR T3 ON T1.[BaseRef] = T3.[DocNum]
                 WHERE T0.[DocNum] = ?
             ";
 
