@@ -80,9 +80,24 @@ $generateOmronQr = function($lot, $header, $displayDate, $randomRefNo) {
     if (trim($cavity) === '') {
         $cavity = $header['omron_cavity'] ?? '';
     }
+    if (trim($cavity) === '') {
+        $cavity = '-';
+    }
     $machine = $header['machine'] ?? '';
-    $dieno = '-    ';
-    $shift = $header['omron_shift'] ?? $header['shift_id'] ?? '';
+    $machine = $header['machine'] ?? '';
+    $dieno_val = $lot['die_no'] ?? '';
+    if (trim($dieno_val) === '') {
+        $dieno_val = $header['die_no'] ?? '';
+    }
+    if (trim($dieno_val) === '') {
+        $dieno = '-    ';
+    } else {
+        $dieno = str_pad(substr(trim($dieno_val), 0, 5), 5, ' ', STR_PAD_RIGHT);
+    }
+    $shift = trim($header['omron_shift'] ?? $header['shift_id'] ?? '');
+    if ($shift === '') {
+        $shift = '1';
+    }
     $uniq1 = strtoupper(substr($randomRefNo, -8));
     $lotno = $lot['lotno'] ?? ($lot['lot_no_combined'] ?? '');
     $lotno_str = sprintf("% 25s", $lotno);
@@ -167,7 +182,9 @@ if ($omronLabelType === 'outer'):
           $dieNo         = $lot['die_no']          ?? '';
           $dwgNo         = $lot['dwg_no']          ?? '';
           $cavity        = $lot['cavity']          ?? '';
-          $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
+          $uniq          = strtoupper(substr(uniqid(), -13));
+          $refNo         = 'IT1' . $uniq;
+          $randomRefNo   = strtoupper(substr(uniqid(), -8));
           $qrLeft  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
           $qrRight = $qrLeft;
           ?>
@@ -189,7 +206,9 @@ if ($omronLabelType === 'outer'):
               $dieNo         = $lot['die_no']          ?? '';
               $dwgNo         = $lot['dwg_no']          ?? '';
               $cavity        = $lot['cavity']          ?? '';
-              $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
+              $uniq          = strtoupper(substr(uniqid(), -13));
+              $refNo         = 'IT1' . $uniq;
+              $randomRefNo   = strtoupper(substr(uniqid(), -8));
               $qrLeft  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
               $qrRight = $qrLeft;
           ?>
@@ -221,8 +240,13 @@ if ($omronLabelType === 'outer'):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrRightOriginal = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
-    $randomRefNo   = \App\Helpers\LabelHelper::generateRefNo(8);
+    $dieNo         = $lot['die_no']          ?? '';
+    $dwgNo         = $lot['dwg_no']          ?? '';
+    $cavity        = $lot['cavity']          ?? '';
+    $uniq          = strtoupper(substr(uniqid(), -13));
+    $refNo         = 'IT1' . $uniq;
+    $randomRefNo   = strtoupper(substr(uniqid(), -8));
+    $qrRightOriginal = implode(',', [$itemCode, $lotno, $lotQty, $refNo]);
     $qrOmronLong  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>

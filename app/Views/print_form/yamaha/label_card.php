@@ -130,7 +130,7 @@
 <tr>
   <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>QTY :</b> <?= esc($lotQty) ?></td>
-  <td colspan="5" style="border:0.8mm solid #000;text-align:center;font-size:10pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="5" style="border:0.3mm solid #000;text-align:center;font-size:10pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 

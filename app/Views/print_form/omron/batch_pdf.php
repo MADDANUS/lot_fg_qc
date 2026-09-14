@@ -53,6 +53,37 @@ $fmtDate = function (?string $d): string {
     return $ts ? date('d-M-Y', $ts) : $d;
 };
 
+// ── Helper: Omron QR Format (Mendekati Sistem Lama) ────────────────────────
+$generateOmronQr = function($lot, $displayDate, $randomRefNo) {
+    $kode_supplier = "I01041";
+    // Menghapus huruf dan spasi di belakang part no untuk QR Code
+    $no_omron = preg_replace('/[a-zA-Z\s]+$/', '', $lot['item_code'] ?? '');
+    $y = (int)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? 0));
+    $qty_str = sprintf("%08d", $y);
+    $ts = strtotime($displayDate);
+    $mfgdate2 = $ts ? date('dmy', $ts) : '';
+    $cavity = $lot['cavity'] ?? '';
+    if (trim($cavity) === '') {
+        $cavity = '-';
+    }
+    // Dalam batch (dari DB) tidak ada $header, jadi gunakan lot
+    $machine = $lot['machine'] ?? '';
+    $dieno_val = $lot['die_no'] ?? '';
+    if (trim($dieno_val) === '') {
+        $dieno = '-    ';
+    } else {
+        $dieno = str_pad(substr(trim($dieno_val), 0, 5), 5, ' ', STR_PAD_RIGHT);
+    }
+    $shift = trim($lot['shift_id'] ?? '');
+    if ($shift === '') {
+        $shift = '1';
+    }
+    $uniq1 = strtoupper(substr($randomRefNo, -8));
+    $lotno = $lot['lotno'] ?? ($lot['lot_no_combined'] ?? '');
+    $lotno_str = sprintf("% 25s", $lotno);
+    return $kode_supplier . $no_omron . $qty_str . $mfgdate2 . $cavity . "  " . $machine . $dieno . $shift . $uniq1 . $lotno_str;
+};
+
 // ── Template path ───────────────────────────────────────────────────────
 $tplRight = __DIR__ . '/inner_right.php';
 $tplOuter = __DIR__ . '/outer.php';
@@ -103,15 +134,19 @@ if ($type === 'inner'):
             $backNo      = $lot['back_no'] ?? '';
             $operator    = $lot['operator'] ?? '';
             $warehouse   = $lot['whs_code'] ?? '';
-            $refNo       = \App\Helpers\LabelHelper::generateRefNo();
-            $randomRefNo = \App\Helpers\LabelHelper::generateRefNo(8);
-            $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
-            $qrRight     = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+            $uniq          = strtoupper(substr(uniqid(), -13));
+            $refNo         = 'IT1' . $uniq;
+            $randomRefNo   = strtoupper(substr(uniqid(), -8));
+            $cleanItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
+            $qrRightOriginal = implode(',', [$itemCode, $lotno, $lotQty, $refNo]);
+            $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);
 ?>
 <table style="width:195mm;border-collapse:separate;border:none;">
   <tr>
+    <?php $qrRight = $qrRightOriginal; ?>
     <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplLeft; ?></td>
     <td style="width:5mm;padding:0;border:none;"></td>
+    <?php $qrLeft = $qrOmronLong; $qrRight = $qrOmronLong; ?>
     <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplRight; ?></td>
   </tr>
 </table>
@@ -147,10 +182,13 @@ else:
             $backNo      = $lot['back_no'] ?? '';
             $operator    = $lot['operator'] ?? '';
             $warehouse   = $lot['whs_code'] ?? '';
-            $refNo       = \App\Helpers\LabelHelper::generateRefNo();
-            $randomRefNo = \App\Helpers\LabelHelper::generateRefNo(8);
-            $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
-            $qrRight     = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+            $uniq          = strtoupper(substr(uniqid(), -13));
+            $refNo         = 'IT1' . $uniq;
+            $randomRefNo   = strtoupper(substr(uniqid(), -8));
+            $cleanItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
+            $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);
+            $qrLeft      = $qrOmronLong;
+            $qrRight     = $qrOmronLong;
 ?>
 <table style="width:195mm;border-collapse:separate;border:none;"><tr>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplOuter; ?></td>
@@ -166,6 +204,7 @@ else:
                 $notification= $lot['notification']  ?? '';
                 $remark      = $lot['remark']        ?? '';
                 $docNumber   = $lot['doc_number']    ?? '';
+                $customer    = $lot['customer'] ?? ($header['customer'] ?? 'PT. OMRON MANUFACTURING OF INDONESIA');
                 $displayDate = $fmtDate($lot['production_date'] ?? null) ?: $fmtDate($lot['doc_date'] ?? null);
                 $monthYear   = $lot['doc_date'] ? date('M-y', strtotime($lot['doc_date'])) : date('M-y');
                 $dieNo       = $lot['die_no'] ?? '';
@@ -174,10 +213,13 @@ else:
                 $backNo      = $lot['back_no'] ?? '';
                 $operator    = $lot['operator'] ?? '';
                 $warehouse   = $lot['whs_code'] ?? '';
-                $refNo       = \App\Helpers\LabelHelper::generateRefNo();
-                $randomRefNo = \App\Helpers\LabelHelper::generateRefNo(8);
-                $qrLeft      = implode('|', [$itemCode, $lotno, $lotQty, $remark, $refNo]);
-                $qrRight     = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
+                $uniq          = strtoupper(substr(uniqid(), -13));
+                $refNo         = 'IT1' . $uniq;
+                $randomRefNo   = strtoupper(substr(uniqid(), -8));
+                $cleanItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
+                $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);
+                $qrLeft      = $qrOmronLong;
+                $qrRight     = $qrOmronLong;
             ?>
   <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplOuter; ?></td>
 <?php       else: ?>

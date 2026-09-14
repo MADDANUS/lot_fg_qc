@@ -104,18 +104,18 @@ $displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
 
 <!-- Row 7: Headers for table -->
 <tr>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; font-weight:bold;">Dwg No.</td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; font-weight:bold; white-space:nowrap;">Dwg No.</td>
   <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; font-weight:bold;">Mfg. Date</td>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; font-weight:bold;">Dies No</td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; font-weight:bold; white-space:nowrap;">Dies No</td>
   <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; font-weight:bold;">Cav</td>
 </tr>
 
 <!-- Row 8: Values for table -->
 <tr>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;">-</td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($dwgNo) ?></td>
   <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($displayDate) ?></td>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;">-</td>
-  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;">-</td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($dieNo) ?: '-' ?></td>
+  <td style="border-right:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt;"><?= esc($cavity) ?: '-' ?></td>
 </tr>
 
 <!-- Row 9: Empty row to fill space -->

@@ -422,7 +422,9 @@ class PrintForm extends Controller
                     'back_no'         => $item['back_no']       ?? null,
                     'standard_pack'   => $standardPack,
                     'operator'        => $item['operator']      ?? null,
-                    'ref_no'          => LabelHelper::generateRefNo(),
+                    'ref_no'          => (stripos($headerData['customer'] ?? '', 'OMRON') !== false) 
+                                         ? 'IT1' . LabelHelper::generateHexRefNo(13) 
+                                         : LabelHelper::generateRefNo(),
                     'lot_no_combined' => LabelHelper::generateLotNo(
                         dateStr:    $headerData['production_date'] ?? '',
                         dateMode:   $headerData['date_mode'] ?? 'production_date',

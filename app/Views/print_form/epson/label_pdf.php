@@ -56,7 +56,7 @@ $qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm
 $fmtDate = function (?string $d): string {
     if (!$d) return '';
     $ts = strtotime($d);
-    return $ts ? date('d-M-Y', $ts) : $d;
+    return $ts ? date('d M Y', $ts) : $d;
 };
 
 // ── Variabel dari Header ───────────────────────────────────────────────────────
@@ -88,7 +88,7 @@ $qrSize   = match(true) {
 
 $dtWib         = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
 $now           = $dtWib->format('d/m/Y H:i');
-$printDateLong = $dtWib->format('d-M-Y');
+$printDateLong = $dtWib->format('d M Y');
 
 // ── Path partial templates ─────────────────────────────────────────────────────
 $leftTpl   = __DIR__ . '/label_left.php';
@@ -122,7 +122,7 @@ foreach ($groups as $gi => $group):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $qrLeft  = implode('|', ["Z1{$itemCodeLeft}", "Z7015", "Z2{$lotno}", "Z3{$lotQty}", "Z4{$remark}", "Z5{$refNo}", "Z6"]);
+    $qrLeft  = implode('|', ["Z1{$itemCodeLeft}", "Z7015", "Z2{$lotNoCombined}", "Z3{$lotQty}", "Z4{$remark}", "Z5{$refNo}", "Z6"]);
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>

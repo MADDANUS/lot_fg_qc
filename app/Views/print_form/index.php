@@ -186,7 +186,7 @@
                     </div>
                     <div class="row-item">
                         <span style="width:60px; margin-right:10px;" class="radio-lbl">Shift</span>
-                        <input type="text" class="fi" id="omron_shift" name="omron_shift" list="omron_shift_list" style="width:150px;" autocomplete="off">
+                        <input type="text" class="fi" id="omron_shift" name="omron_shift" list="omron_shift_list" value="1" style="width:150px;" autocomplete="off">
                         <datalist id="omron_shift_list">
                             <?php foreach ($shifts as $s): ?>
                                 <option value="<?= esc($s['shift_name']) ?>"></option>
@@ -253,7 +253,7 @@
                 <div class="col-md-6">
                     <div class="row-item"><label class="lbl-omron">Production Date</label><input type="date" class="fi flex-grow-1" id="omron_production_date"></div>
                     <div class="row-item"><label class="lbl-omron">DWG No.</label><input type="text" class="fi flex-grow-1" id="omron_dwg_no" readonly style="background:#f3f4f6;"></div>
-                    <div class="row-item"><label class="lbl-omron fw-bold">Shift</label><input type="text" class="fi flex-grow-1" id="omron_outer_shift" list="omron_shift_list" autocomplete="off"></div>
+                    <div class="row-item"><label class="lbl-omron fw-bold">Shift</label><input type="text" class="fi flex-grow-1" id="omron_outer_shift" list="omron_shift_list" value="1" autocomplete="off"></div>
                     <div class="row-item"><label class="lbl-omron">Machine</label><input type="text" class="fi flex-grow-1" id="omron_machine" list="omron_machine_list" autocomplete="off"></div>
                     <div class="row-item"><label class="lbl-omron">Qty in Carton</label><input type="text" class="fi flex-grow-1" id="omron_qty_carton" readonly style="background:#f3f4f6;"></div>
                 </div>

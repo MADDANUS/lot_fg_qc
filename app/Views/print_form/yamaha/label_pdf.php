@@ -51,7 +51,7 @@ $qrCodeImg = function (string $data, int $sizePx = 65, string $displayMm = '19mm
 $fmtDate = function (?string $d): string {
     if (!$d) return '';
     $ts = strtotime($d);
-    return $ts ? date('d-M-Y', $ts) : $d;
+    return $ts ? date('d M Y', $ts) : $d;
 };
 
 // ── Variabel dari Header ─────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ $qrSize       = 65;
 
 $dtWib         = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
 $now           = $dtWib->format('d/m/Y H:i');
-$printDateLong = $dtWib->format('d-M-Y');
+$printDateLong = $dtWib->format('d M Y');
 
 $cardTpl = __DIR__ . '/label_card.php';
 

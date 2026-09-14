@@ -56,7 +56,7 @@ foreach ($pages as $pgIdx => $pageLots):
     <?php foreach ($rowLots as $colIdx => $lot): 
         $itemCode = $lot['item_code'] ?? '';
         $lotno    = $lot['lotno'] ?? '';
-        $qrData   = implode(',', ['1001000', $itemCode, $lotno]);
+        $qrData   = implode('', ['1001000', $itemCode, $lotno]);
     ?>
     <td style="width:95mm; padding-bottom:5mm;">
         <table style="width:95mm; height:55mm; border-collapse:collapse; border: 1px solid #000; font-size:12pt; margin: 0; table-layout:fixed;">
@@ -82,19 +82,19 @@ foreach ($pages as $pgIdx => $pageLots):
                     <?= $qrCodeImg($qrData, 150, '25mm', 0) ?>
                 </td>
                 <td style="padding:0; padding-top:2mm; padding-left:5mm; padding-bottom:3mm; vertical-align:top;">Supplier</td>
-                <td style="padding:0; padding-top:2mm; padding-bottom:3mm; text-align:center; vertical-align:top;">:</td>
+                <td style="padding:0; padding-top:2mm; padding-bottom:3mm; text-align:center; vertical-align:top;">&nbsp;:&nbsp;</td>
                 <td style="padding:0; padding-top:2mm; padding-bottom:3mm; vertical-align:top;">1001000</td>
                 <!-- Right margin 7mm (0.7cm) -->
                 <td rowspan="3" style="padding:0; margin:0; width:7mm;"><div style="width:7mm;"></div></td>
             </tr>
             <tr>
                 <td style="padding:0; padding-left:5mm; padding-bottom:3mm; vertical-align:top;">Part No</td>
-                <td style="padding:0; padding-bottom:3mm; text-align:center; vertical-align:top;">:</td>
+                <td style="padding:0; padding-bottom:3mm; text-align:center; vertical-align:top;">&nbsp;:&nbsp;</td>
                 <td style="padding:0; padding-bottom:3mm; vertical-align:top;"><?= esc($itemCode) ?></td>
             </tr>
             <tr>
                 <td style="padding:0; padding-left:5mm; vertical-align:top;">Lot No</td>
-                <td style="padding:0; text-align:center; vertical-align:top;">:</td>
+                <td style="padding:0; text-align:center; vertical-align:top;">&nbsp;:&nbsp;</td>
                 <td style="padding:0; vertical-align:top;"><?= esc($lotno) ?></td>
             </tr>
             <tr>

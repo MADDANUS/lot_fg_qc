@@ -102,7 +102,7 @@ function batchPrint() {
         })
         .fail(function() { alert('Gagal menghubungi server.'); })
         .always(function() {
-            $('#btnPrintMitsuba').prop('disabled', false).html('Print Label');
+            $('#btnPrintMitsuba').prop('disabled', false).html('🖨️ Print Label');
         });
 }
 

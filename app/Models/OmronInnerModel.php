@@ -13,6 +13,7 @@ class OmronInnerModel extends Model
 
     protected $allowedFields = [
         'doc_number',
+        'ref_no',
         'doc_date',
         'item_code',
         'description',

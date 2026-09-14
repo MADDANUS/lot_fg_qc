@@ -30,6 +30,20 @@ class LabelHelper
     }
 
     /**
+     * Generate Ref No: karakter random UPPERCASE hexadecimal (A-F, 0-9).
+     */
+    public static function generateHexRefNo(int $length = 8): string
+    {
+        $chars  = 'ABCDEF0123456789';
+        $result = '';
+        $max    = strlen($chars) - 1;
+        for ($i = 0; $i < $length; $i++) {
+            $result .= $chars[random_int(0, $max)];
+        }
+        return $result;
+    }
+
+    /**
      * Generate Lot No kombinasi untuk label kiri.
      *
      * Format: 015 + YYMD_atau_YYMDD + ShiftID + LineID_atau_MoldCavityID + FromSeries

@@ -444,8 +444,8 @@ legend.groupbox-legend {
     position: relative;
     bottom: -1px;
 }
-.tab-btn.active-inner { background: #fff; color: #1d4ed8; border-color: #bfdbfe; border-bottom-color: #fff; }
-.tab-btn.active-outer { background: #fff; color: #b45309; border-color: #fde68a; border-bottom-color: #fff; }
+.tab-btn.active-inner { background: #1e40af; color: #ffffff; border-color: #1e40af; }
+.tab-btn.active-outer { background: #d97706; color: #ffffff; border-color: #d97706; }
 .tab-content-pane { display: none; }
 .tab-content-pane.active { display: block; }
 

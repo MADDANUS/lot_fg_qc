@@ -126,6 +126,7 @@ class Omron extends Controller
                     'lot_qty'       => $lotQty,
                     'lot_sequence'  => $seq,
                     'omron_label_type' => $type,
+                    'ref_no'        => 'IT1' . \App\Helpers\LabelHelper::generateHexRefNo(13),
                 ]);
             }
         }
