@@ -58,16 +58,55 @@
             <i class="bi bi-printer"></i>
             <span class="pill-text">Form Print</span>
         </a>
+
+        <?php if (session()->get('role') === 'admin'): ?>
         <a href="<?= base_url('master') ?>" class="nav-pill">
             <i class="bi bi-database"></i>
             <span class="pill-text">Master Data</span>
         </a>
+        <?php endif; ?>
+
         <a href="<?= base_url('omron') ?>" class="nav-pill nav-pill-amber">
             🔖 <span class="pill-text">History Omron</span>
         </a>
         <a href="<?= base_url('mitsuba') ?>" class="nav-pill nav-pill-green">
             🔖 <span class="pill-text">History Mitsuba</span>
         </a>
+
+        <?php if (session()->get('role') === 'admin'): ?>
+        <a href="<?= base_url('users') ?>" class="nav-pill nav-pill-purple">
+            <i class="bi bi-people"></i>
+            <span class="pill-text">Master User</span>
+        </a>
+        <?php endif; ?>
+
+        <!-- User Info + Logout -->
+        <div style="
+            display:flex; align-items:center; gap:6px;
+            margin-left:10px; padding-left:10px;
+            border-left:1px solid rgba(255,255,255,0.1);
+        ">
+            <div style="
+                width:28px; height:28px; border-radius:50%;
+                background:<?= session()->get('role') === 'admin' ? 'linear-gradient(135deg,#3b82f6,#6366f1)' : 'linear-gradient(135deg,#10b981,#059669)' ?>;
+                display:flex; align-items:center; justify-content:center;
+                font-size:11px; font-weight:700; color:#fff; flex-shrink:0;
+            ">
+                <?= strtoupper(substr(session()->get('username') ?? 'U', 0, 1)) ?>
+            </div>
+            <div style="line-height:1.2;">
+                <div style="font-size:12px; font-weight:600; color:#e2e8f0; white-space:nowrap; max-width:100px; overflow:hidden; text-overflow:ellipsis;">
+                    <?= esc(session()->get('full_name') ?? session()->get('username') ?? 'User') ?>
+                </div>
+                <div style="font-size:10px; color:<?= session()->get('role') === 'admin' ? '#818cf8' : '#34d399' ?>; font-weight:500; text-transform:uppercase; letter-spacing:0.5px;">
+                    <?= esc(session()->get('role') ?? 'user') ?>
+                </div>
+            </div>
+            <a href="<?= base_url('logout') ?>" class="nav-pill nav-pill-logout" title="Logout" style="margin-left:4px; padding:5px 10px;">
+                <i class="bi bi-box-arrow-right"></i>
+                <span class="pill-text">Logout</span>
+            </a>
+        </div>
     </div>
 </nav>
 
@@ -89,6 +128,10 @@
 .nav-pill-amber:hover { color: #fef3c7; background: rgba(251,191,36,0.18); }
 .nav-pill-green { color: #34d399; background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.2); }
 .nav-pill-green:hover { color: #d1fae5; background: rgba(52,211,153,0.18); }
+.nav-pill-purple { color: #a78bfa; background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.2); }
+.nav-pill-purple:hover { color: #ddd6fe; background: rgba(167,139,250,0.18); }
+.nav-pill-logout { color: #f87171; background: rgba(248,113,113,0.08); border-color: rgba(248,113,113,0.15); }
+.nav-pill-logout:hover { color: #fecaca; background: rgba(248,113,113,0.18); text-decoration: none; }
 </style>
 
 <!-- page content goes here, NO wrapper div so each page controls its own layout -->
