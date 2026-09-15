@@ -246,7 +246,7 @@ if ($omronLabelType === 'outer'):
     $uniq          = strtoupper(substr(uniqid(), -13));
     $refNo         = 'IT1' . $uniq;
     $randomRefNo   = strtoupper(substr(uniqid(), -8));
-    $qrRightOriginal = implode(',', [$itemCode, $lotno, $lotQty, $refNo]);
+    $qrRightOriginal = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
     $qrOmronLong  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;"><tr>

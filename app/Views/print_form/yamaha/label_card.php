@@ -36,7 +36,12 @@
 <tr>
   <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
-  <td colspan="5" rowspan="5" style="border:0.3mm solid #000;text-align:center;vertical-align:top;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 200, '22mm') ?></td>
+  <td colspan="5" rowspan="5" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0.5mm;">
+    <div style="line-height:0.5;">
+        <?= str_replace('style="', 'style="margin-bottom:-1mm; ', $qrCodeImg($qrRight, 200, '22mm', 0)) ?><br>
+        <span style="font-size:7.5pt;font-weight:bold;line-height:1;">QR NSI</span>
+    </div>
+  </td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -143,7 +148,7 @@
   </td>
   <td colspan="4" rowspan="3" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0.5mm;">
     <?= $qrCodeImg($qrBottom, 120, '18mm', 0) ?>
-    <div style="font-size:6pt;font-weight:bold;margin-top:0.5mm;line-height:1.2;">QRCODE YAMAHA</div>
+    <div style="font-size:6pt;font-weight:bold;margin-top:0.5mm;line-height:1.2;">QR YAMAHA</div>
   </td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>

@@ -48,7 +48,7 @@
 <!-- R4: A4 bdr-L | B4:C4=itemCode(cs2) | D-F empty | G4 bdr-R -->
 <tr>
   <td style="height:2.7mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($itemCodeLeft) ?></td>
+  <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;font-family: consolas, monospace;"><?= esc($itemCodeLeft) ?></td>
   <td></td><td></td><td></td>
   <td colspan="2" rowspan="7" text-rotate="90" style="border-right:0.3mm solid #000;text-align:right;vertical-align:bottom;font-size:6pt;padding:1mm;">1.5.6786.18740</td>
 </tr>
@@ -63,7 +63,7 @@
 <!-- R6: A6 bdr-L | B6:C6=lotNo text(cs2) | D-F empty | G6 bdr-R -->
 <tr>
   <td style="height:2.7mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($lotNoCombined) ?></td>
+  <td colspan="2" style="padding:0.2mm 0.5mm;font-size:9pt;font-family: consolas, monospace;"><?= esc($lotNoCombined) ?></td>
   <td></td><td></td><td></td>
 </tr>
 
@@ -77,7 +77,7 @@
 <!-- R8: A8 bdr-L | B8=qty text | C-F empty | G8 bdr-R -->
 <tr>
   <td style="height:2.92mm;border-left:0.3mm solid #000;"></td>
-  <td style="padding:0.2mm 0.5mm;font-size:9pt;"><?= esc($lotQty) ?></td>
+  <td style="padding:0.2mm 0.5mm;font-size:9pt;font-family: consolas, monospace;"><?= esc($lotQty) ?></td>
   <td></td><td></td><td></td><td></td>
 </tr>
 
@@ -91,7 +91,7 @@
 <!-- R10: A10 bdr-L | B10:C11=refNo(cs2,rs2,center) | D-F empty | G10 bdr-R -->
 <tr>
   <td style="height:1.12mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="2" rowspan="2" style="text-align:center;vertical-align:middle;font-size:9pt;padding:0.2mm;"><?= esc($refNo) ?></td>
+  <td colspan="2" rowspan="2" style="text-align:center;vertical-align:middle;font-size:9pt;padding:0.2mm;font-family: consolas, monospace;"><?= esc($refNo) ?></td>
   <td></td><td></td><td></td>
 </tr>
 

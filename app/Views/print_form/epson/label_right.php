@@ -28,7 +28,7 @@
  *   B20:C20(cs2)
  */
 ?>
-<table style="width:95mm;min-width:95mm;max-width:95mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:9pt;">
+<table style="width:95mm;min-width:95mm;max-width:95mm;height:67mm;min-height:67mm;max-height:67mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:9pt;">
 <colgroup>
   <col style="width:3mm">  <!-- A -->
   <col style="width:25mm"> <!-- B -->

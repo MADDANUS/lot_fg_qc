@@ -520,7 +520,18 @@ class PrintForm extends Controller
 
         // -- Generate PDF dengan mPDF --
         try {
+            $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+            $fontDirs = $defaultConfig['fontDir'];
+            $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+            $fontData = $defaultFontConfig['fontdata'];
+            $fontData['consolas'] = [
+                'R' => 'consola.ttf',
+                'B' => 'consolab.ttf',
+            ];
+
             $mpdf = new \Mpdf\Mpdf([
+                'fontDir'           => array_merge($fontDirs, [ 'C:\Windows\Fonts' ]),
+                'fontdata'          => $fontData,
                 'mode'              => 'utf-8',
                 'format'            => 'A4',
                 'orientation'       => 'P',

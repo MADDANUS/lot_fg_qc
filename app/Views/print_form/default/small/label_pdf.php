@@ -1,9 +1,9 @@
 <?php
 /**
  * Default Small — PDF Wrapper
- * Layout: 3 kolom × 2 baris = 6 label per halaman A4
+ * Layout: 2 kolom × 4 baris = 8 label per halaman A4
  * Urutan: kiri → kanan → baris bawah kiri (row-major)
- * Ukuran label: 70mm × 62mm
+ * Ukuran label: 71mm × 68mm
  *
  * Variabel dari controller: $header, $lots, $shiftName, $grid
  */
@@ -64,10 +64,10 @@ $now           = $dtWib->format('d/m/Y H:i');
 $printDateLong = $dtWib->format('d-M-Y');
 
 $cardTpl      = __DIR__ . '/label_card.php';
-$cols         = 3;    // 3 kolom per baris
-$rowsPerPage  = 2;    // 2 baris per halaman
-$perPage      = $cols * $rowsPerPage; // 6 label per halaman
-$gapCol       = '5mm';
+$cols         = 2;    // 2 kolom per baris
+$rowsPerPage  = 4;    // 4 baris per halaman
+$perPage      = $cols * $rowsPerPage; // 8 label per halaman
+$gapCol       = '10mm';
 $gapRow      = '5mm';
 ?>
 <!DOCTYPE html>
@@ -87,12 +87,12 @@ foreach ($pages as $pageIdx => $pageLots):
 ?>
 <?php if ($pageIdx > 0): ?><pagebreak><?php endif; ?>
 <div style="margin:0;padding:0;">
-<table style="width:210mm;table-layout:fixed;border-collapse:collapse;border:none;">
+<table style="width:152mm;table-layout:fixed;border-collapse:collapse;border:none;">
 <?php foreach ($rows as $rowIdx => $rowLots): ?>
 <?php if ($rowIdx > 0): ?><tr><td colspan="<?= ($cols * 2) - 1 ?>" style="height:<?= $gapRow ?>;border:none;"></td></tr><?php endif; ?>
 <tr>
 <?php for ($colIdx = 0; $colIdx < $cols; $colIdx++): ?>
-<?php if ($colIdx > 0): ?><td style="width:5mm;border:none;"></td><?php endif; ?>
+<?php if ($colIdx > 0): ?><td style="width:<?= $gapCol ?>;border:none;"></td><?php endif; ?>
 <?php if (isset($rowLots[$colIdx])): 
     $lot = $rowLots[$colIdx];
     $lotNoCombined = $lot['lot_no_combined'] ?? '';
@@ -106,11 +106,11 @@ foreach ($pages as $pageIdx => $pageLots):
     $operator      = $lot['operator']        ?? '';
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
-<td style="width:70mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>
+<td style="width:71mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>
 <?php else: ?>
-<td style="width:70mm;padding:0;vertical-align:top;border:none;">
+<td style="width:71mm;padding:0;vertical-align:top;border:none;">
     <!-- Tabel dummy agar mPDF tetap mengalokasikan / memeras ukuran kolom ini sama persis dengan kolom yang ada isinya -->
-    <table style="width:70mm;min-width:70mm;max-width:70mm;border-collapse:collapse;border:none;"><tr><td style="border:none;">&nbsp;</td></tr></table>
+    <table style="width:71mm;min-width:71mm;max-width:71mm;border-collapse:collapse;border:none;"><tr><td style="border:none;">&nbsp;</td></tr></table>
 </td>
 <?php endif; ?>
 <?php endfor; ?>
