@@ -25,7 +25,12 @@ class Master extends Controller
      */
     public function index()
     {
-        return view('master/index');
+        $users = [];
+        if (session()->get('role') === 'admin') {
+            $userModel = new \App\Models\UserModel();
+            $users = $userModel->orderBy('id', 'ASC')->findAll();
+        }
+        return view('master/index', ['users' => $users]);
     }
 
     private function resolve(string $type)

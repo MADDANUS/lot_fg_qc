@@ -73,12 +73,7 @@
             🔖 <span class="pill-text">History Mitsuba</span>
         </a>
 
-        <?php if (session()->get('role') === 'admin'): ?>
-        <a href="<?= base_url('users') ?>" class="nav-pill nav-pill-purple">
-            <i class="bi bi-people"></i>
-            <span class="pill-text">Master User</span>
-        </a>
-        <?php endif; ?>
+
 
         <!-- User Info + Logout -->
         <div style="

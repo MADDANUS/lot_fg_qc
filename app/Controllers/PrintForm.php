@@ -529,6 +529,9 @@ class PrintForm extends Controller
                 'B' => 'consolab.ttf',
             ];
 
+            $mLeft  = ($sizeMode === 'mediumepson') ? 0 : 5;
+            $mRight = ($sizeMode === 'mediumepson') ? 0 : 5;
+
             $mpdf = new \Mpdf\Mpdf([
                 'fontDir'           => array_merge($fontDirs, [ 'C:\Windows\Fonts' ]),
                 'fontdata'          => $fontData,
@@ -537,8 +540,8 @@ class PrintForm extends Controller
                 'orientation'       => 'P',
                 'margin_top'        => 5,
                 'margin_bottom'     => 5,
-                'margin_left'       => 5,
-                'margin_right'      => 5,
+                'margin_left'       => $mLeft,
+                'margin_right'      => $mRight,
                 'default_font_size' => $grid['font_size_pt'],
                 'default_font'      => 'dejavusans',
             ]);

@@ -15,6 +15,9 @@
             <li class="nav-item"><button class="nav-link" data-type="line" data-bs-toggle="tab" data-bs-target="#tab-line" type="button">Line / Machine</button></li>
             <li class="nav-item"><button class="nav-link" data-type="mold" data-bs-toggle="tab" data-bs-target="#tab-mold" type="button">Mold</button></li>
             <li class="nav-item"><button class="nav-link" data-type="cavity" data-bs-toggle="tab" data-bs-target="#tab-cavity" type="button">Cavity</button></li>
+            <?php if (session()->get('role') === 'admin'): ?>
+            <li class="nav-item"><button class="nav-link" data-type="user" data-bs-toggle="tab" data-bs-target="#tab-user" type="button">User</button></li>
+            <?php endif; ?>
         </ul>
 
         <div class="tab-content border border-top-0 p-3">
@@ -34,6 +37,12 @@
             <div class="tab-pane fade" id="tab-cavity">
                 <?= view('master/_tab', ['type' => 'cavity', 'label' => 'Cavity Name', 'manualId' => false]) ?>
             </div>
+            <!-- User -->
+            <?php if (session()->get('role') === 'admin'): ?>
+            <div class="tab-pane fade" id="tab-user">
+                <?= view('master/_tab_user', ['users' => $users ?? []]) ?>
+            </div>
+            <?php endif; ?>
         </div>
 
         <div class="text-end mt-3">

@@ -125,11 +125,14 @@ foreach ($groups as $gi => $group):
     $qrLeft  = implode('|', ["Z1{$itemCodeLeft}", "Z7015", "Z2{$lotNoCombined}", "Z3{$lotQty}", "Z4{$remark}", "Z5{$refNo}", "Z6"]);
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
-<table style="width:195mm;border-collapse:collapse;border:none;"><tr>
-  <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $leftTpl; ?></td>
-  <td style="width:5mm;padding:0;border:none;"></td>
-  <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $rightTpl; ?></td>
-</tr></table>
+<div style="width:209mm;">
+  <div style="float:left; width:7mm;">&nbsp;</div>
+  <div style="float:left; width:96mm;"><?php include $leftTpl; ?></div>
+  <div style="float:left; width:8mm;">&nbsp;</div>
+  <div style="float:left; width:94mm;"><?php include $rightTpl; ?></div>
+  <div style="float:left; width:4mm;">&nbsp;</div>
+  <div style="clear:both;"></div>
+</div>
 <?php if ($pi < count($group) - 1): ?>
 <div style="height:10mm;"></div>
 <?php endif; ?>

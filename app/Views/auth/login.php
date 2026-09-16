@@ -339,12 +339,120 @@
 
             const chars    = '01';
             const fontSize = 28;
-            const REPEL_RADIUS = 50;  // radius pengaruh kursor (px)
+            const REPEL_RADIUS = 30;  // radius pengaruh kursor (px)
             const REPEL_FORCE  = 30;   // kekuatan dorong
             let cols, rows, grid;
             let time = 0; // Waktu/offset untuk efek scrolling
             let snakes = []; // Ular yang memakan angka
             let dragons = []; // Naga raksasa
+
+            let currentFormIdx = 0;
+            const formations = ['grid', 'triangle', 'box', 'star'];
+
+            function pointInPolygon(point, vs) {
+                let x = point[0], y = point[1];
+                let inside = false;
+                for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                    let xi = vs[i][0], yi = vs[i][1];
+                    let xj = vs[j][0], yj = vs[j][1];
+                    let intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                    if (intersect) inside = !inside;
+                }
+                return inside;
+            }
+
+            function getPolygon(form, cx, cy, R) {
+                let vs = [];
+                if (form === 'triangle') {
+                    vs = [ [cx, cy - R], [cx + R, cy + R*0.8], [cx - R, cy + R*0.8] ];
+                } else if (form === 'box') {
+                    vs = [ [cx - R, cy - R], [cx + R, cy - R], [cx + R, cy + R], [cx - R, cy + R] ];
+                } else if (form === 'star') {
+                    for(let i = 0; i < 10; i++) {
+                        let r = (i % 2 === 0) ? R : R * 0.4;
+                        let a = (i * Math.PI / 5) - Math.PI / 2;
+                        vs.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
+                    }
+                }
+                return vs;
+            }
+
+            function changeFormation() {
+                if (!grid) return;
+                currentFormIdx = (currentFormIdx + 1) % formations.length;
+                const form = formations[currentFormIdx];
+                let N = cols * rows; 
+                
+                if (form === 'grid') {
+                    for (let x = 0; x < cols; x++) {
+                        for (let y = 0; y < rows; y++) {
+                            grid[x][y].baseX = grid[x][y].origBaseX;
+                            grid[x][y].baseY = grid[x][y].origBaseY;
+                        }
+                    }
+                    return;
+                }
+
+                let R = 75; // Ukuran setiap bentuk
+                let spacing = 220; // Jarak antar bentuk (berjejer)
+                let shapes = [];
+                
+                for (let cx = spacing/2; cx < canvas.width + spacing; cx += spacing) {
+                    for (let cy = spacing/2; cy < canvas.height + spacing; cy += spacing) {
+                        shapes.push(getPolygon(form, cx, cy, R));
+                    }
+                }
+
+                let tempSlots = [];
+                // Estimasi kepadatan titik agar pas
+                let d = (R * 2) / Math.sqrt((N * 1.5) / shapes.length); 
+                if (d < 5) d = 5;
+
+                shapes.forEach(vs => {
+                    let minX = vs[0][0], maxX = vs[0][0], minY = vs[0][1], maxY = vs[0][1];
+                    vs.forEach(v => {
+                        if (v[0] < minX) minX = v[0];
+                        if (v[0] > maxX) maxX = v[0];
+                        if (v[1] < minY) minY = v[1];
+                        if (v[1] > maxY) maxY = v[1];
+                    });
+                    
+                    for (let yy = minY; yy <= maxY; yy += d) {
+                        for (let xx = minX; xx <= maxX; xx += d) {
+                            if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy});
+                        }
+                    }
+                });
+
+                // Jika kurang, tambahkan random point ke shape secara acak
+                while (tempSlots.length < N) {
+                    let vs = shapes[Math.floor(Math.random() * shapes.length)];
+                    let minX = vs[0][0], maxX = vs[0][0], minY = vs[0][1], maxY = vs[0][1];
+                    vs.forEach(v => {
+                        if (v[0] < minX) minX = v[0];
+                        if (v[0] > maxX) maxX = v[0];
+                        if (v[1] < minY) minY = v[1];
+                        if (v[1] > maxY) maxY = v[1];
+                    });
+                    let xx = minX + Math.random() * (maxX - minX);
+                    let yy = minY + Math.random() * (maxY - minY);
+                    if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy});
+                }
+                
+                for (let i = tempSlots.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [tempSlots[i], tempSlots[j]] = [tempSlots[j], tempSlots[i]];
+                }
+
+                let slotIndex = 0;
+                for (let x = 0; x < cols; x++) {
+                    for (let y = 0; y < rows; y++) {
+                        grid[x][y].baseX = tempSlots[slotIndex].x;
+                        grid[x][y].baseY = tempSlots[slotIndex].y;
+                        slotIndex++;
+                    }
+                }
+            }
 
             let mouseX = -9999, mouseY = -9999;
             document.addEventListener('mousemove', function(e) {
@@ -356,7 +464,10 @@
                 mouseY = -9999;
             });
 
-            // Ledakan saat klik kiri pada background (canvas)
+            // Mencegah context menu klik kanan
+            window.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+            // Ledakan & Formasi saat klik pada background (canvas)
             canvas.addEventListener('mousedown', function(e) {
                 if (!grid) return;
                 const explosionForce = 1200; // Kekuatan ledakan
@@ -366,7 +477,9 @@
                         grid[x][y].vy = (Math.random() - 0.5) * explosionForce;
                     }
                 }
+                changeFormation();
             });
+
 
             // Warna yang lebih jelas untuk background (tidak terlalu transparan)
             const colors = [
@@ -381,6 +494,7 @@
                 // Tambahkan 2 baris ekstra agar saat di-scroll dan wrap tidak terlihat kosong di ujung
                 rows = Math.ceil(canvas.height / fontSize) + 2;
                 
+                currentFormIdx = 0;
                 grid = [];
                 for (let x = 0; x < cols; x++) {
                     grid[x] = [];
@@ -390,6 +504,8 @@
                             color: colors[Math.floor(Math.random() * colors.length)],
                             baseX: x * fontSize + (fontSize/2),
                             baseY: y * fontSize + (fontSize/2),
+                            origBaseX: x * fontSize + (fontSize/2),
+                            origBaseY: y * fontSize + (fontSize/2),
                             offsetX: 0,
                             offsetY: 0,
                             vx: 0,
@@ -439,7 +555,7 @@
                 for (let x = 0; x < cols; x++) {
                     // Kolom genap ke atas (-1), ganjil ke bawah (1)
                     const direction = (x % 2 === 0) ? -1 : 1;
-                    const scrollOffset = time * direction;
+                    const scrollOffset = (currentFormIdx === 0) ? (time * direction) : 0;
                     const gridHeight = rows * fontSize;
 
                     for (let y = 0; y < rows; y++) {
@@ -449,7 +565,9 @@
                         let currentBaseY = cell.baseY + scrollOffset;
                         
                         // Infinite wrap-around (gulungan tak berujung)
-                        currentBaseY = ((currentBaseY + fontSize) % gridHeight + gridHeight) % gridHeight - fontSize;
+                        if (currentFormIdx === 0) {
+                            currentBaseY = ((currentBaseY + fontSize) % gridHeight + gridHeight) % gridHeight - fontSize;
+                        }
                         
                         const dx = cell.baseX - mouseX;
                         const dy = currentBaseY - mouseY;
