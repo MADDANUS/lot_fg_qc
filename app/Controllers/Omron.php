@@ -17,14 +17,59 @@ class Omron extends Controller
         return view('omron/index');
     }
 
-    /**
-     * DataTables AJAX: Inner
-     */
     public function dataInner()
     {
-        $model = new OmronInnerModel();
-        $rows  = $model->orderBy('created_at', 'DESC')->findAll();
-        return $this->response->setJSON(['data' => $rows]);
+        $request = $this->request;
+        $start   = (int) ($request->getVar('start') ?? 0);
+        $length  = (int) ($request->getVar('length') ?? 25);
+        $search  = $request->getVar('search');
+        $searchVal = (is_array($search) && isset($search['value'])) ? $search['value'] : '';
+        $order   = $request->getVar('order') ?? [];
+        $columns = $request->getVar('columns') ?? [];
+        $draw    = (int) ($request->getVar('draw') ?? 1);
+
+        $model   = new OmronInnerModel();
+        $builder = $model->builder();
+
+        $recordsTotal = $builder->countAllResults(false);
+
+        if (!empty($searchVal)) {
+            $searchable = ['doc_number', 'item_code', 'description', 'lotno', 'doc_date'];
+            $builder->groupStart();
+            foreach ($searchable as $col) {
+                $builder->orLike($col, $searchVal);
+            }
+            $builder->groupEnd();
+        }
+
+        $recordsFiltered = $builder->countAllResults(false);
+
+        if (!empty($order)) {
+            $orderColIdx = $order[0]['column'];
+            $orderDir    = $order[0]['dir'];
+            if (isset($columns[$orderColIdx]['data'])) {
+                $orderColName = $columns[$orderColIdx]['data'];
+                $allowedSort  = ['id', 'doc_number', 'doc_date', 'item_code', 'description', 'quantity', 'standard_pack', 'lotno', 'created_at'];
+                if (in_array($orderColName, $allowedSort)) {
+                    $builder->orderBy($orderColName, $orderDir);
+                }
+            }
+        } else {
+            $builder->orderBy('created_at', 'DESC');
+        }
+
+        if ($length != -1) {
+            $builder->limit($length, $start);
+        }
+
+        $data = $builder->get()->getResultArray();
+
+        return $this->response->setJSON([
+            'draw'            => $draw,
+            'recordsTotal'    => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data'            => $data
+        ]);
     }
 
     /**
@@ -32,9 +77,57 @@ class Omron extends Controller
      */
     public function dataOuter()
     {
-        $model = new OmronOuterModel();
-        $rows  = $model->orderBy('created_at', 'DESC')->findAll();
-        return $this->response->setJSON(['data' => $rows]);
+        $request = $this->request;
+        $start   = (int) ($request->getVar('start') ?? 0);
+        $length  = (int) ($request->getVar('length') ?? 25);
+        $search  = $request->getVar('search');
+        $searchVal = (is_array($search) && isset($search['value'])) ? $search['value'] : '';
+        $order   = $request->getVar('order') ?? [];
+        $columns = $request->getVar('columns') ?? [];
+        $draw    = (int) ($request->getVar('draw') ?? 1);
+
+        $model   = new OmronOuterModel();
+        $builder = $model->builder();
+
+        $recordsTotal = $builder->countAllResults(false);
+
+        if (!empty($searchVal)) {
+            $searchable = ['doc_number', 'item_code', 'description', 'lotno', 'production_date', 'machine'];
+            $builder->groupStart();
+            foreach ($searchable as $col) {
+                $builder->orLike($col, $searchVal);
+            }
+            $builder->groupEnd();
+        }
+
+        $recordsFiltered = $builder->countAllResults(false);
+
+        if (!empty($order)) {
+            $orderColIdx = $order[0]['column'];
+            $orderDir    = $order[0]['dir'];
+            if (isset($columns[$orderColIdx]['data'])) {
+                $orderColName = $columns[$orderColIdx]['data'];
+                $allowedSort  = ['id', 'doc_number', 'production_date', 'item_code', 'description', 'quantity', 'lotno', 'machine', 'created_at'];
+                if (in_array($orderColName, $allowedSort)) {
+                    $builder->orderBy($orderColName, $orderDir);
+                }
+            }
+        } else {
+            $builder->orderBy('created_at', 'DESC');
+        }
+
+        if ($length != -1) {
+            $builder->limit($length, $start);
+        }
+
+        $data = $builder->get()->getResultArray();
+
+        return $this->response->setJSON([
+            'draw'            => $draw,
+            'recordsTotal'    => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data'            => $data
+        ]);
     }
 
     /**

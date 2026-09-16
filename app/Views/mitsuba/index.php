@@ -45,10 +45,14 @@
 const BASE_URL = '<?= base_url() ?>';
 
 const dtMitsuba = $('#tableMitsuba').DataTable({
-    ajax: { url: BASE_URL + 'mitsuba/data', dataSrc: 'data' },
+    processing: true,
+    serverSide: true,
+    ajax: { url: BASE_URL + 'mitsuba/data', type: 'GET', dataSrc: 'data' },
     columns: [
         {
             data: 'id',
+            orderable: false,
+            searchable: false,
             render: (d) => `<input type="checkbox" class="chk-mitsuba" value="${d}" onchange="updateInfo()">`
         },
         { data: 'doc_number', defaultContent: '-' },

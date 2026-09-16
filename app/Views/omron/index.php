@@ -161,10 +161,14 @@ function statusBadge(val) {
 
 // DataTable Inner
 const dtInner = $('#tableInner').DataTable({
-    ajax: { url: BASE_URL + 'omron/data/inner', dataSrc: 'data' },
+    processing: true,
+    serverSide: true,
+    ajax: { url: BASE_URL + 'omron/data/inner', type: 'GET', dataSrc: 'data' },
     columns: [
         {
             data: 'id',
+            orderable: false,
+            searchable: false,
             render: (d) => `<input type="checkbox" class="chk-inner" value="${d}" onchange="updateInfo('inner')">`
         },
         { data: 'doc_number', defaultContent: '-' },
@@ -176,7 +180,7 @@ const dtInner = $('#tableInner').DataTable({
         { data: 'lotno', defaultContent: '-' },
         { data: 'created_at', defaultContent: '-' },
     ],
-    order: [[7, 'desc']],
+    order: [[8, 'desc']],
     pageLength: 25,
     language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
 });
@@ -186,10 +190,14 @@ let dtOuter;
 window.outerLoaded = false;
 function loadOuter() {
     dtOuter = $('#tableOuter').DataTable({
-        ajax: { url: BASE_URL + 'omron/data/outer', dataSrc: 'data' },
+        processing: true,
+        serverSide: true,
+        ajax: { url: BASE_URL + 'omron/data/outer', type: 'GET', dataSrc: 'data' },
         columns: [
             {
                 data: 'id',
+                orderable: false,
+                searchable: false,
                 render: (d) => `<input type="checkbox" class="chk-outer" value="${d}" onchange="updateInfo('outer')">`
             },
             { data: 'doc_number', defaultContent: '-' },

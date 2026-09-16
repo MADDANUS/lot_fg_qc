@@ -332,18 +332,20 @@
     </div>
 
     <script>
-        // ── Matrix Code Rain with Cursor Repulsion ────────────────────────────
+        // ── Static Background Grid with Cursor Repulsion ─────────────────────────
         (function() {
             const canvas = document.getElementById('codeCanvas');
             const ctx    = canvas.getContext('2d');
 
             const chars    = '01';
-            const fontSize = 30;
-            const REPEL_RADIUS = 200;  // radius pengaruh kursor (px)
-            const REPEL_FORCE  = 50;  // kekuatan dorong
-            let cols, drops, offsets; // offsets = horizontal displacement per column
+            const fontSize = 28;
+            const REPEL_RADIUS = 50;  // radius pengaruh kursor (px)
+            const REPEL_FORCE  = 30;   // kekuatan dorong
+            let cols, rows, grid;
+            let time = 0; // Waktu/offset untuk efek scrolling
+            let snakes = []; // Ular yang memakan angka
+            let dragons = []; // Naga raksasa
 
-            // Track mouse position
             let mouseX = -9999, mouseY = -9999;
             document.addEventListener('mousemove', function(e) {
                 mouseX = e.clientX;
@@ -354,84 +356,398 @@
                 mouseY = -9999;
             });
 
+            // Ledakan saat klik kiri pada background (canvas)
+            canvas.addEventListener('mousedown', function(e) {
+                if (!grid) return;
+                const explosionForce = 1200; // Kekuatan ledakan
+                for (let x = 0; x < cols; x++) {
+                    for (let y = 0; y < rows; y++) {
+                        grid[x][y].vx = (Math.random() - 0.5) * explosionForce;
+                        grid[x][y].vy = (Math.random() - 0.5) * explosionForce;
+                    }
+                }
+            });
+
+            // Warna yang lebih jelas untuk background (tidak terlalu transparan)
+            const colors = [
+                'rgba(1, 6, 20, 1)', 'rgba(3, 1, 22, 1)', 
+                'rgba(4, 2, 26, 1)', 'rgba(2, 7, 22, 1)'
+            ];
+
             function resize() {
                 canvas.width  = window.innerWidth;
                 canvas.height = window.innerHeight;
-                cols    = Math.floor(canvas.width / fontSize);
-                // Spread drops randomly across the full screen height from the start
-                // so every column is already mid-stream — no waiting for drops to start
-                drops   = Array(cols).fill(0).map(() => Math.random() * (canvas.height / fontSize));
-                offsets = Array(cols).fill(0);
+                cols = Math.ceil(canvas.width / fontSize);
+                // Tambahkan 2 baris ekstra agar saat di-scroll dan wrap tidak terlihat kosong di ujung
+                rows = Math.ceil(canvas.height / fontSize) + 2;
+                
+                grid = [];
+                for (let x = 0; x < cols; x++) {
+                    grid[x] = [];
+                    for (let y = 0; y < rows; y++) {
+                        grid[x][y] = {
+                            char: chars[Math.floor(Math.random() * chars.length)],
+                            color: colors[Math.floor(Math.random() * colors.length)],
+                            baseX: x * fontSize + (fontSize/2),
+                            baseY: y * fontSize + (fontSize/2),
+                            offsetX: 0,
+                            offsetY: 0,
+                            vx: 0,
+                            vy: 0,
+                            hidden: 0 // Timer angka hilang karena dimakan
+                        };
+                    }
+                }
+
+                // Inisialisasi Ular (3 ekor)
+                snakes = [];
+                for(let i = 0; i < 3; i++) {
+                    snakes.push({
+                        segments: [],
+                        length: 20 + Math.random() * 30,
+                        speed: 3 + Math.random() * 2,
+                        angle: Math.random() * Math.PI * 2,
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height
+                    });
+                }
+
+                // Inisialisasi Naga (1 ekor raksasa)
+                dragons = [];
+                for(let i = 0; i < 1; i++) {
+                    dragons.push({
+                        segments: [],
+                        length: 60 + Math.random() * 20, // Lebih panjang
+                        speed: 4 + Math.random() * 1.5, // Sedikit lebih cepat
+                        angle: Math.random() * Math.PI * 2,
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        wingPhase: Math.random() * Math.PI * 2
+                    });
+                }
             }
 
-            const colors = [
-                '#1e3a8a', '#3730a3', '#4338ca', '#1d4ed8',
-                '#0369a1', '#0e7490', '#065f46', '#6366f1',
-            ];
-
             function draw() {
-                // Fade trail — lower = longer trail (light bg)
-                ctx.fillStyle = 'rgba(240, 244, 255, 0.06)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Bersihkan canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.font = (fontSize - 6) + 'px "Courier New", monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                time += 0.5; // Kecepatan gerak scrolling
 
-                ctx.font = fontSize + 'px "Courier New", monospace';
+                for (let x = 0; x < cols; x++) {
+                    // Kolom genap ke atas (-1), ganjil ke bawah (1)
+                    const direction = (x % 2 === 0) ? -1 : 1;
+                    const scrollOffset = time * direction;
+                    const gridHeight = rows * fontSize;
 
-                for (let i = 0; i < drops.length; i++) {
-                    const baseX = i * fontSize;
-                    const y     = drops[i] * fontSize;
+                    for (let y = 0; y < rows; y++) {
+                        const cell = grid[x][y];
+                        
+                        // Kalkulasi pergeseran ke atas/bawah
+                        let currentBaseY = cell.baseY + scrollOffset;
+                        
+                        // Infinite wrap-around (gulungan tak berujung)
+                        currentBaseY = ((currentBaseY + fontSize) % gridHeight + gridHeight) % gridHeight - fontSize;
+                        
+                        const dx = cell.baseX - mouseX;
+                        const dy = currentBaseY - mouseY;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    // ── Cursor repulsion calculation ──
-                    const dx   = baseX - mouseX;
-                    const dy   = y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < REPEL_RADIUS && dist > 0) {
-                        // Smooth falloff: stronger when closer
-                        const force = (1 - dist / REPEL_RADIUS) * REPEL_FORCE;
-                        offsets[i] += (dx / dist) * force;
-                    }
-
-                    // Smoothly return offset to 0 (spring back)
-                    offsets[i] *= 0.88;
-
-                    const x = baseX + offsets[i];
-
-                    const char  = chars[Math.floor(Math.random() * chars.length)];
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-
-                    // Head character — dark on light bg
-                    if (y > 0) {
-                        // Glow effect near cursor
-                        if (dist < REPEL_RADIUS) {
-                            ctx.fillStyle = 'rgba(30, 58, 138, 1)';
-                            ctx.shadowColor = '#6366f1';
-                            ctx.shadowBlur = 8;
+                        if (dist < REPEL_RADIUS && dist > 0) {
+                            // Menghindar dari kursor (menambah kecepatan)
+                            const force = Math.pow(1 - dist / REPEL_RADIUS, 2) * REPEL_FORCE;
+                            cell.vx += (dx / dist) * force;
+                            cell.vy += (dy / dist) * force;
+                            
+                            // Highlight warna saat dekat kursor
+                            ctx.fillStyle = 'rgba(30, 58, 138, 0.6)';
                         } else {
-                            ctx.fillStyle = 'rgba(30, 58, 138, 0.85)';
-                            ctx.shadowBlur = 0;
+                            ctx.fillStyle = cell.color;
                         }
-                        ctx.fillText(char, x, y);
-                        ctx.shadowBlur = 0;
 
-                        // Trailing char slightly dimmer
-                        ctx.fillStyle = color;
-                        ctx.fillText(
-                            chars[Math.floor(Math.random() * chars.length)],
-                            x, y - fontSize
-                        );
-                    }
+                        // Fisika Pegas (Spring & Friction) untuk efek Slow-Mo
+                        const spring = 0.003;   // Tarikan kembali sangat lemah (lambat)
+                        const friction = 0.92;  // Gesekan rendah agar melayang lebih lama
 
-                    // Reset drop immediately — no random delay — for continuous flow
-                    if (y > canvas.height) {
-                        drops[i] = 0;
+                        // Tarik perlahan ke posisi awal (0 offset)
+                        cell.vx -= cell.offsetX * spring;
+                        cell.vy -= cell.offsetY * spring;
+
+                        // Terapkan gesekan
+                        cell.vx *= friction;
+                        cell.vy *= friction;
+                        
+                        // Update posisi offset lenturan
+                        cell.offsetX += cell.vx;
+                        cell.offsetY += cell.vy;
+
+                        const realX = cell.baseX + cell.offsetX;
+                        const realY = currentBaseY + cell.offsetY;
+
+                        // Deteksi interaksi dimakan ular
+                        for (let s of snakes) {
+                            if (s.segments.length === 0) continue;
+                            const head = s.segments[s.segments.length - 1];
+                            const d = Math.hypot(realX - head.x, realY - head.y);
+                            if (d < 25) { // Radius gigitan ular
+                                cell.hidden = 150 + Math.random() * 150; 
+                                if (s.length < 150) s.length += 0.3; 
+                                break;
+                            }
+                        }
+
+                        // Deteksi interaksi dimakan naga
+                        for (let d of dragons) {
+                            if (d.segments.length === 0) continue;
+                            const head = d.segments[d.segments.length - 1];
+                            const dist = Math.hypot(realX - head.x, realY - head.y);
+                            if (dist < 45) { // Radius gigitan naga (jauh lebih besar)
+                                cell.hidden = 250 + Math.random() * 200; // Hilang lebih lama
+                                if (d.length < 250) d.length += 0.5; // Naga memanjang
+                                break;
+                            }
+                        }
+
+                        // Jika dimakan, lewati proses render karakter
+                        if (cell.hidden > 0) {
+                            cell.hidden--;
+                            continue;
+                        }
+
+                        // Ubah karakter secara acak sesekali agar terlihat hidup
+                        if (Math.random() < 0.005) {
+                            cell.char = chars[Math.floor(Math.random() * chars.length)];
+                        }
+
+                        // Gambar teks di posisi dasar + scroll + efek lenturan
+                        ctx.fillText(cell.char, realX, realY);
                     }
-                    drops[i] += 0.2 + Math.random() * 0.1;
                 }
+
+                // --- UPDATE & RENDER ULAR ---
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                
+                for (let s of snakes) {
+                    // Ular berbelok acak
+                    s.angle += (Math.random() - 0.5) * 0.4;
+                    s.x += Math.cos(s.angle) * s.speed;
+                    s.y += Math.sin(s.angle) * s.speed;
+                    
+                    // Wrapping ular di pinggir layar
+                    if (s.x < 0) s.x += canvas.width;
+                    if (s.x > canvas.width) s.x -= canvas.width;
+                    if (s.y < 0) s.y += canvas.height;
+                    if (s.y > canvas.height) s.y -= canvas.height;
+                    
+                    s.segments.push({x: s.x, y: s.y});
+                    if (s.segments.length > s.length) {
+                        s.segments.shift(); // Hapus ekor
+                    }
+                    
+                    // --- RENDER CYBER SNAKE ---
+                    if (s.segments.length < 2) continue;
+                    
+                    // Tulang Punggung (Spine) tipis dan transparan
+                    ctx.beginPath();
+                    for (let i = 0; i < s.segments.length; i++) {
+                        const pt = s.segments[i];
+                        if (i === 0) {
+                            ctx.moveTo(pt.x, pt.y);
+                        } else {
+                            const prev = s.segments[i-1];
+                            if (Math.hypot(pt.x - prev.x, pt.y - prev.y) > 100) {
+                                ctx.moveTo(pt.x, pt.y);
+                            } else {
+                                ctx.lineTo(pt.x, pt.y);
+                            }
+                        }
+                    }
+                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.2)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Sisik/Segmen Cyber
+                    for (let i = 0; i < s.segments.length; i++) {
+                        const pt = s.segments[i];
+                        const ratio = i / s.segments.length; // 0 = ekor, 1 = kepala
+                        
+                        // Cegah bug gambar pada garis potong warp layar
+                        if (i > 0 && Math.hypot(pt.x - s.segments[i-1].x, pt.y - s.segments[i-1].y) > 100) continue;
+
+                        if (i === s.segments.length - 1) {
+                            // --- KEPALA SCI-FI ---
+                            ctx.save();
+                            ctx.translate(pt.x, pt.y);
+                            ctx.rotate(s.angle); // Arah pandang ular
+                            
+                            // Bentuk mirip pesawat tempur futuristik
+                            ctx.beginPath();
+                            ctx.moveTo(12, 0);   // Moncong depan
+                            ctx.lineTo(-8, -8);  // Sayap kiri
+                            ctx.lineTo(-4, 0);   // Bagian belakang
+                            ctx.lineTo(-8, 8);   // Sayap kanan
+                            ctx.closePath();
+                            
+                            ctx.fillStyle = '#10b981'; // Emerald 500
+                            ctx.shadowColor = '#10b981';
+                            ctx.shadowBlur = 15;
+                            ctx.fill();
+                            
+                            // Mata Laser Cybernetic
+                            ctx.beginPath();
+                            ctx.arc(4, 0, 2.5, 0, Math.PI*2);
+                            ctx.fillStyle = '#fff';
+                            ctx.shadowColor = '#fff';
+                            ctx.shadowBlur = 8;
+                            ctx.fill();
+                            
+                            ctx.restore();
+                        } else {
+                            // --- BADAN CYBER ---
+                            // Gambar sisik selang-seling agar bertekstur
+                            if (i % 2 !== 0) continue;
+
+                            const size = 1.5 + (ratio * 4.5); // Membesar dari ekor ke leher
+                            
+                            ctx.save();
+                            ctx.translate(pt.x, pt.y);
+                            ctx.rotate(Math.PI / 4); // Putar 45 derajat -> diamond
+                            
+                            ctx.beginPath();
+                            ctx.rect(-size/2, -size/2, size, size);
+                            
+                            // Opasitas berkurang semakin ke ujung ekor
+                            ctx.fillStyle = `rgba(16, 185, 129, ${ratio})`;
+                            ctx.fill();
+                            
+                            ctx.restore();
+                        }
+                    }
+                }
+
+                // --- UPDATE & RENDER NAGA (DRAGON) ---
+                for (let d of dragons) {
+                    // Naga berbelok acak
+                    d.angle += (Math.random() - 0.5) * 0.3;
+                    d.x += Math.cos(d.angle) * d.speed;
+                    d.y += Math.sin(d.angle) * d.speed;
+                    d.wingPhase += 0.25; // Kecepatan kepak sayap
+                    
+                    // Wrapping layar
+                    if (d.x < 0) d.x += canvas.width;
+                    if (d.x > canvas.width) d.x -= canvas.width;
+                    if (d.y < 0) d.y += canvas.height;
+                    if (d.y > canvas.height) d.y -= canvas.height;
+                    
+                    d.segments.push({x: d.x, y: d.y});
+                    if (d.segments.length > d.length) d.segments.shift();
+                    
+                    if (d.segments.length < 2) continue;
+
+                    // Tulang Punggung Naga
+                    ctx.beginPath();
+                    for (let i = 0; i < d.segments.length; i++) {
+                        const pt = d.segments[i];
+                        if (i === 0) {
+                            ctx.moveTo(pt.x, pt.y);
+                        } else {
+                            const prev = d.segments[i-1];
+                            if (Math.hypot(pt.x - prev.x, pt.y - prev.y) > 100) {
+                                ctx.moveTo(pt.x, pt.y);
+                            } else {
+                                ctx.lineTo(pt.x, pt.y);
+                            }
+                        }
+                    }
+                    ctx.strokeStyle = 'rgba(239, 68, 68, 0.3)'; // Merah transparan
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+
+                    // Segmen Tubuh Naga
+                    for (let i = 0; i < d.segments.length; i++) {
+                        const pt = d.segments[i];
+                        const ratio = i / d.segments.length;
+                        
+                        if (i > 0 && Math.hypot(pt.x - d.segments[i-1].x, pt.y - d.segments[i-1].y) > 100) continue;
+
+                        if (i === d.segments.length - 1) {
+                            // --- KEPALA NAGA ---
+                            ctx.save();
+                            ctx.translate(pt.x, pt.y);
+                            ctx.rotate(d.angle);
+                            
+                            // Kepala bertanduk lebar
+                            ctx.beginPath();
+                            ctx.moveTo(18, 0);   // Moncong depan
+                            ctx.lineTo(0, -10);  // Rahang kiri
+                            ctx.lineTo(-6, -18); // Tanduk kiri luar
+                            ctx.lineTo(-2, -4);  // Pangkal tanduk kiri
+                            ctx.lineTo(-8, 0);   // Leher/belakang
+                            ctx.lineTo(-2, 4);   // Pangkal tanduk kanan
+                            ctx.lineTo(-6, 18);  // Tanduk kanan luar
+                            ctx.lineTo(0, 10);   // Rahang kanan
+                            ctx.closePath();
+                            
+                            ctx.fillStyle = '#ef4444'; // Merah Api (Red-500)
+                            ctx.shadowColor = '#ef4444';
+                            ctx.shadowBlur = 25;
+                            ctx.fill();
+                            
+                            // Dua Mata Api
+                            ctx.beginPath();
+                            ctx.arc(4, -5, 2.5, 0, Math.PI*2); // Mata Kiri
+                            ctx.arc(4, 5, 2.5, 0, Math.PI*2);  // Mata Kanan
+                            ctx.fillStyle = '#fef08a'; // Kuning menyala
+                            ctx.shadowColor = '#fef08a';
+                            ctx.shadowBlur = 10;
+                            ctx.fill();
+                            
+                            ctx.restore();
+                        } else {
+                            // --- BADAN NAGA & SAYAP ---
+                            if (i % 2 !== 0) continue; // Selang-seling
+                            
+                            const size = 3 + (ratio * 7); // Tubuh jauh lebih besar dari ular
+                            
+                            ctx.save();
+                            ctx.translate(pt.x, pt.y);
+                            ctx.rotate(Math.PI / 4);
+                            
+                            // Gambar Sayap (Hanya di sepertiga tubuh bagian depan/tengah)
+                            if (ratio > 0.4 && ratio < 0.8 && i % 4 === 0) {
+                                // Mengepak menggunakan sinus
+                                const wingSpan = 15 + Math.sin(d.wingPhase) * 12;
+                                ctx.beginPath();
+                                ctx.moveTo(0, 0);
+                                ctx.lineTo(-wingSpan, -wingSpan); // Sayap kiri atas
+                                ctx.moveTo(0, 0);
+                                ctx.lineTo(wingSpan, wingSpan); // Sayap kanan bawah
+                                ctx.strokeStyle = `rgba(249, 115, 22, ${ratio})`; // Oranye menyala
+                                ctx.lineWidth = 3;
+                                ctx.stroke();
+                            }
+
+                            // Gambar Sisik Punggung
+                            ctx.beginPath();
+                            ctx.rect(-size/2, -size/2, size, size);
+                            ctx.fillStyle = `rgba(239, 68, 68, ${ratio})`;
+                            ctx.fill();
+                            
+                            ctx.restore();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(draw);
             }
 
             resize();
             window.addEventListener('resize', resize);
-            setInterval(draw, 80);
+            requestAnimationFrame(draw);
         })();
 
         // ── Toggle password visibility ─────────────────────────────────────

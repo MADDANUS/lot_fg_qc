@@ -21,9 +21,62 @@ class Mitsuba extends Controller
      */
     public function data()
     {
-        $model = new MitsubaLabelModel();
-        $rows  = $model->orderBy('created_at', 'DESC')->findAll();
-        return $this->response->setJSON(['data' => $rows]);
+        $request = $this->request;
+        $start   = (int) ($request->getVar('start') ?? 0);
+        $length  = (int) ($request->getVar('length') ?? 25);
+        $search  = $request->getVar('search');
+        $searchVal = (is_array($search) && isset($search['value'])) ? $search['value'] : '';
+        $order   = $request->getVar('order') ?? [];
+        $columns = $request->getVar('columns') ?? [];
+        $draw    = (int) ($request->getVar('draw') ?? 1);
+
+        $model   = new MitsubaLabelModel();
+        $builder = $model->builder();
+
+        // 1. Total records before filter
+        $recordsTotal = $builder->countAllResults(false);
+
+        // 2. Apply Search
+        if (!empty($searchVal)) {
+            $searchable = ['doc_number', 'item_code', 'description', 'lotno'];
+            $builder->groupStart();
+            foreach ($searchable as $col) {
+                $builder->orLike($col, $searchVal);
+            }
+            $builder->groupEnd();
+        }
+
+        // 3. Total records after filter
+        $recordsFiltered = $builder->countAllResults(false);
+
+        // 4. Apply Order
+        if (!empty($order)) {
+            $orderColIdx = $order[0]['column'];
+            $orderDir    = $order[0]['dir'];
+            if (isset($columns[$orderColIdx]['data'])) {
+                $orderColName = $columns[$orderColIdx]['data'];
+                $allowedSort  = ['id', 'doc_number', 'item_code', 'description', 'quantity', 'lotno', 'created_at'];
+                if (in_array($orderColName, $allowedSort)) {
+                    $builder->orderBy($orderColName, $orderDir);
+                }
+            }
+        } else {
+            $builder->orderBy('created_at', 'DESC');
+        }
+
+        // 5. Apply Limit
+        if ($length != -1) {
+            $builder->limit($length, $start);
+        }
+
+        $data = $builder->get()->getResultArray();
+
+        return $this->response->setJSON([
+            'draw'            => $draw,
+            'recordsTotal'    => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data'            => $data
+        ]);
     }
 
     /**

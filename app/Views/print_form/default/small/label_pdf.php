@@ -1,9 +1,9 @@
 <?php
 /**
  * Default Small — PDF Wrapper
- * Layout: 2 kolom × 4 baris = 8 label per halaman A4
+ * Layout: 3 kolom × 2 baris = 6 label per halaman A4
  * Urutan: kiri → kanan → baris bawah kiri (row-major)
- * Ukuran label: 71mm × 68mm
+ * Ukuran label: 70mm × 62mm
  *
  * Variabel dari controller: $header, $lots, $shiftName, $grid
  */
@@ -65,8 +65,8 @@ $printDateLong = $dtWib->format('d-M-Y');
 
 $cardTpl      = __DIR__ . '/label_card.php';
 $cols         = 2;    // 2 kolom per baris
-$rowsPerPage  = 4;    // 4 baris per halaman
-$perPage      = $cols * $rowsPerPage; // 8 label per halaman
+$rowsPerPage  = 3;    // 3 baris per halaman
+$perPage      = $cols * $rowsPerPage; // 6 label per halaman
 $gapCol       = '10mm';
 $gapRow      = '5mm';
 ?>
@@ -87,7 +87,7 @@ foreach ($pages as $pageIdx => $pageLots):
 ?>
 <?php if ($pageIdx > 0): ?><pagebreak><?php endif; ?>
 <div style="margin:0;padding:0;">
-<table style="width:152mm;table-layout:fixed;border-collapse:collapse;border:none;">
+<table style="width:142mm;table-layout:fixed;border-collapse:collapse;border:none;margin-left:0;">
 <?php foreach ($rows as $rowIdx => $rowLots): ?>
 <?php if ($rowIdx > 0): ?><tr><td colspan="<?= ($cols * 2) - 1 ?>" style="height:<?= $gapRow ?>;border:none;"></td></tr><?php endif; ?>
 <tr>
@@ -106,11 +106,11 @@ foreach ($pages as $pageIdx => $pageLots):
     $operator      = $lot['operator']        ?? '';
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
-<td style="width:71mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>
+<td style="width:66mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>
 <?php else: ?>
-<td style="width:71mm;padding:0;vertical-align:top;border:none;">
+<td style="width:66mm;padding:0;vertical-align:top;border:none;">
     <!-- Tabel dummy agar mPDF tetap mengalokasikan / memeras ukuran kolom ini sama persis dengan kolom yang ada isinya -->
-    <table style="width:71mm;min-width:71mm;max-width:71mm;border-collapse:collapse;border:none;"><tr><td style="border:none;">&nbsp;</td></tr></table>
+    <table style="width:66mm;min-width:66mm;max-width:66mm;border-collapse:collapse;border:none;"><tr><td style="border:none;">&nbsp;</td></tr></table>
 </td>
 <?php endif; ?>
 <?php endfor; ?>

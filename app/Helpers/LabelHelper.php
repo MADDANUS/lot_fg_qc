@@ -177,8 +177,8 @@ class LabelHelper
                 'pairs_per_page' => 8,
                 'pairs_per_row'  => 1,
                 'cell_h_mm'      => 35,  // 287/8 ≈ 35 mm per lot
-                'font_size_pt'   => 6,
-                'barcode_h_mm'   => 6,
+                'font_size_pt'   => 1,   // set to 1 so mPDF minimum row height is ~0, allowing exact row heights
+                'barcode_h_mm'   => 5,
             ],
             default => [ // fallback ke medium
                 'pairs_per_page' => 3,
