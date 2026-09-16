@@ -1,0 +1,11 @@
+# Logs & Environment
+writable/logs/*
+!writable/logs/index.html
+writable/session/*
+!writable/session/index.html
+writable/debugbar/*
+!writable/debugbar/index.html
+.env
+vendor/
+.DS_Store
+Thumbs.db
