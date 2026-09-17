@@ -28,7 +28,7 @@
  *   B20:C20(cs2)
  */
 ?>
-<table style="width:94mm;min-width:94mm;max-width:94mm;height:99mm;min-height:99mm;max-height:99mm;table-layout:fixed;border-collapse:collapse;font-family:Arial,sans-serif;font-size:11pt;">
+<table style="width:94mm;min-width:94mm;max-width:94mm;height:97mm;min-height:97mm;max-height:97mm;table-layout:fixed;border-collapse:collapse;font-family:Arial,sans-serif;font-size:11pt;">
 <colgroup>
   <col style="width:5mm">  <!-- A -->
   <col style="width:23mm"> <!-- B -->
@@ -112,8 +112,8 @@
 <tr>
   <td style="height:5.21mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:top;"><b>LOTNO :</b> <?= esc($lotno) ?></td>
-  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;">Treat/Plat</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;">Inspection</td>
+  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">Treat/Plat</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">Inspection</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -121,7 +121,7 @@
 <tr>
   <td style="height:0.76mm;border-left:0.3mm solid #000;"></td>
   <td colspan="2" rowspan="2" style="border:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;vertical-align:middle;font-weight:bold;font-size:11pt;"><?= esc($operator) ?></td>
+  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;vertical-align:middle;font-weight:bold;font-size:9pt;"><?= esc($operator) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -135,8 +135,8 @@
 <!-- ═══ R13 ═══: A13 bdr-L | (B-D covered barcode) | E13:F13="Marking" cs2 bdr-all | G13:I13="ROHS FREE" cs3 bdr-all center | J13 bdr-LR -->
 <tr>
   <td style="height:4.34mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;">Marking</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;">ROHS FREE</td>
+  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">Marking</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">ROHS FREE</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -145,7 +145,7 @@
   <td style="height:3.6mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
   <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:top;"><b>QTY :</b> <?= esc($lotQty) ?></td>
   <td colspan="2" style="border:0.3mm solid #000;"></td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;"><?= $rohsFree ? 'YES' : 'NO' ?></td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><?= $rohsFree ? 'YES' : 'NO' ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -153,7 +153,7 @@
 <tr>
   <td style="height:1.98mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
   <td colspan="2" rowspan="2" style="border:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;"><?= esc($warehouse) ?></td>
+  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><?= esc($warehouse) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -167,8 +167,8 @@
 <!-- ═══ R17 ═══: A17 bdr-LR | (B-D covered barcode) | E17:F17="PRINT DATE" cs2 bdr-all center | G17:I17=date cs3 bdr-all center | J17 bdr-LR -->
 <tr>
   <td style="height:4.73mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;white-space:nowrap;">PRINT DATE</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;white-space:nowrap;"><?= $printDateLong ?></td>
+  <td colspan="2" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;white-space:nowrap;">PRINT DATE</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;white-space:nowrap;"><?= $printDateLong ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -198,7 +198,7 @@
 
 <!-- ═══ R21 ═══: A21 bdr-BL | B-I bdr-TB | J21 bdr-BR -->
 <tr>
-  <td style="height:5.21mm;border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
+  <td style="height:3.21mm;border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
   <td style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;"></td>
   <td style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;"></td>
   <td style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;"></td>

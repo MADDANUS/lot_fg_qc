@@ -67,10 +67,10 @@
         <?php endif; ?>
 
         <a href="<?= base_url('omron') ?>" class="nav-pill nav-pill-amber">
-            🔖 <span class="pill-text">History Omron</span>
+            🔖 <span class="pill-text">Multi-Print Omron</span>
         </a>
         <a href="<?= base_url('mitsuba') ?>" class="nav-pill nav-pill-green">
-            🔖 <span class="pill-text">History Mitsuba</span>
+            🔖 <span class="pill-text">Multi-Print Mitsuba</span>
         </a>
 
 

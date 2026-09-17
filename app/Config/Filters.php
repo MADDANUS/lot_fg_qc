@@ -111,6 +111,7 @@ class Filters extends BaseFilters
     public array $filters = [
         'auth' => [
             'before' => [
+                '/',
                 'print-form',
                 'print-form/*',
                 'master',

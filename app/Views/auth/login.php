@@ -327,7 +327,7 @@
         </form>
 
         <div class="login-footer">
-            &copy; <?= date('Y') ?> PT. Nihon Seiki Indonesia &mdash; v1.0
+            &copy; <?= date('Y') ?> PT. Nihon Seiki Indonesia &mdash; IT Department
         </div>
     </div>
 
@@ -374,7 +374,7 @@
                         vs.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
                     }
                 }
-                return vs;
+                return {vs: vs, cx: cx, cy: cy};
             }
 
             function changeFormation() {
@@ -408,7 +408,10 @@
                 let d = (R * 2) / Math.sqrt((N * 1.5) / shapes.length); 
                 if (d < 5) d = 5;
 
-                shapes.forEach(vs => {
+                shapes.forEach(shapeObj => {
+                    let vs = shapeObj.vs;
+                    let cx = shapeObj.cx;
+                    let cy = shapeObj.cy;
                     let minX = vs[0][0], maxX = vs[0][0], minY = vs[0][1], maxY = vs[0][1];
                     vs.forEach(v => {
                         if (v[0] < minX) minX = v[0];
@@ -419,14 +422,17 @@
                     
                     for (let yy = minY; yy <= maxY; yy += d) {
                         for (let xx = minX; xx <= maxX; xx += d) {
-                            if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy});
+                            if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy, cx: cx, cy: cy});
                         }
                     }
                 });
 
                 // Jika kurang, tambahkan random point ke shape secara acak
                 while (tempSlots.length < N) {
-                    let vs = shapes[Math.floor(Math.random() * shapes.length)];
+                    let shapeObj = shapes[Math.floor(Math.random() * shapes.length)];
+                    let vs = shapeObj.vs;
+                    let cx = shapeObj.cx;
+                    let cy = shapeObj.cy;
                     let minX = vs[0][0], maxX = vs[0][0], minY = vs[0][1], maxY = vs[0][1];
                     vs.forEach(v => {
                         if (v[0] < minX) minX = v[0];
@@ -436,7 +442,7 @@
                     });
                     let xx = minX + Math.random() * (maxX - minX);
                     let yy = minY + Math.random() * (maxY - minY);
-                    if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy});
+                    if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy, cx: cx, cy: cy});
                 }
                 
                 for (let i = tempSlots.length - 1; i > 0; i--) {
@@ -447,8 +453,13 @@
                 let slotIndex = 0;
                 for (let x = 0; x < cols; x++) {
                     for (let y = 0; y < rows; y++) {
-                        grid[x][y].baseX = tempSlots[slotIndex].x;
-                        grid[x][y].baseY = tempSlots[slotIndex].y;
+                        let slot = tempSlots[slotIndex];
+                        grid[x][y].baseX = slot.x;
+                        grid[x][y].baseY = slot.y;
+                        grid[x][y].origShapeX = slot.x;
+                        grid[x][y].origShapeY = slot.y;
+                        grid[x][y].cx = slot.cx;
+                        grid[x][y].cy = slot.cy;
                         slotIndex++;
                     }
                 }
@@ -561,6 +572,15 @@
                     for (let y = 0; y < rows; y++) {
                         const cell = grid[x][y];
                         
+                        // Rotasi jika dalam mode formasi
+                        if (currentFormIdx !== 0 && cell.cx !== undefined) {
+                            let angle = time * 0.02; // Kecepatan rotasi
+                            let dxCenter = cell.origShapeX - cell.cx;
+                            let dyCenter = cell.origShapeY - cell.cy;
+                            cell.baseX = cell.cx + dxCenter * Math.cos(angle) - dyCenter * Math.sin(angle);
+                            cell.baseY = cell.cy + dxCenter * Math.sin(angle) + dyCenter * Math.cos(angle);
+                        }
+
                         // Kalkulasi pergeseran ke atas/bawah
                         let currentBaseY = cell.baseY + scrollOffset;
                         
