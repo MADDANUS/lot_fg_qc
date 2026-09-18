@@ -71,6 +71,7 @@ $lotSa        = !empty($header['lot_sa']);
 $is4m         = !empty($header['flag_4m']);
 $rohsFree     = true;
 $docNumber    = $header['doc_number'] ?? '';
+$weight       = $header['weight'] ?? ($weight ?? null);
 $qrSize       = 65;
 
 $dtWib         = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));

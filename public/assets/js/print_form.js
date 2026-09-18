@@ -97,6 +97,8 @@ $(function () {
         $('.production-date-container').hide();
         $('.user-initial-container').show();
         $('.user-initial-container').css('display', 'flex');
+        $('.weight-container').show();
+        $('.weight-container').css('display', 'flex');
         
         applyTableRules(); // reset table state first
         
@@ -135,6 +137,7 @@ $(function () {
             $('#btnSaveToDb').show();
         } else if (isMitsuba) {
             $('.user-initial-container').hide(); // Sembunyikan user initial
+            $('.weight-container').hide(); // Sembunyikan berat untuk Mitsuba
             $('#size_mode').html('<option value="Mitsuba" selected>Mitsuba</option>');
             $('#btnSaveToDb').show();
         } else {
@@ -553,15 +556,13 @@ $(function () {
      * Fungsi internal: kirim form ke server (store)
      * ------------------------------------------------------------------ */
     function saveForm(onSuccess, onError, onAlways, isPreview = false) {
-        const isOmronOuter = $('#omron_outer').is(':checked') && $('.omron-only').css('display') !== 'none';
-
         const payload = {
             doc_number:      $('#doc_number').val(),
             customer:        $('#customer option:selected').text() || '',
             doc_date:        $('#doc_date').val(),
             product_name:    $('input[name="product_name"]:checked').val(),
             date_mode:       $('input[name="date_mode"]:checked').val(),
-            production_date: isOmronOuter ? $('#omron_production_date').val() : $('#production_date').val(),
+            production_date: $('#production_date').val(),
             job_order:       $('#job_order').val(),
             shift_id:        $('#shift_id').val(),
             line_mode:       $('input[name="line_mode"]:checked').val(),
@@ -569,32 +570,25 @@ $(function () {
             mold_id:         $('#mold_id').val(),
             cavity_id:       $('#cavity_id').val(),
             from_series:     $('#from_series').val(),
-            remark:          isOmronOuter ? $('#omron_remark').val() : $('#remark').val(),
+            remark:          $('#remark').val(),
             user_initial:    $('#user_initial').val(),
-            machine:         isOmronOuter ? $('#omron_machine').val() : $('#machine').val(),
-            notification:    isOmronOuter ? $('#omron_notification').val() : $('#notification').val(),
+            machine:         $('#machine').val(),
+            notification:    $('#notification').val(),
             omron_label_type:$('input[name="omron_label_type"]:checked').val(),
-            omron_cavity:    isOmronOuter ? $('#omron_outer_cavity').val() : $('#omron_cavity').val(),
-            omron_shift:     isOmronOuter ? $('#omron_outer_shift').val() : $('#omron_shift').val(),
-            lot_guarantee:   isOmronOuter ? ($('#omron_lot_guarantee').is(':checked') ? 1 : 0) : ($('#lot_guarantee').is(':checked') ? 1 : 0),
+            omron_cavity:    $('#omron_cavity').val(),
+            omron_shift:     $('#omron_shift').val(),
+            lot_guarantee:   $('#lot_guarantee').is(':checked') ? 1 : 0,
             lot_sa:          $('#lot_sa').is(':checked') ? 1 : 0,
             flag_4m:         $('#flag_4m').is(':checked') ? 1 : 0,
+            weight:          $('#weight').val().trim(),
             size_mode:       $('#size_mode').val(),
             is_preview:      isPreview ? 1 : 0,
-            items:           JSON.stringify(collectRows()),
-            // Extra Omron fields just in case backend wants them later
-            omron_maker:     isOmronOuter ? $('#omron_maker').val() : '',
-            omron_die_no:    isOmronOuter ? $('#omron_die_no').val() : '',
-            omron_dwg_no:    isOmronOuter ? $('#omron_dwg_no').val() : ''
+            items:           JSON.stringify(collectRows())
         };
 
         const parsedItems = JSON.parse(payload.items);
         if (parsedItems.length === 0) {
-            if (isOmronOuter && !$('#omron_item_code').val()) {
-                Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'GAGAL DISIMPAN: Silakan pilih "Item No Omron" di form bagian bawah terlebih dahulu!' });
-            } else {
-                Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Silakan centang minimal 1 baris data yang ingin dicetak.' });
-            }
+            Swal.fire({ icon: 'warning', title: 'Perhatian', text: 'Silakan centang minimal 1 baris data yang ingin dicetak.' });
             if (typeof onAlways === 'function') onAlways();
             return;
         }
@@ -626,44 +620,6 @@ $(function () {
             }
         }
 
-        if (isOmronOuter) {
-            if (!payload.production_date) {
-                showError('Kolom "Production Date" wajib diisi untuk Omron Outer.');
-                return;
-            }
-            if (!payload.machine) {
-                showError('Kolom "Machine" wajib diisi untuk Omron Outer.');
-                return;
-            }
-            if (!payload.notification) {
-                showError('Kolom "Notification" wajib diisi untuk Omron Outer.');
-                return;
-            }
-            
-            if (parsedItems.length > 0) {
-                const item = parsedItems[0];
-                if (!item.item_code) {
-                    showError('Kolom "Item No Omron" wajib dipilih.');
-                    return;
-                }
-                if (!item.description) {
-                    showError('Kolom "Item Name" wajib diisi.');
-                    return;
-                }
-                if (!item.standard_pack) {
-                    showError('Kolom "Qty in Carton" wajib diisi.');
-                    return;
-                }
-                if (!item.lotno) {
-                    showError('Kolom "Lot No" wajib diisi.');
-                    return;
-                }
-                if (!item.quantity) {
-                    showError('Kolom "Quantity" wajib diisi.');
-                    return;
-                }
-            }
-        }
 
         $.post(BASE_URL + 'print-form/store', payload)
             .done(function (res) {

@@ -137,19 +137,37 @@
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R18 -->
+<?php if (!empty($weight)): ?>
+<!-- R18 (weight mode): barcode colspan 3, rowspan 2 agar R19 di sebelahnya bebas -->
+<tr>
+  <td style="height:3.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
+  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5.5, 1.0) ?></td>
+  <td></td><td></td><td></td><td></td><td></td>
+  <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
+</tr>
+<!-- R19 (weight mode): user initial sejajar PRINT DATE (B,C), berat sejajar tanggal (D,E,F) -->
+<tr>
+  <td style="height:6.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
+  <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;overflow:hidden;white-space:nowrap;"><?= esc(str_replace(',', '.', $weight)) ?> KG</td>
+  <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
+</tr>
+<?php else: ?>
+<!-- R18 (no weight): barcode rowspan=2 seperti asli -->
 <tr>
   <td style="height:3.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
   <td colspan="4" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5, 1.0) ?></td>
   <td></td><td></td><td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
-<!-- R19 -->
+<!-- R19 (no weight): user initial seperti asli -->
 <tr>
-  <td style="height:4.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
+  <td style="height:6.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
   <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
   <td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
+<?php endif; ?>
 <!-- R20 -->
 <tr>
   <td style="height:3.8mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>

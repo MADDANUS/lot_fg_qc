@@ -26,6 +26,7 @@ class PrintLabelModel extends Model
         'from_series',
         'remark',
         'user_initial',
+        'weight',
         'lot_guarantee',
         'lot_sa',
         'flag_4m',

@@ -21,6 +21,9 @@ class PrintForm extends Controller
      */
     public function index()
     {
+        if (session()->get('username') === 'ppic') {
+            return redirect()->to(base_url('omron'));
+        }
         $shiftModel  = new ShiftModel();
         $lineModel   = new LineModel();
         $moldModel   = new MoldModel();
@@ -43,6 +46,7 @@ class PrintForm extends Controller
      */
     public function getCustomers()
     {
+        session_write_close(); // Prevent session locking for slow SAP queries
         $centralModel = new CentralDataModel();
 
         // Kembalikan dummy jika ada param ?dummy=1 (untuk testing tanpa koneksi SAP)
@@ -69,6 +73,7 @@ class PrintForm extends Controller
      */
     public function searchDoc()
     {
+        session_write_close(); // Prevent session locking for slow SAP queries
         $docNumber = trim((string) $this->request->getPost('doc_number'));
 
         if ($docNumber === '') {
@@ -144,6 +149,7 @@ class PrintForm extends Controller
             'lot_sa'          => $request->getPost('lot_sa') ? 1 : 0,
             'flag_4m'         => $request->getPost('flag_4m') ? 1 : 0,
             'size_mode'       => $request->getPost('size_mode'),
+            'weight'          => $request->getPost('weight') ?: null,
             'omron_label_type'=> $request->getPost('omron_label_type'),
             'machine'         => $request->getPost('machine'),
             'notification'    => $request->getPost('notification'),
@@ -562,6 +568,7 @@ class PrintForm extends Controller
                     'lots'      => $group,
                     'shiftName' => $shiftName,
                     'grid'      => $grid,
+                    'weight'    => $header['weight'] ?? null,
                 ]);
 
                 $mpdf->WriteHTML($groupHtml, \Mpdf\HTMLParserMode::DEFAULT_MODE, $gi === 0, false);

@@ -164,10 +164,12 @@ $isMitsuba = strpos($uri, 'mitsuba') !== false;
     </a>
 
     <div class="canva-nav-links">
+        <?php if (session()->get('username') !== 'ppic'): ?>
         <a href="<?= base_url('print-form') ?>" class="canva-nav-link <?= $isPrintForm ? 'canva-active' : '' ?>">
             <i class="bi bi-printer"></i>
             <span>Form Print</span>
         </a>
+        <?php endif; ?>
 
         <?php if (session()->get('role') === 'admin'): ?>
         <a href="<?= base_url('master') ?>" class="canva-nav-link <?= $isMaster ? 'canva-active' : '' ?>">
@@ -179,9 +181,11 @@ $isMitsuba = strpos($uri, 'mitsuba') !== false;
         <a href="<?= base_url('omron') ?>" class="canva-nav-link <?= $isOmron ? 'canva-active' : '' ?>">
             <i class="bi bi-tags"></i> <span>Multi-Print Omron</span>
         </a>
+        <?php if (session()->get('username') !== 'ppic'): ?>
         <a href="<?= base_url('mitsuba') ?>" class="canva-nav-link <?= $isMitsuba ? 'canva-active' : '' ?>">
             <i class="bi bi-tags"></i> <span>Multi-Print Mitsuba</span>
         </a>
+        <?php endif; ?>
 
         <div class="canva-divider"></div>
 

@@ -13,6 +13,9 @@ class Mitsuba extends Controller
      */
     public function index()
     {
+        if (session()->get('username') === 'ppic') {
+            return redirect()->to(base_url('omron'));
+        }
         return view('mitsuba/index');
     }
 
@@ -92,7 +95,7 @@ class Mitsuba extends Controller
         }
 
         $model = new MitsubaLabelModel();
-        $model->whereIn('id', $ids)->delete();
+        $model->delete($ids);
 
         return $this->response->setJSON(['success' => true]);
     }

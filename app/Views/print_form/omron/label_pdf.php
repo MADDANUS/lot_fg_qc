@@ -121,6 +121,7 @@ $lotSa        = !empty($header['lot_sa']);
 $is4m         = !empty($header['flag_4m']);
 $rohsFree     = true;
 $docNumber    = $header['doc_number'] ?? '';
+$weight       = $header['weight'] ?? null;
 
 // ── Konfigurasi Grid ───────────────────────────────────────────────────────────
 $fontPt   = $grid['font_size_pt'];

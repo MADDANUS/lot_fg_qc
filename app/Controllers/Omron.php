@@ -4,6 +4,10 @@ namespace App\Controllers;
 
 use App\Models\OmronInnerModel;
 use App\Models\OmronOuterModel;
+use App\Models\OmronItemModel;
+use App\Models\ShiftModel;
+use App\Models\LineModel;
+use App\Models\CavityModel;
 use CodeIgniter\Controller;
 use Mpdf\Mpdf;
 
@@ -14,7 +18,19 @@ class Omron extends Controller
      */
     public function index()
     {
-        return view('omron/index');
+        $itemModel   = new OmronItemModel();
+        $shiftModel  = new ShiftModel();
+        $lineModel   = new LineModel();
+        $cavityModel = new CavityModel();
+
+        $data = [
+            'omron_items' => $itemModel->orderBy('item_code', 'ASC')->findAll(),
+            'shifts'      => $shiftModel->orderBy('shift_name', 'ASC')->findAll(),
+            'lines'       => $lineModel->orderBy('id', 'ASC')->findAll(),
+            'cavities'    => $cavityModel->orderBy('cavity_name', 'ASC')->findAll(),
+        ];
+
+        return view('omron/index', $data);
     }
 
     public function dataInner()
@@ -144,9 +160,48 @@ class Omron extends Controller
         }
 
         $model = $type === 'outer' ? new OmronOuterModel() : new OmronInnerModel();
-        $model->whereIn('id', $ids)->delete();
+        $model->delete($ids);
 
         return $this->response->setJSON(['success' => true]);
+    }
+
+    /**
+     * Save new Outer Label from manual input form
+     */
+    public function saveOuter()
+    {
+        $request = $this->request;
+        $model = new OmronOuterModel();
+
+        $data = [
+            'doc_number'      => 'MANUAL',
+            'doc_date'        => date('Y-m-d'),
+            'item_code'       => $request->getPost('item_code'),
+            'description'     => $request->getPost('description'),
+            'production_date' => $request->getPost('production_date'),
+            'quantity'        => $request->getPost('quantity'),
+            'lotno'           => $request->getPost('lotno'),
+            'cavity'          => $request->getPost('cavity'),
+            'shift'           => $request->getPost('shift'),
+            'machine'         => $request->getPost('machine'),
+            'remark'          => $request->getPost('remark'),
+            'die_no'          => $request->getPost('die_no'),
+            'dwg_no'          => $request->getPost('dwg_no'),
+            'notification'    => $request->getPost('notification'),
+            'is_printed'      => 0,
+        ];
+
+        // Ensure empty dates become null for DB
+        if (empty($data['production_date'])) {
+            $data['production_date'] = null;
+        }
+
+        try {
+            $model->insert($data);
+            return $this->response->setJSON(['success' => true]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 
     /**

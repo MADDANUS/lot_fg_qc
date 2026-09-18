@@ -9,8 +9,10 @@ class Auth extends Controller
 {
     public function login()
     {
-        // Jika sudah login, redirect ke halaman utama
         if (session()->get('logged_in')) {
+            if (session()->get('username') === 'ppic') {
+                return redirect()->to(base_url('omron'));
+            }
             return redirect()->to(base_url('print-form'));
         }
 
@@ -48,6 +50,9 @@ class Auth extends Controller
             'role'      => $user['role'],
         ]);
 
+        if ($user['username'] === 'ppic') {
+            return redirect()->to(base_url('omron'));
+        }
         return redirect()->to(base_url('print-form'));
     }
 

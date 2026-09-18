@@ -11,22 +11,21 @@
     </div>
 
     <div class="card-body-pad">
-        <div class="action-bar">
+        <div class="action-bar d-flex justify-content-end align-items-center gap-2">
+            <span class="selected-info" id="infoMitsuba">0 dipilih</span>
             <button class="btn-print-selected" id="btnPrintMitsuba" onclick="batchPrint()">🖨️ Print Label</button>
             <button class="btn-delete-selected" id="btnDeleteMitsuba" onclick="deleteSelected()">🗑️ Delete</button>
-            <span class="selected-info" id="infoMitsuba">0 dipilih</span>
         </div>
 
     <table id="tableMitsuba" class="table table-hover table-bordered w-100" style="font-size:13px;">
         <thead class="table-info">
-            <tr>
-                <th style="width:30px;"><input type="checkbox" id="chkAllMitsuba" onchange="toggleAll()"></th>
                 <th>Nomor Transaksi</th>
                 <th>Part No</th>
                 <th>Item Name</th>
                 <th>Qty</th>
                 <th>Lot No</th>
                 <th>Disimpan</th>
+                <th style="width:30px;"><input type="checkbox" id="chkAllMitsuba" onchange="toggleAll()"></th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -42,27 +41,27 @@
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script>
-const BASE_URL = '<?= base_url() ?>';
+const BASE_URL = '<?= base_url('/') ?>';
 
 const dtMitsuba = $('#tableMitsuba').DataTable({
     processing: true,
     serverSide: true,
     ajax: { url: BASE_URL + 'mitsuba/data', type: 'GET', dataSrc: 'data' },
     columns: [
-        {
-            data: 'id',
-            orderable: false,
-            searchable: false,
-            render: (d) => `<input type="checkbox" class="chk-mitsuba" value="${d}" onchange="updateInfo()">`
-        },
         { data: 'doc_number', defaultContent: '-' },
         { data: 'item_code', defaultContent: '-' },
         { data: 'description', defaultContent: '-' },
         { data: 'quantity', defaultContent: '0' },
         { data: 'lotno', defaultContent: '-' },
         { data: 'created_at', defaultContent: '-' },
+        {
+            data: 'id',
+            orderable: false,
+            searchable: false,
+            render: (d) => `<input type="checkbox" class="chk-mitsuba" value="${d}" onchange="updateInfo()">`
+        }
     ],
-    order: [[6, 'desc']],
+    order: [[5, 'desc']],
     pageLength: 25,
     language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
 });

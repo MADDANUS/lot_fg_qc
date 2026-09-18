@@ -131,11 +131,16 @@
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
-<!-- R14: QTY | RF5 di tengah -->
+<!-- R14: QTY | weight (if any) at right -->
 <tr>
-  <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
+  <td style="height:6.5mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>QTY :</b> <?= esc($lotQty) ?></td>
+  <?php if (!empty($weight)): ?>
+  <td colspan="2" style="border:0.3mm solid #000;text-align:center;font-size:8pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:8pt;font-weight:bold;vertical-align:middle;overflow:hidden;white-space:nowrap;"><?= esc(str_replace(',', '.', $weight)) ?> KG</td>
+  <?php else: ?>
   <td colspan="5" style="border:0.3mm solid #000;text-align:center;font-size:10pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <?php endif; ?>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 

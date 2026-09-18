@@ -29,7 +29,6 @@ class OmronOuterModel extends Model
     protected $updatedField  = '';
 
     protected $validationRules = [
-        'doc_number'   => 'required|max_length[50]',
         'item_code'    => 'required|max_length[50]',
     ];
 }
