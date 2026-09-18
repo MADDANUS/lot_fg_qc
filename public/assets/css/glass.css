@@ -1,0 +1,412 @@
+/* ==========================================================================
+   LOT FG — Canva-Inspired Design System
+   Playful, vibrant, and clean UI based on Canva's design language
+   Colors: Soft white/grey background, Vibrant Purple/Cyan gradients, Pill buttons
+   ========================================================================== */
+
+/* ── CSS Variables ─────────────────────────────────────────────────────── */
+:root {
+    --canva-bg:              #f2f3f5;
+    --canva-white:           #ffffff;
+    --canva-border:          #e0e4e8;
+    --canva-border-focus:    #3b82f6;
+    --canva-text-primary:    #000000;
+    --canva-text-secondary:  #000000;
+    --canva-text-muted:      #000000;
+    
+    /* Vibrant Canva Palette */
+    --canva-blue:          #3b82f6;
+    --canva-blue-hover:    #2563eb;
+    --canva-blue-light:    #eff6ff;
+    
+    --canva-cyan:            #00c4cc;
+    --canva-cyan-hover:      #00aeb5;
+    --canva-cyan-light:      #e5f9f9;
+    
+    /* Soft solid background */
+    --canva-bg-wash:         #dbeafe;
+    
+    --canva-red:             #e2293f;
+    --canva-red-light:       #fceae9;
+    
+    --canva-green:           #1b8755;
+    --canva-green-light:     #e8f5ed;
+    
+    --canva-gradient:        #3b82f6;
+    --canva-gradient-hover:  #2563eb;
+    
+    /* Shadows & Border Radius */
+    --canva-shadow-soft:     0 8px 30px rgba(14, 19, 24, 0.04), 0 2px 10px rgba(14, 19, 24, 0.02);
+    --canva-shadow-hover:    0 12px 40px rgba(59, 130, 246, 0.15), 0 4px 15px rgba(14, 19, 24, 0.05);
+    --canva-radius:          16px;
+    --canva-radius-sm:       10px;
+    --canva-radius-pill:     500px;
+}
+
+/* ── Body & Background ─────────────────────────────────────────────────── */
+body {
+    background: var(--canva-bg-wash) !important;
+    background-attachment: fixed !important;
+    animation: none !important;
+    color: var(--canva-text-primary) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* ── Global Container (Main Card) ──────────────────────────────────────── */
+.global-container {
+    background: var(--canva-white) !important;
+    border: none !important;
+    border-radius: var(--canva-radius) !important;
+    box-shadow: var(--canva-shadow-soft) !important;
+    overflow: hidden !important;
+}
+.card-header-bar {
+    background: #f8fafc !important;
+    border-bottom: 1px solid var(--canva-border) !important;
+    padding: 24px 30px 20px !important;
+}
+
+/* ── Inputs & Forms ─────────────────────────────────────────────────────── */
+.form-control, .form-select, .form-inp {
+    background: var(--canva-white) !important;
+    border: 2px solid var(--canva-border) !important;
+    border-radius: var(--canva-radius-sm) !important;
+    padding: 10px 16px !important;
+    color: var(--canva-text-primary) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+.form-control:focus, .form-select:focus, .form-inp:focus {
+    border-color: var(--canva-border-focus) !important;
+    box-shadow: 0 0 0 4px var(--canva-blue-light) !important;
+    outline: none !important;
+}
+.form-control::placeholder, .form-inp::placeholder {
+    color: var(--canva-text-muted) !important;
+    font-weight: 400 !important;
+}
+
+/* ── Buttons (Pill Shaped, Scale on Hover) ──────────────────────────────── */
+.btn-primary-glow, .btn-primary-action {
+    background: var(--canva-gradient) !important;
+    border: none !important;
+    border-radius: var(--canva-radius-pill) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    letter-spacing: 0.3px !important;
+}
+.btn-primary-glow:hover, .btn-primary-action:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: var(--canva-shadow-hover) !important;
+    background: var(--canva-gradient-hover) !important;
+}
+.btn-primary-glow:active, .btn-primary-action:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: none !important;
+}
+
+.btn-success-modern {
+    background: var(--canva-cyan) !important;
+    border: none !important;
+    border-radius: var(--canva-radius-pill) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 12px rgba(0, 196, 204, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+.btn-success-modern:hover {
+    background: var(--canva-cyan-hover) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(0, 196, 204, 0.3) !important;
+}
+
+.btn-outline-modern {
+    background: var(--canva-white) !important;
+    border: 2px solid var(--canva-border) !important;
+    border-radius: var(--canva-radius-pill) !important;
+    color: var(--canva-text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 8px 22px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+}
+.btn-outline-modern:hover {
+    background: var(--canva-bg) !important;
+    border-color: #c9d0d8 !important;
+    transform: translateY(-1px) !important;
+}
+
+.btn-danger-modern {
+    background: var(--canva-red) !important;
+    border: none !important;
+    border-radius: var(--canva-radius-pill) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 4px 12px rgba(226, 41, 63, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+.btn-danger-modern:hover {
+    background: #c51e31 !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(226, 41, 63, 0.3) !important;
+}
+
+/* ── Tables ──────────────────────────────────────────────────────────────── */
+.table-responsive, .dataTables_wrapper {
+    background: var(--canva-white) !important;
+    border: none !important;
+    border-radius: var(--canva-radius) !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+table.dataTable, .master-table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    width: 100% !important;
+}
+table.dataTable thead th, .master-table thead th {
+    background: #f4f6f8 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    color: var(--canva-text-secondary) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 10px 14px !important;
+}
+table.dataTable tbody tr, .master-table tbody tr {
+    background: var(--canva-white) !important;
+    transition: background 0.2s ease !important;
+}
+table.dataTable tbody tr td, .master-table tbody tr td {
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    padding: 10px 14px !important;
+    color: var(--canva-text-primary) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    vertical-align: middle !important;
+}
+table.dataTable tbody tr:hover, .master-table tbody tr:hover {
+    background: #f8f9fa !important;
+}
+
+/* DataTables controls */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    padding: 10px 14px !important;
+    font-size: 11pt !important;
+    color: var(--canva-text-secondary) !important;
+    font-weight: 500 !important;
+}
+.dataTables_wrapper .dataTables_length select {
+    padding: 2px 24px 2px 8px !important;
+    height: 26px !important;
+    line-height: 1 !important;
+    font-size: 11pt !important;
+    border: 1px solid var(--canva-border) !important;
+    border-radius: 6px !important;
+    min-width: 60px !important;
+}
+.dataTables_wrapper .dataTables_filter input {
+    border: 2px solid var(--canva-border) !important;
+    border-radius: var(--canva-radius-pill) !important;
+    padding: 4px 12px !important;
+    font-size: 11pt !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.2s ease !important;
+}
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: var(--canva-border-focus) !important;
+    box-shadow: 0 0 0 4px var(--canva-blue-light) !important;
+    outline: none !important;
+}
+/* DataTables Bootstrap 5 Pagination Fix */
+.dataTables_wrapper .pagination {
+    margin: 0 !important;
+    gap: 4px !important;
+}
+.dataTables_wrapper .page-item .page-link {
+    border-radius: var(--canva-radius-pill) !important;
+    border: none !important;
+    background: var(--canva-bg) !important;
+    color: var(--canva-text-primary) !important;
+    padding: 4px 12px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+.dataTables_wrapper .page-item .page-link:hover {
+    background: var(--canva-blue-light) !important;
+    color: var(--canva-blue) !important;
+    transform: scale(1.05) !important;
+}
+.dataTables_wrapper .page-item.active .page-link {
+    background: var(--canva-gradient) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3) !important;
+}
+.dataTables_wrapper .page-item.disabled .page-link {
+    background: transparent !important;
+    color: var(--canva-text-muted) !important;
+    transform: none !important;
+}
+
+/* ── Canva Action Buttons (Tables) ───────────────────────────────────────── */
+.btn-icon-action, .user-action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    background: var(--canva-bg) !important;
+    color: var(--canva-text-secondary) !important;
+    flex-shrink: 0;
+}
+.btn-icon-edit, .user-edit-btn {
+    color: var(--canva-blue) !important;
+    background: var(--canva-blue-light) !important;
+}
+.btn-icon-edit:hover, .user-edit-btn:hover {
+    transform: translateY(-2px) scale(1.1) !important;
+    background: var(--canva-blue) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25) !important;
+}
+
+.btn-icon-delete, .user-delete-btn {
+    color: var(--canva-red) !important;
+    background: var(--canva-red-light) !important;
+}
+.btn-icon-delete:hover, .user-delete-btn:hover {
+    transform: translateY(-2px) scale(1.1) !important;
+    background: var(--canva-red) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(226, 41, 63, 0.25) !important;
+}
+
+/* ── Modal (Canva Style) ─────────────────────────────────────────────────── */
+.stripe-modal-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(14, 19, 24, 0.4) !important;
+    backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+}
+.stripe-modal-box {
+    background: var(--canva-white) !important;
+    width: 100%; max-width: 440px;
+    border-radius: 20px !important;
+    border: none !important;
+    box-shadow: var(--canva-shadow-hover) !important;
+    animation: canvaModalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+@keyframes canvaModalIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.stripe-modal-header {
+    padding: 24px 28px 16px !important;
+    border-bottom: none !important;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.stripe-modal-title {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: var(--canva-text-primary) !important;
+    margin: 0; letter-spacing: -0.5px;
+}
+.stripe-modal-close {
+    background: var(--canva-bg) !important;
+    border: none !important;
+    width: 32px; height: 32px;
+    border-radius: 50% !important;
+    color: var(--canva-text-secondary) !important;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+}
+.stripe-modal-close:hover {
+    background: var(--canva-red-light) !important;
+    color: var(--canva-red) !important;
+    transform: rotate(90deg) !important;
+}
+.stripe-modal-body {
+    padding: 10px 28px 24px !important;
+}
+.stripe-form-label {
+    display: block; font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--canva-text-secondary) !important;
+    margin-bottom: 8px !important;
+}
+.stripe-form-input {
+    width: 100%; height: 44px !important;
+    padding: 0 16px !important;
+    background: var(--canva-white) !important;
+    border: 2px solid var(--canva-border) !important;
+    border-radius: var(--canva-radius-sm) !important;
+    color: var(--canva-text-primary) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+.stripe-form-input:focus {
+    border-color: var(--canva-border-focus) !important;
+    box-shadow: 0 0 0 4px var(--canva-blue-light) !important;
+    outline: none;
+}
+.stripe-modal-footer {
+    padding: 16px 28px 24px !important;
+    border-top: none !important;
+    display: flex; justify-content: flex-end; gap: 12px;
+    background: var(--canva-white) !important;
+}
+.stripe-btn-cancel {
+    background: var(--canva-bg) !important;
+    border: none !important;
+    border-radius: var(--canva-radius-pill) !important;
+    color: var(--canva-text-primary) !important;
+    padding: 10px 24px !important;
+    font-weight: 700 !important;
+    font-size: 14.5px !important;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+}
+.stripe-btn-cancel:hover { background: #e2e6eb !important; transform: scale(1.02); }
+.stripe-btn-save {
+    background: var(--canva-gradient) !important;
+    border: none !important;
+    border-radius: var(--canva-radius-pill) !important;
+    color: white !important;
+    padding: 10px 28px !important;
+    font-weight: 700 !important;
+    font-size: 14.5px !important;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+.stripe-btn-save:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: var(--canva-shadow-hover) !important;
+}

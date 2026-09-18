@@ -9,8 +9,9 @@ class UserManager extends Controller
 {
     private UserModel $model;
 
-    public function __construct()
+    public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
+        parent::initController($request, $response, $logger);
         $this->model = new UserModel();
     }
 
@@ -56,15 +57,18 @@ class UserManager extends Controller
             return $this->response->setJSON(['success' => false, 'message' => 'Username sudah digunakan.']);
         }
 
-        $this->model->skipValidation(true)->insert([
-            'username'  => $username,
-            'password'  => password_hash($password, PASSWORD_BCRYPT),
-            'full_name' => $fullName,
-            'role'      => $role,
-            'is_active' => $isActive,
-        ]);
-
-        return $this->response->setJSON(['success' => true, 'message' => 'User berhasil ditambahkan.']);
+        try {
+            $this->model->skipValidation(true)->insert([
+                'username'  => $username,
+                'password'  => password_hash($password, PASSWORD_BCRYPT),
+                'full_name' => $fullName,
+                'role'      => $role,
+                'is_active' => $isActive,
+            ]);
+            return $this->response->setJSON(['success' => true, 'message' => 'User berhasil ditambahkan.']);
+        } catch (\Throwable $e) {
+            return $this->response->setJSON(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 
     /**

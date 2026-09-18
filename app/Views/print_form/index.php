@@ -334,7 +334,7 @@
                 </select>
             </div>
             <div class="d-flex gap-2">
-                <button type="button" class="btn-desktop btn-outline-modern" id="btnDirectPrint">
+                <button type="button" class="btn-desktop btn-print-selected" id="btnDirectPrint">
                     <i class="bi bi-printer"></i> Print Label
                 </button>
                 <button type="button" class="btn-desktop btn-success-modern" id="btnSaveToDb" style="display:none;">

@@ -3,7 +3,7 @@
 <style>
 /* Omron-specific overrides only */
 .page-title-badge-inner { color: #1e40af; }
-.page-title-badge-outer { color: #d97706; }
+.page-title-badge-outer { color: #3b82f6; }
 </style>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
@@ -58,9 +58,9 @@
     </div>
 
     <!-- Tab Outer -->
-    <div class="tab-content-pane" id="pane-outer" style="border: 2px solid #d97706; border-top: none; border-radius: 0 8px 8px 8px; padding: 20px; display:none;">
+    <div class="tab-content-pane" id="pane-outer" style="border: 2px solid #3b82f6; border-top: none; border-radius: 0 8px 8px 8px; padding: 20px; display:none;">
         <div class="action-bar">
-            <button class="btn-print-selected" id="btnPrintOuter" onclick="batchPrint('outer')" style="background: linear-gradient(135deg, #d97706, #f59e0b);">
+            <button class="btn-print-selected" id="btnPrintOuter" onclick="batchPrint('outer')" style="background: #3b82f6;">
                 🖨️ Print Label
             </button>
             <button class="btn-delete-selected" id="btnDeleteOuter" onclick="deleteSelected('outer')">
@@ -69,7 +69,7 @@
             <span class="selected-info" id="infoOuter">0 dipilih</span>
         </div>
         <table id="tableOuter" class="table table-hover table-bordered w-100" style="font-size:13px;">
-            <thead class="table-warning">
+            <thead class="table-primary">
                 <tr>
                     <th style="width:30px;"><input type="checkbox" id="chkAllOuter" onchange="toggleAll('outer')"></th>
                     <th>Doc Number</th>

@@ -6,7 +6,7 @@
     <title><?= $title ?? 'Login — Lot FG Label System' ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
@@ -14,7 +14,7 @@
         body {
             margin: 0; padding: 0;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f0f4ff;
+            background: #3b82f6;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,44 +23,30 @@
             overflow: hidden;
         }
 
-        /* Animated background blobs */
+        /* Subtle animated background elements to mimic Canva's playful style */
         .bg-blob {
-            position: fixed;
+            position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.12;
-            animation: blobPulse 8s ease-in-out infinite alternate;
+            filter: blur(100px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: float 20s infinite alternate ease-in-out;
         }
         .bg-blob-1 {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, #3b82f6, transparent);
-            top: -150px; left: -100px;
+            width: 600px; height: 600px;
+            background: #1d4ed8;
+            top: -200px; left: -150px;
         }
         .bg-blob-2 {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, #6366f1, transparent);
-            bottom: -100px; right: -80px;
-            animation-delay: 3s;
+            width: 500px; height: 500px;
+            background: #60a5fa;
+            bottom: -150px; right: -100px;
+            animation-delay: -10s;
         }
-        .bg-blob-3 {
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, #06b6d4, transparent);
-            top: 40%; left: 60%;
-            animation-delay: 6s;
-        }
-        @keyframes blobPulse {
-            0%   { transform: scale(1) translateY(0); }
-            100% { transform: scale(1.15) translateY(-20px); }
-        }
-
-        /* Grid lines decoration */
-        .bg-grid {
-            position: fixed; inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
         }
 
         /* Login card */
@@ -68,22 +54,16 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             margin: 20px;
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(99,102,241,0.15);
+            background: #ffffff;
             border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow:
-                0 0 0 1px rgba(99,102,241,0.08),
-                0 25px 60px rgba(99,102,241,0.12),
-                0 4px 20px rgba(0,0,0,0.08);
-            animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            padding: 48px 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+            animation: cardIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         @keyframes cardIn {
-            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
             to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
@@ -91,140 +71,139 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 32px;
+            gap: 14px;
+            margin-bottom: 36px;
         }
         .brand-icon {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            width: 48px; height: 48px;
+            background: #3b82f6;
             border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 4px 16px rgba(99,102,241,0.4);
+            font-size: 24px;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(139,61,255,0.3);
+            color: white;
         }
         .brand-text h1 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1a2332;
+            font-size: 17px;
+            font-weight: 800;
+            color: #0e1318;
             letter-spacing: -0.3px;
             margin: 0;
         }
         .brand-text p {
-            font-size: 12px;
-            color: #64748b;
-            margin: 2px 0 0;
+            font-size: 13px;
+            color: #5e6d7d;
+            font-weight: 500;
+            margin: 4px 0 0;
         }
 
         /* Divider */
         .divider {
             height: 1px;
-            background: rgba(99,102,241,0.12);
-            margin-bottom: 28px;
+            background: #e0e4e8;
+            margin-bottom: 30px;
         }
 
         /* Alert */
         .alert {
-            padding: 10px 14px;
+            padding: 12px 16px;
             border-radius: 10px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            display: flex; align-items: center; gap: 8px;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            display: flex; align-items: center; gap: 10px;
         }
         .alert-error {
-            background: rgba(239,68,68,0.08);
-            border: 1px solid rgba(239,68,68,0.2);
-            color: #dc2626;
+            background: #fceae9;
+            color: #e2293f;
         }
         .alert-success {
-            background: rgba(34,197,94,0.08);
-            border: 1px solid rgba(34,197,94,0.2);
-            color: #16a34a;
+            background: #e8f5ed;
+            color: #1b8755;
         }
 
         /* Form */
-        .form-group { margin-bottom: 18px; }
+        .form-group { margin-bottom: 20px; }
         .form-label {
             display: block;
-            font-size: 12.5px;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #5e6d7d;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
         }
-        .input-wrap {
-            position: relative;
-        }
+        .input-wrap { position: relative; }
         .input-icon {
             position: absolute;
-            left: 13px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #94a3b8;
+            color: #9baec8;
             font-size: 15px;
             pointer-events: none;
             transition: color 0.15s;
         }
         .form-control {
             width: 100%;
-            background: #f8faff;
-            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            border: 2px solid #e0e4e8;
             border-radius: 10px;
-            padding: 11px 14px 11px 40px;
-            font-size: 14px;
+            padding: 12px 14px 12px 40px;
+            font-size: 14.5px;
             font-family: 'Inter', sans-serif;
-            color: #1a2332;
+            color: #0e1318;
+            font-weight: 500;
             transition: all 0.2s;
             outline: none;
         }
-        .form-control::placeholder { color: #b0bec5; }
+        .form-control::placeholder { color: #8a99a8; font-weight: 400; }
         .form-control:focus {
-            border-color: rgba(99,102,241,0.5);
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px #eff6ff;
         }
         .form-control:focus + .input-icon,
-        .input-wrap:focus-within .input-icon { color: #6366f1; }
+        .input-wrap:focus-within .input-icon { color: #3b82f6; }
 
         /* Password toggle */
         .toggle-pass {
             position: absolute;
-            right: 13px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #94a3b8;
+            color: #8a99a8;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 16px;
             padding: 2px;
-            transition: color 0.15s;
+            transition: color 0.2s;
         }
-        .toggle-pass:hover { color: #6366f1; }
+        .toggle-pass:hover { color: #3b82f6; }
 
         /* Submit button */
         .btn-login {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            padding: 14px;
+            background: #3b82f6;
             border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
+            border-radius: 500px;
+            font-size: 15px;
+            font-weight: 700;
             font-family: 'Inter', sans-serif;
             color: #fff;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(99,102,241,0.3);
-            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(139,61,255,0.25);
+            margin-top: 12px;
         }
         .btn-login:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(99,102,241,0.45);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(139,61,255,0.35);
         }
-        .btn-login:active { transform: translateY(0); }
+        .btn-login:active { transform: translateY(0) scale(0.98); }
         .btn-login.loading { opacity: 0.75; pointer-events: none; }
 
         /* Footer */
@@ -232,26 +211,26 @@
             margin-top: 28px;
             text-align: center;
             font-size: 11.5px;
-            color: #94a3b8;
+            color: #9baec8;
         }
 
-        /* Shimmer on button */
-        .btn-login::after {
-            content: '';
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        #particles-js {
             position: absolute;
-            top: 0; left: -100%;
-            width: 60%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-            transition: left 0.4s;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
-        .btn-login:hover::after { left: 140%; }
     </style>
 </head>
 <body>
-    <!-- Matrix code rain canvas -->
-    <canvas id="codeCanvas" style="position:fixed;inset:0;z-index:0;opacity:0.35;"></canvas>
-    <!-- Subtle light overlay on top of canvas -->
-    <div style="position:fixed;inset:0;z-index:1;background:radial-gradient(ellipse at center, rgba(240,244,255,0.4) 0%, rgba(240,244,255,0.75) 100%);pointer-events:none;"></div>
+    <div id="particles-js"></div>
+    <!-- Canva style gradient blobs -->
+    <div class="bg-blob bg-blob-1"></div>
+    <div class="bg-blob bg-blob-2"></div>
 
     <div class="login-card">
         <!-- Brand -->
@@ -284,7 +263,7 @@
         <form id="loginForm" action="<?= base_url('login') ?>" method="POST">
 
             <div class="form-group">
-                <label class="form-label" for="username">USERNAME</label>
+                <label class="form-label" for="username">Username</label>
                 <div class="input-wrap">
                     <input
                         type="text"
@@ -297,12 +276,12 @@
                         autofocus
                         required
                     >
-                    <i class="bi bi-person input-icon" style="left:13px;"></i>
+                    <i class="bi bi-person input-icon" style="left:12px;"></i>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="password">PASSWORD</label>
+                <label class="form-label" for="password">Password</label>
                 <div class="input-wrap">
                     <input
                         type="password"
@@ -313,7 +292,7 @@
                         autocomplete="current-password"
                         required
                     >
-                    <i class="bi bi-lock input-icon" style="left:13px;"></i>
+                    <i class="bi bi-lock input-icon" style="left:12px;"></i>
                     <button type="button" class="toggle-pass" id="togglePass" title="Tampilkan/Sembunyikan">
                         <i class="bi bi-eye" id="toggleIcon"></i>
                     </button>
@@ -332,563 +311,7 @@
     </div>
 
     <script>
-        // ── Static Background Grid with Cursor Repulsion ─────────────────────────
-        (function() {
-            const canvas = document.getElementById('codeCanvas');
-            const ctx    = canvas.getContext('2d');
-
-            const chars    = '01';
-            const fontSize = 28;
-            const REPEL_RADIUS = 30;  // radius pengaruh kursor (px)
-            const REPEL_FORCE  = 30;   // kekuatan dorong
-            let cols, rows, grid;
-            let time = 0; // Waktu/offset untuk efek scrolling
-            let snakes = []; // Ular yang memakan angka
-            let dragons = []; // Naga raksasa
-
-            let currentFormIdx = 0;
-            const formations = ['grid', 'triangle', 'box', 'star'];
-
-            function pointInPolygon(point, vs) {
-                let x = point[0], y = point[1];
-                let inside = false;
-                for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-                    let xi = vs[i][0], yi = vs[i][1];
-                    let xj = vs[j][0], yj = vs[j][1];
-                    let intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-                    if (intersect) inside = !inside;
-                }
-                return inside;
-            }
-
-            function getPolygon(form, cx, cy, R) {
-                let vs = [];
-                if (form === 'triangle') {
-                    vs = [ [cx, cy - R], [cx + R, cy + R*0.8], [cx - R, cy + R*0.8] ];
-                } else if (form === 'box') {
-                    vs = [ [cx - R, cy - R], [cx + R, cy - R], [cx + R, cy + R], [cx - R, cy + R] ];
-                } else if (form === 'star') {
-                    for(let i = 0; i < 10; i++) {
-                        let r = (i % 2 === 0) ? R : R * 0.4;
-                        let a = (i * Math.PI / 5) - Math.PI / 2;
-                        vs.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
-                    }
-                }
-                return {vs: vs, cx: cx, cy: cy};
-            }
-
-            function changeFormation() {
-                if (!grid) return;
-                currentFormIdx = (currentFormIdx + 1) % formations.length;
-                const form = formations[currentFormIdx];
-                let N = cols * rows; 
-                
-                if (form === 'grid') {
-                    for (let x = 0; x < cols; x++) {
-                        for (let y = 0; y < rows; y++) {
-                            grid[x][y].baseX = grid[x][y].origBaseX;
-                            grid[x][y].baseY = grid[x][y].origBaseY;
-                        }
-                    }
-                    return;
-                }
-
-                let R = 75; // Ukuran setiap bentuk
-                let spacing = 220; // Jarak antar bentuk (berjejer)
-                let shapes = [];
-                
-                for (let cx = spacing/2; cx < canvas.width + spacing; cx += spacing) {
-                    for (let cy = spacing/2; cy < canvas.height + spacing; cy += spacing) {
-                        shapes.push(getPolygon(form, cx, cy, R));
-                    }
-                }
-
-                let tempSlots = [];
-                // Estimasi kepadatan titik agar pas
-                let d = (R * 2) / Math.sqrt((N * 1.5) / shapes.length); 
-                if (d < 5) d = 5;
-
-                shapes.forEach(shapeObj => {
-                    let vs = shapeObj.vs;
-                    let cx = shapeObj.cx;
-                    let cy = shapeObj.cy;
-                    let minX = vs[0][0], maxX = vs[0][0], minY = vs[0][1], maxY = vs[0][1];
-                    vs.forEach(v => {
-                        if (v[0] < minX) minX = v[0];
-                        if (v[0] > maxX) maxX = v[0];
-                        if (v[1] < minY) minY = v[1];
-                        if (v[1] > maxY) maxY = v[1];
-                    });
-                    
-                    for (let yy = minY; yy <= maxY; yy += d) {
-                        for (let xx = minX; xx <= maxX; xx += d) {
-                            if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy, cx: cx, cy: cy});
-                        }
-                    }
-                });
-
-                // Jika kurang, tambahkan random point ke shape secara acak
-                while (tempSlots.length < N) {
-                    let shapeObj = shapes[Math.floor(Math.random() * shapes.length)];
-                    let vs = shapeObj.vs;
-                    let cx = shapeObj.cx;
-                    let cy = shapeObj.cy;
-                    let minX = vs[0][0], maxX = vs[0][0], minY = vs[0][1], maxY = vs[0][1];
-                    vs.forEach(v => {
-                        if (v[0] < minX) minX = v[0];
-                        if (v[0] > maxX) maxX = v[0];
-                        if (v[1] < minY) minY = v[1];
-                        if (v[1] > maxY) maxY = v[1];
-                    });
-                    let xx = minX + Math.random() * (maxX - minX);
-                    let yy = minY + Math.random() * (maxY - minY);
-                    if (pointInPolygon([xx, yy], vs)) tempSlots.push({x: xx, y: yy, cx: cx, cy: cy});
-                }
-                
-                for (let i = tempSlots.length - 1; i > 0; i--) {
-                    let j = Math.floor(Math.random() * (i + 1));
-                    [tempSlots[i], tempSlots[j]] = [tempSlots[j], tempSlots[i]];
-                }
-
-                let slotIndex = 0;
-                for (let x = 0; x < cols; x++) {
-                    for (let y = 0; y < rows; y++) {
-                        let slot = tempSlots[slotIndex];
-                        grid[x][y].baseX = slot.x;
-                        grid[x][y].baseY = slot.y;
-                        grid[x][y].origShapeX = slot.x;
-                        grid[x][y].origShapeY = slot.y;
-                        grid[x][y].cx = slot.cx;
-                        grid[x][y].cy = slot.cy;
-                        slotIndex++;
-                    }
-                }
-            }
-
-            let mouseX = -9999, mouseY = -9999;
-            document.addEventListener('mousemove', function(e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-            document.addEventListener('mouseleave', function() {
-                mouseX = -9999;
-                mouseY = -9999;
-            });
-
-            // Mencegah context menu klik kanan
-            window.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-
-            // Ledakan & Formasi saat klik pada background (canvas)
-            canvas.addEventListener('mousedown', function(e) {
-                if (!grid) return;
-                const explosionForce = 1200; // Kekuatan ledakan
-                for (let x = 0; x < cols; x++) {
-                    for (let y = 0; y < rows; y++) {
-                        grid[x][y].vx = (Math.random() - 0.5) * explosionForce;
-                        grid[x][y].vy = (Math.random() - 0.5) * explosionForce;
-                    }
-                }
-                changeFormation();
-            });
-
-
-            // Warna yang lebih jelas untuk background (tidak terlalu transparan)
-            const colors = [
-                'rgba(1, 6, 20, 1)', 'rgba(3, 1, 22, 1)', 
-                'rgba(4, 2, 26, 1)', 'rgba(2, 7, 22, 1)'
-            ];
-
-            function resize() {
-                canvas.width  = window.innerWidth;
-                canvas.height = window.innerHeight;
-                cols = Math.ceil(canvas.width / fontSize);
-                // Tambahkan 2 baris ekstra agar saat di-scroll dan wrap tidak terlihat kosong di ujung
-                rows = Math.ceil(canvas.height / fontSize) + 2;
-                
-                currentFormIdx = 0;
-                grid = [];
-                for (let x = 0; x < cols; x++) {
-                    grid[x] = [];
-                    for (let y = 0; y < rows; y++) {
-                        grid[x][y] = {
-                            char: chars[Math.floor(Math.random() * chars.length)],
-                            color: colors[Math.floor(Math.random() * colors.length)],
-                            baseX: x * fontSize + (fontSize/2),
-                            baseY: y * fontSize + (fontSize/2),
-                            origBaseX: x * fontSize + (fontSize/2),
-                            origBaseY: y * fontSize + (fontSize/2),
-                            offsetX: 0,
-                            offsetY: 0,
-                            vx: 0,
-                            vy: 0,
-                            hidden: 0 // Timer angka hilang karena dimakan
-                        };
-                    }
-                }
-
-                // Inisialisasi Ular (3 ekor)
-                snakes = [];
-                for(let i = 0; i < 3; i++) {
-                    snakes.push({
-                        segments: [],
-                        length: 20 + Math.random() * 30,
-                        speed: 3 + Math.random() * 2,
-                        angle: Math.random() * Math.PI * 2,
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height
-                    });
-                }
-
-                // Inisialisasi Naga (1 ekor raksasa)
-                dragons = [];
-                for(let i = 0; i < 1; i++) {
-                    dragons.push({
-                        segments: [],
-                        length: 60 + Math.random() * 20, // Lebih panjang
-                        speed: 4 + Math.random() * 1.5, // Sedikit lebih cepat
-                        angle: Math.random() * Math.PI * 2,
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        wingPhase: Math.random() * Math.PI * 2
-                    });
-                }
-            }
-
-            function draw() {
-                // Bersihkan canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.font = (fontSize - 6) + 'px "Courier New", monospace';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                
-                time += 0.5; // Kecepatan gerak scrolling
-
-                for (let x = 0; x < cols; x++) {
-                    // Kolom genap ke atas (-1), ganjil ke bawah (1)
-                    const direction = (x % 2 === 0) ? -1 : 1;
-                    const scrollOffset = (currentFormIdx === 0) ? (time * direction) : 0;
-                    const gridHeight = rows * fontSize;
-
-                    for (let y = 0; y < rows; y++) {
-                        const cell = grid[x][y];
-                        
-                        // Rotasi jika dalam mode formasi
-                        if (currentFormIdx !== 0 && cell.cx !== undefined) {
-                            let angle = time * 0.02; // Kecepatan rotasi
-                            let dxCenter = cell.origShapeX - cell.cx;
-                            let dyCenter = cell.origShapeY - cell.cy;
-                            cell.baseX = cell.cx + dxCenter * Math.cos(angle) - dyCenter * Math.sin(angle);
-                            cell.baseY = cell.cy + dxCenter * Math.sin(angle) + dyCenter * Math.cos(angle);
-                        }
-
-                        // Kalkulasi pergeseran ke atas/bawah
-                        let currentBaseY = cell.baseY + scrollOffset;
-                        
-                        // Infinite wrap-around (gulungan tak berujung)
-                        if (currentFormIdx === 0) {
-                            currentBaseY = ((currentBaseY + fontSize) % gridHeight + gridHeight) % gridHeight - fontSize;
-                        }
-                        
-                        const dx = cell.baseX - mouseX;
-                        const dy = currentBaseY - mouseY;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < REPEL_RADIUS && dist > 0) {
-                            // Menghindar dari kursor (menambah kecepatan)
-                            const force = Math.pow(1 - dist / REPEL_RADIUS, 2) * REPEL_FORCE;
-                            cell.vx += (dx / dist) * force;
-                            cell.vy += (dy / dist) * force;
-                            
-                            // Highlight warna saat dekat kursor
-                            ctx.fillStyle = 'rgba(30, 58, 138, 0.6)';
-                        } else {
-                            ctx.fillStyle = cell.color;
-                        }
-
-                        // Fisika Pegas (Spring & Friction) untuk efek Slow-Mo
-                        const spring = 0.003;   // Tarikan kembali sangat lemah (lambat)
-                        const friction = 0.92;  // Gesekan rendah agar melayang lebih lama
-
-                        // Tarik perlahan ke posisi awal (0 offset)
-                        cell.vx -= cell.offsetX * spring;
-                        cell.vy -= cell.offsetY * spring;
-
-                        // Terapkan gesekan
-                        cell.vx *= friction;
-                        cell.vy *= friction;
-                        
-                        // Update posisi offset lenturan
-                        cell.offsetX += cell.vx;
-                        cell.offsetY += cell.vy;
-
-                        const realX = cell.baseX + cell.offsetX;
-                        const realY = currentBaseY + cell.offsetY;
-
-                        // Deteksi interaksi dimakan ular
-                        for (let s of snakes) {
-                            if (s.segments.length === 0) continue;
-                            const head = s.segments[s.segments.length - 1];
-                            const d = Math.hypot(realX - head.x, realY - head.y);
-                            if (d < 25) { // Radius gigitan ular
-                                cell.hidden = 150 + Math.random() * 150; 
-                                if (s.length < 150) s.length += 0.3; 
-                                break;
-                            }
-                        }
-
-                        // Deteksi interaksi dimakan naga
-                        for (let d of dragons) {
-                            if (d.segments.length === 0) continue;
-                            const head = d.segments[d.segments.length - 1];
-                            const dist = Math.hypot(realX - head.x, realY - head.y);
-                            if (dist < 45) { // Radius gigitan naga (jauh lebih besar)
-                                cell.hidden = 250 + Math.random() * 200; // Hilang lebih lama
-                                if (d.length < 250) d.length += 0.5; // Naga memanjang
-                                break;
-                            }
-                        }
-
-                        // Jika dimakan, lewati proses render karakter
-                        if (cell.hidden > 0) {
-                            cell.hidden--;
-                            continue;
-                        }
-
-                        // Ubah karakter secara acak sesekali agar terlihat hidup
-                        if (Math.random() < 0.005) {
-                            cell.char = chars[Math.floor(Math.random() * chars.length)];
-                        }
-
-                        // Gambar teks di posisi dasar + scroll + efek lenturan
-                        ctx.fillText(cell.char, realX, realY);
-                    }
-                }
-
-                // --- UPDATE & RENDER ULAR ---
-                ctx.lineWidth = 4;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                
-                for (let s of snakes) {
-                    // Ular berbelok acak
-                    s.angle += (Math.random() - 0.5) * 0.4;
-                    s.x += Math.cos(s.angle) * s.speed;
-                    s.y += Math.sin(s.angle) * s.speed;
-                    
-                    // Wrapping ular di pinggir layar
-                    if (s.x < 0) s.x += canvas.width;
-                    if (s.x > canvas.width) s.x -= canvas.width;
-                    if (s.y < 0) s.y += canvas.height;
-                    if (s.y > canvas.height) s.y -= canvas.height;
-                    
-                    s.segments.push({x: s.x, y: s.y});
-                    if (s.segments.length > s.length) {
-                        s.segments.shift(); // Hapus ekor
-                    }
-                    
-                    // --- RENDER CYBER SNAKE ---
-                    if (s.segments.length < 2) continue;
-                    
-                    // Tulang Punggung (Spine) tipis dan transparan
-                    ctx.beginPath();
-                    for (let i = 0; i < s.segments.length; i++) {
-                        const pt = s.segments[i];
-                        if (i === 0) {
-                            ctx.moveTo(pt.x, pt.y);
-                        } else {
-                            const prev = s.segments[i-1];
-                            if (Math.hypot(pt.x - prev.x, pt.y - prev.y) > 100) {
-                                ctx.moveTo(pt.x, pt.y);
-                            } else {
-                                ctx.lineTo(pt.x, pt.y);
-                            }
-                        }
-                    }
-                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.2)';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-
-                    // Sisik/Segmen Cyber
-                    for (let i = 0; i < s.segments.length; i++) {
-                        const pt = s.segments[i];
-                        const ratio = i / s.segments.length; // 0 = ekor, 1 = kepala
-                        
-                        // Cegah bug gambar pada garis potong warp layar
-                        if (i > 0 && Math.hypot(pt.x - s.segments[i-1].x, pt.y - s.segments[i-1].y) > 100) continue;
-
-                        if (i === s.segments.length - 1) {
-                            // --- KEPALA SCI-FI ---
-                            ctx.save();
-                            ctx.translate(pt.x, pt.y);
-                            ctx.rotate(s.angle); // Arah pandang ular
-                            
-                            // Bentuk mirip pesawat tempur futuristik
-                            ctx.beginPath();
-                            ctx.moveTo(12, 0);   // Moncong depan
-                            ctx.lineTo(-8, -8);  // Sayap kiri
-                            ctx.lineTo(-4, 0);   // Bagian belakang
-                            ctx.lineTo(-8, 8);   // Sayap kanan
-                            ctx.closePath();
-                            
-                            ctx.fillStyle = '#10b981'; // Emerald 500
-                            ctx.shadowColor = '#10b981';
-                            ctx.shadowBlur = 15;
-                            ctx.fill();
-                            
-                            // Mata Laser Cybernetic
-                            ctx.beginPath();
-                            ctx.arc(4, 0, 2.5, 0, Math.PI*2);
-                            ctx.fillStyle = '#fff';
-                            ctx.shadowColor = '#fff';
-                            ctx.shadowBlur = 8;
-                            ctx.fill();
-                            
-                            ctx.restore();
-                        } else {
-                            // --- BADAN CYBER ---
-                            // Gambar sisik selang-seling agar bertekstur
-                            if (i % 2 !== 0) continue;
-
-                            const size = 1.5 + (ratio * 4.5); // Membesar dari ekor ke leher
-                            
-                            ctx.save();
-                            ctx.translate(pt.x, pt.y);
-                            ctx.rotate(Math.PI / 4); // Putar 45 derajat -> diamond
-                            
-                            ctx.beginPath();
-                            ctx.rect(-size/2, -size/2, size, size);
-                            
-                            // Opasitas berkurang semakin ke ujung ekor
-                            ctx.fillStyle = `rgba(16, 185, 129, ${ratio})`;
-                            ctx.fill();
-                            
-                            ctx.restore();
-                        }
-                    }
-                }
-
-                // --- UPDATE & RENDER NAGA (DRAGON) ---
-                for (let d of dragons) {
-                    // Naga berbelok acak
-                    d.angle += (Math.random() - 0.5) * 0.3;
-                    d.x += Math.cos(d.angle) * d.speed;
-                    d.y += Math.sin(d.angle) * d.speed;
-                    d.wingPhase += 0.25; // Kecepatan kepak sayap
-                    
-                    // Wrapping layar
-                    if (d.x < 0) d.x += canvas.width;
-                    if (d.x > canvas.width) d.x -= canvas.width;
-                    if (d.y < 0) d.y += canvas.height;
-                    if (d.y > canvas.height) d.y -= canvas.height;
-                    
-                    d.segments.push({x: d.x, y: d.y});
-                    if (d.segments.length > d.length) d.segments.shift();
-                    
-                    if (d.segments.length < 2) continue;
-
-                    // Tulang Punggung Naga
-                    ctx.beginPath();
-                    for (let i = 0; i < d.segments.length; i++) {
-                        const pt = d.segments[i];
-                        if (i === 0) {
-                            ctx.moveTo(pt.x, pt.y);
-                        } else {
-                            const prev = d.segments[i-1];
-                            if (Math.hypot(pt.x - prev.x, pt.y - prev.y) > 100) {
-                                ctx.moveTo(pt.x, pt.y);
-                            } else {
-                                ctx.lineTo(pt.x, pt.y);
-                            }
-                        }
-                    }
-                    ctx.strokeStyle = 'rgba(239, 68, 68, 0.3)'; // Merah transparan
-                    ctx.lineWidth = 3;
-                    ctx.stroke();
-
-                    // Segmen Tubuh Naga
-                    for (let i = 0; i < d.segments.length; i++) {
-                        const pt = d.segments[i];
-                        const ratio = i / d.segments.length;
-                        
-                        if (i > 0 && Math.hypot(pt.x - d.segments[i-1].x, pt.y - d.segments[i-1].y) > 100) continue;
-
-                        if (i === d.segments.length - 1) {
-                            // --- KEPALA NAGA ---
-                            ctx.save();
-                            ctx.translate(pt.x, pt.y);
-                            ctx.rotate(d.angle);
-                            
-                            // Kepala bertanduk lebar
-                            ctx.beginPath();
-                            ctx.moveTo(18, 0);   // Moncong depan
-                            ctx.lineTo(0, -10);  // Rahang kiri
-                            ctx.lineTo(-6, -18); // Tanduk kiri luar
-                            ctx.lineTo(-2, -4);  // Pangkal tanduk kiri
-                            ctx.lineTo(-8, 0);   // Leher/belakang
-                            ctx.lineTo(-2, 4);   // Pangkal tanduk kanan
-                            ctx.lineTo(-6, 18);  // Tanduk kanan luar
-                            ctx.lineTo(0, 10);   // Rahang kanan
-                            ctx.closePath();
-                            
-                            ctx.fillStyle = '#ef4444'; // Merah Api (Red-500)
-                            ctx.shadowColor = '#ef4444';
-                            ctx.shadowBlur = 25;
-                            ctx.fill();
-                            
-                            // Dua Mata Api
-                            ctx.beginPath();
-                            ctx.arc(4, -5, 2.5, 0, Math.PI*2); // Mata Kiri
-                            ctx.arc(4, 5, 2.5, 0, Math.PI*2);  // Mata Kanan
-                            ctx.fillStyle = '#fef08a'; // Kuning menyala
-                            ctx.shadowColor = '#fef08a';
-                            ctx.shadowBlur = 10;
-                            ctx.fill();
-                            
-                            ctx.restore();
-                        } else {
-                            // --- BADAN NAGA & SAYAP ---
-                            if (i % 2 !== 0) continue; // Selang-seling
-                            
-                            const size = 3 + (ratio * 7); // Tubuh jauh lebih besar dari ular
-                            
-                            ctx.save();
-                            ctx.translate(pt.x, pt.y);
-                            ctx.rotate(Math.PI / 4);
-                            
-                            // Gambar Sayap (Hanya di sepertiga tubuh bagian depan/tengah)
-                            if (ratio > 0.4 && ratio < 0.8 && i % 4 === 0) {
-                                // Mengepak menggunakan sinus
-                                const wingSpan = 15 + Math.sin(d.wingPhase) * 12;
-                                ctx.beginPath();
-                                ctx.moveTo(0, 0);
-                                ctx.lineTo(-wingSpan, -wingSpan); // Sayap kiri atas
-                                ctx.moveTo(0, 0);
-                                ctx.lineTo(wingSpan, wingSpan); // Sayap kanan bawah
-                                ctx.strokeStyle = `rgba(249, 115, 22, ${ratio})`; // Oranye menyala
-                                ctx.lineWidth = 3;
-                                ctx.stroke();
-                            }
-
-                            // Gambar Sisik Punggung
-                            ctx.beginPath();
-                            ctx.rect(-size/2, -size/2, size, size);
-                            ctx.fillStyle = `rgba(239, 68, 68, ${ratio})`;
-                            ctx.fill();
-                            
-                            ctx.restore();
-                        }
-                    }
-                }
-                
-                requestAnimationFrame(draw);
-            }
-
-            resize();
-            window.addEventListener('resize', resize);
-            requestAnimationFrame(draw);
-        })();
-
-        // ── Toggle password visibility ─────────────────────────────────────
+        // Toggle password visibility
         document.getElementById('togglePass').addEventListener('click', function () {
             const pwd  = document.getElementById('password');
             const icon = document.getElementById('toggleIcon');
@@ -901,15 +324,39 @@
             }
         });
 
-        // ── Loading state on submit ────────────────────────────────────────
+        // Loading state on submit
         document.getElementById('loginForm').addEventListener('submit', function () {
             const btn = document.getElementById('btnLogin');
             btn.classList.add('loading');
             btn.innerHTML = '<i class="bi bi-arrow-clockwise" style="animation:spin 0.8s linear infinite;display:inline-block;"></i> &nbsp;Memproses...';
         });
     </script>
-    <style>
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.6, "random": false },
+                "size": { "value": 5, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "repel" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "repel": { "distance": 120, "duration": 0.4 },
+                    "push": { "particles_nb": 4 }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>
