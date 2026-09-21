@@ -28,6 +28,7 @@ class OmronInnerModel extends Model
         'shift',
         'machine',
         'notification',
+        'weight',
         'user_initial',
         'job_order',
         'shift_id',

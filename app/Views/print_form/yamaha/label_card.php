@@ -148,8 +148,11 @@
 <tr>
   <td style="height:5mm;border-left:0.3mm solid #000;"></td>
   <td colspan="4" rowspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-bottom:0.3mm solid #000;padding:1mm 1mm 0.5mm 1mm;vertical-align:middle;text-align:center;">
-    <?= $barcodeSvg($refNo, 7, 1.0) ?>
-    <div style="font-size:9pt;margin-top:0.5mm;"><?= esc($refNo) ?></div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td align="center"><?= $barcodeSvg($refNo, 7, 1.0) ?></td></tr>
+        <tr><td style="height:2.5mm;font-size:1pt;line-height:1pt;">&nbsp;</td></tr>
+        <tr><td align="center" style="font-size:9pt;"><?= esc($refNo) ?></td></tr>
+    </table>
   </td>
   <td colspan="4" rowspan="3" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0.5mm;">
     <?= $qrCodeImg($qrBottom, 120, '18mm', 0) ?>
@@ -168,7 +171,7 @@
 
 <!-- BARIS BAWAH: border bawah penuh (seperti kolom A/J untuk kiri/kanan) -->
 <tr>
-  <td style="height:0;border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
+  <td style="height:3mm;border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;"></td>
   <td style="border-bottom:0.3mm solid #000;"></td>
   <td style="border-bottom:0.3mm solid #000;"></td>
   <td style="border-bottom:0.3mm solid #000;"></td>

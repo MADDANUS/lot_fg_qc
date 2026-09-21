@@ -113,19 +113,19 @@ body {
 }
 
 .btn-success-modern {
-    background: var(--canva-cyan) !important;
+    background: #047857 !important;
     border: none !important;
     border-radius: var(--canva-radius-pill) !important;
     color: white !important;
     font-weight: 700 !important;
     padding: 10px 24px !important;
-    box-shadow: 0 4px 12px rgba(0, 196, 204, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(4, 120, 87, 0.2) !important;
     transition: all 0.2s ease !important;
 }
 .btn-success-modern:hover {
-    background: var(--canva-cyan-hover) !important;
+    background: #065f46 !important;
     transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: 0 8px 20px rgba(0, 196, 204, 0.3) !important;
+    box-shadow: 0 8px 20px rgba(6, 95, 70, 0.3) !important;
 }
 
 .btn-outline-modern {

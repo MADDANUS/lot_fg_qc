@@ -237,7 +237,7 @@
         <div class="brand">
             <div class="brand-icon">🏷️</div>
             <div class="brand-text">
-                <h1>LOT FINISHED GOOD</h1>
+                <h1>LOT FINISH GOOD</h1>
                 <p>PT. NIHON SEIKI INDONESIA</p>
             </div>
         </div>

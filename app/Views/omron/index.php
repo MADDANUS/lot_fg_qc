@@ -26,7 +26,7 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
     <div style="border-bottom: 2px solid #e2e8f0; margin-bottom: 0;">
         <?php if (!$isPpic): ?>
         <button class="tab-btn active-inner" id="btnTabInner" onclick="switchTab('inner')">
-            📋 Inner Labels
+            📋 Cetak QR Inner
         </button>
         <?php endif; ?>
         <?php if (!$isQc): ?>
@@ -54,6 +54,7 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
         <table id="tableInner" class="table table-hover table-bordered w-100" style="font-size:13px;">
             <thead class="table-primary">
                 <tr>
+                    <th style="width:30px; text-align:center;">No</th>
                     <th>Nomor Transaksi</th>
                     <th>Posting Date</th>
                     <th>Part No</th>
@@ -84,6 +85,8 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
         </div>
         <table id="tableOuter" class="table table-hover table-bordered w-100" style="font-size:13px;">
             <thead class="table-primary">
+                <tr>
+                    <th style="width:30px; text-align:center;">No</th>
                     <th>Production Date</th>
                     <th>Item Code</th>
                     <th>Item Name</th>
@@ -168,8 +171,8 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
             </div>
             <div class="d-flex align-items-center gap-4 mt-2" style="margin-left:140px;">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="form_lot_guarantee">
-                    <label class="form-check-label fw-bold" for="form_lot_guarantee">Lot Guarantee</label>
+                    <input class="form-check-input" type="checkbox" id="form_lot_guarantee" disabled style="cursor: not-allowed;">
+                    <label class="form-check-label fw-bold" for="form_lot_guarantee" style="cursor: not-allowed;">Lot Guarantee</label>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                     <label class="fl fw-bold">Die No</label>
@@ -347,6 +350,14 @@ const dtInner = $('#tableInner').DataTable({
     serverSide: true,
     ajax: { url: BASE_URL + 'omron/data/inner', type: 'GET', dataSrc: 'data' },
     columns: [
+        {
+            data: null,
+            orderable: false,
+            searchable: false,
+            render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },
         { data: 'doc_number', defaultContent: '-' },
         { data: 'doc_date', defaultContent: '-' },
         { data: 'item_code', defaultContent: '-' },
@@ -362,7 +373,7 @@ const dtInner = $('#tableInner').DataTable({
             render: (d) => `<input type="checkbox" class="chk-inner" value="${d}" onchange="updateInfo('inner')">`
         }
     ],
-    order: [[7, 'desc']],
+    order: [[8, 'desc']],
     pageLength: 25,
     language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
 });
@@ -377,6 +388,14 @@ function loadOuter() {
         serverSide: true,
         ajax: { url: BASE_URL + 'omron/data/outer', type: 'GET', dataSrc: 'data' },
         columns: [
+            {
+                data: null,
+                orderable: false,
+                searchable: false,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                }
+            },
             { data: 'production_date', defaultContent: '-' },
             { data: 'item_code', defaultContent: '-' },
             { data: 'description', defaultContent: '-' },
@@ -391,7 +410,7 @@ function loadOuter() {
                 render: (d) => `<input type="checkbox" class="chk-outer" value="${d}" onchange="updateInfo('outer')">`
             }
         ],
-        order: [[6, 'desc']],
+        order: [[7, 'desc']],
         pageLength: 25,
         language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
     });

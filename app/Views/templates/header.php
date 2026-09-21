@@ -160,7 +160,7 @@ $isMitsuba = strpos($uri, 'mitsuba') !== false;
 <nav class="canva-navbar">
     <a href="<?= base_url('print-form') ?>" class="canva-nav-brand">
         <div class="canva-brand-icon">🏷️</div>
-        <span>LOT FINISHED GOOD</span>
+        <span>LOT FINISH GOOD</span>
     </a>
 
     <div class="canva-nav-links">

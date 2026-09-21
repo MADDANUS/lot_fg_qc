@@ -82,7 +82,11 @@ $(function () {
      * ------------------------------------------------------------------ */
     $('#customer').on('change', function() {
         const customerName = $(this).find('option:selected').text().toUpperCase().trim();
-        const isEpson = customerName.includes('EPSON');
+        const isEpson = customerName.includes('EPSON') || 
+                        customerName.includes('KIYOKUNI') || 
+                        customerName.includes('PATCO') || 
+                        customerName.includes('NESINAK') || 
+                        customerName.includes('MURAMOTO');
         const isYamaha = customerName.includes('YAMAHA');
         const isOmron = customerName.includes('OMRON');
         const isMitsuba = customerName.includes('MITSUBA');
@@ -121,7 +125,10 @@ $(function () {
             $('.weight-container').css('margin-top', '0');
             
         } else if (isYamaha) {
-            $('#size_mode').html('<option value="Yamaha" selected>Yamaha</option>');
+            $('#size_mode').html(`
+                <option value="Yamaha Small">Small/Yamaha</option>
+                <option value="Yamaha" selected>Medium/Yamaha</option>
+            `);
             // Default position untuk lainnya (kiri)
             $('.user-initial-container').insertAfter($('.omron-only'));
             $('.user-initial-container').find('.lbl-width-long').css('width', '140px');

@@ -278,6 +278,7 @@ class PrintForm extends Controller
                     'production_date' => $productionDate,
                     'machine'         => $headerData['machine']       ?? '',
                     'notification'    => $headerData['notification']  ?? '',
+                    'weight'          => $headerData['weight']        ?? null,
                     'user_initial'    => $headerData['user_initial']  ?? '',
                     'job_order'       => $headerData['job_order']     ?? null,
                     'shift_id'        => $headerData['shift_id']      ?? null,
@@ -505,6 +506,7 @@ class PrintForm extends Controller
                 'small'  => 'print_form/default/small/label_pdf',
                 'large'  => 'print_form/default/large/label_pdf',
                 'yamaha' => 'print_form/yamaha/label_pdf',
+                'yamahasmall' => 'print_form/yamaha_small/label_pdf',
                 default  => 'print_form/default/medium/label_pdf',
             };
             $perPage = match($sizeMode) {

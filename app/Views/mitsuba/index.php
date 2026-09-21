@@ -19,6 +19,8 @@
 
     <table id="tableMitsuba" class="table table-hover table-bordered w-100" style="font-size:13px;">
         <thead class="table-info">
+            <tr>
+                <th style="width:30px; text-align:center;">No</th>
                 <th>Nomor Transaksi</th>
                 <th>Part No</th>
                 <th>Item Name</th>
@@ -48,6 +50,14 @@ const dtMitsuba = $('#tableMitsuba').DataTable({
     serverSide: true,
     ajax: { url: BASE_URL + 'mitsuba/data', type: 'GET', dataSrc: 'data' },
     columns: [
+        {
+            data: null,
+            orderable: false,
+            searchable: false,
+            render: function (data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },
         { data: 'doc_number', defaultContent: '-' },
         { data: 'item_code', defaultContent: '-' },
         { data: 'description', defaultContent: '-' },
@@ -61,7 +71,7 @@ const dtMitsuba = $('#tableMitsuba').DataTable({
             render: (d) => `<input type="checkbox" class="chk-mitsuba" value="${d}" onchange="updateInfo()">`
         }
     ],
-    order: [[5, 'desc']],
+    order: [[6, 'desc']],
     pageLength: 25,
     language: { search: 'Cari:', lengthMenu: 'Tampilkan _MENU_ data' },
 });

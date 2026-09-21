@@ -119,6 +119,7 @@ if ($type === 'inner'):
             $itemCode    = $lot['item_code']    ?? '';
             $lotno       = $lot['lotno']        ?? '';
             $lotQty      = (string) ($lot['lot_qty'] ?? $lot['quantity'] ?? '');
+            $weight      = $lot['weight']       ?? '';
             $description = $lot['description']  ?? '';
             $machine     = $lot['machine']       ?? '';
             $notification= $lot['notification']  ?? '';
@@ -168,6 +169,7 @@ else:
             $itemCode    = $lot['item_code']    ?? '';
             $lotno       = $lot['lotno']        ?? '';
             $lotQty      = (string) ($lot['lot_qty'] ?? $lot['quantity'] ?? '');
+            $weight      = $lot['weight']       ?? '';
             $description = $lot['description']  ?? '';
             $machine     = $lot['machine']       ?? '';
             $notification= $lot['notification']  ?? '';
@@ -199,6 +201,7 @@ else:
                 $itemCode    = $lot['item_code']    ?? '';
                 $lotno       = $lot['lotno']        ?? '';
                 $lotQty      = (string) ($lot['lot_qty'] ?? $lot['quantity'] ?? '');
+                $weight      = $lot['weight']       ?? '';
                 $description = $lot['description']  ?? '';
                 $machine     = $lot['machine']       ?? '';
                 $notification= $lot['notification']  ?? '';

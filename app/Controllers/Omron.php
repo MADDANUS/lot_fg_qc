@@ -285,6 +285,9 @@ class Omron extends Controller
             'lots' => $lots,
         ]);
 
+        // Tingkatkan backtrack_limit untuk mencegah error pada HTML berukuran besar (multi print)
+        ini_set('pcre.backtrack_limit', '10000000');
+
         // Generate mPDF
         $mpdf = new Mpdf([
             'mode'          => 'utf-8',
