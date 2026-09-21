@@ -1,0 +1,45 @@
+BERIKUT ADALAH DAFTAR QUERY SQL YANG DIGUNAKAN UNTUK MENARIK DATA DARI DATABASE PUSAT (SAP B1 - SQL SERVER)
+
+================================================================================
+1. QUERY UNTUK MENGAMBIL DAFTAR CUSTOMER BESERTA ITEM CODE
+================================================================================
+Keterangan:
+Query ini digunakan untuk menarik daftar relasi antara Customer (CardCode & CardName) dengan Produk (ItemCode). Data ini diambil dari tabel ODLN (Delivery Notes), DLN1 (Delivery Notes Lines), dan OCRD (Business Partners). Hasilnya digunakan untuk mengisi Dropdown Customer dan melakukan pemetaan otomatis di halaman form print.
+
+Query SQL:
+SELECT 
+    T0.[ItemCode], 
+    T1.[CardCode], 
+    T2.[CardName]
+FROM DLN1 T0
+INNER JOIN ODLN T1 ON T0.[DocEntry] = T1.[DocEntry]
+INNER JOIN OCRD T2 ON T0.[BaseCard] = T2.[CardCode]
+WHERE T2.[ValidFor] = 'Y'
+GROUP BY T1.[CardCode], T2.[CardName], T0.[ItemCode]
+ORDER BY T0.[ItemCode]
+
+
+================================================================================
+2. QUERY UNTUK MENGAMBIL DATA DETAIL ITEM BERDASARKAN DOC NUMBER (OIGN)
+================================================================================
+Keterangan:
+Query ini adalah inti dari aplikasi pencetakan label. Digunakan saat pengguna memasukkan "Doc Number" lalu menekan tombol Cari. Query ini akan menarik data penerimaan barang jadi dari tabel OIGN (Receipt from Production) beserta detail line-nya di IGN1, detail master item di OITM, dan tanggal Production Order dari OWOR.
+
+Query SQL:
+SELECT
+    T0.[DocNum],
+    T0.[DocDate],
+    T1.[ItemCode],
+    T1.[Dscription],
+    T1.[Quantity],
+    T1.[U_MIS_LotNo],
+    T1.[WhsCode],
+    T2.[U_MIS_BackNo],
+    T2.[U_MIS_StdPacking],
+    T0.[U_MIS_Operator],
+    T3.[PostDate] as 'Tanggal PDO'
+FROM OIGN T0
+INNER JOIN IGN1 T1 ON T0.[DocEntry] = T1.[DocEntry]
+INNER JOIN OITM T2 ON T1.[ItemCode] = T2.[ItemCode]
+INNER JOIN OWOR T3 ON T1.[BaseRef]  = T3.[DocNum]
+WHERE T0.[DocNum] = ?

@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="row-item production-date-container" style="display:none;">
-                    <span style="width:110px; text-align:right; margin-right:10px;" class="radio-lbl">
+                    <span style="width:130px; text-align:right; margin-right:10px;" class="radio-lbl">
                         <input class="form-check-input date-mode-radio me-1" type="radio" name="date_mode" value="production_date" checked>
                         Production Date
                     </span>
@@ -206,7 +206,7 @@
                     <fieldset class="groupbox h-100" style="margin-bottom:0;">
                         <legend class="groupbox-legend">Additional</legend>
                         <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="lot_guarantee" name="lot_guarantee" value="1" onclick="return false;">
+                            <input class="form-check-input" type="checkbox" id="lot_guarantee" name="lot_guarantee" value="1">
                             <label class="form-check-label" for="lot_guarantee">Lot Guarantee</label>
                         </div>
                         <div class="form-check mb-2">

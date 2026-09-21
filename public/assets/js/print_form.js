@@ -112,15 +112,24 @@ $(function () {
             // Pindahkan User Initial Name ke bawah Remark (kolom tengah)
             $('.user-initial-container').insertAfter($('#remark').closest('.row-item'));
             // Sesuaikan lebar label agar sejajar dengan Remark
-            $('.user-initial-container').find('span').css('width', '100px');
+            $('.user-initial-container').find('.lbl-width-long').css('width', '100px');
             $('.user-initial-container').css('margin-top', '15px');
+            
+            // Pindahkan Berat ke bawah User Initial Name
+            $('.weight-container').insertAfter($('.user-initial-container'));
+            $('.weight-container').find('.lbl-width-long').css('width', '100px');
+            $('.weight-container').css('margin-top', '0');
             
         } else if (isYamaha) {
             $('#size_mode').html('<option value="Yamaha" selected>Yamaha</option>');
             // Default position untuk lainnya (kiri)
             $('.user-initial-container').insertAfter($('.omron-only'));
-            $('.user-initial-container').find('span').css('width', '140px');
+            $('.user-initial-container').find('.lbl-width-long').css('width', '140px');
             $('.user-initial-container').css('margin-top', '0');
+
+            $('.weight-container').insertAfter($('.user-initial-container'));
+            $('.weight-container').find('.lbl-width-long').css('width', '140px');
+            $('.weight-container').css('margin-top', '0');
             
         } else if (isOmron) {
             $('.omron-only').show();
@@ -128,8 +137,12 @@ $(function () {
             
             // Kembalikan User Initial Name ke bawah label Omron (kolom kiri)
             $('.user-initial-container').insertAfter($('.omron-only'));
-            $('.user-initial-container').find('span').css('width', '140px');
+            $('.user-initial-container').find('.lbl-width-long').css('width', '140px');
             $('.user-initial-container').css('margin-top', '0');
+
+            $('.weight-container').insertAfter($('.user-initial-container'));
+            $('.weight-container').find('.lbl-width-long').css('width', '140px');
+            $('.weight-container').css('margin-top', '0');
             
             // Auto-trigger inner/outer
             $('.omron-label-type:checked').trigger('change');
@@ -143,8 +156,12 @@ $(function () {
         } else {
             // Default position untuk lainnya (kiri)
             $('.user-initial-container').insertAfter($('.omron-only'));
-            $('.user-initial-container').find('span').css('width', '140px');
+            $('.user-initial-container').find('.lbl-width-long').css('width', '140px');
             $('.user-initial-container').css('margin-top', '0');
+
+            $('.weight-container').insertAfter($('.user-initial-container'));
+            $('.weight-container').find('.lbl-width-long').css('width', '140px');
+            $('.weight-container').css('margin-top', '0');
             
             $('#size_mode').html(`
                 <option value="Small">Small</option>
