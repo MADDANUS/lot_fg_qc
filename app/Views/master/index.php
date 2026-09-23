@@ -260,5 +260,25 @@ document.getElementById('masterDataModal').addEventListener('click', function(e)
     if (e.target === this) { $(this).fadeOut(150); }
 });
 </script>
+<script>
+/* Remember active tab on reload */
+document.addEventListener("DOMContentLoaded", function() {
+    var activeTab = sessionStorage.getItem('activeMasterTab');
+    if (activeTab) {
+        var tabElement = document.querySelector('button[data-bs-target="' + activeTab + '"]');
+        if (tabElement) {
+            var tab = new bootstrap.Tab(tabElement);
+            tab.show();
+        }
+    }
+    
+    var tabEls = document.querySelectorAll('button[data-bs-toggle="tab"]');
+    tabEls.forEach(function(el) {
+        el.addEventListener('shown.bs.tab', function (event) {
+            sessionStorage.setItem('activeMasterTab', event.target.getAttribute('data-bs-target'));
+        });
+    });
+});
+</script>
 </body>
 </html>

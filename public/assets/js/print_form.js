@@ -177,6 +177,8 @@ $(function () {
             `);
             $('#btnSaveToDb').hide();
         }
+        
+        updateQcPlan2Fields();
     });
 
     /* ------------------------------------------------------------------
@@ -197,6 +199,8 @@ $(function () {
             $('.production-date-container').hide();
             $('#machine').val('');
         }
+        
+        updateQcPlan2Fields();
     });
 
     /* ------------------------------------------------------------------
@@ -542,6 +546,8 @@ $(function () {
                 $omronSelect.trigger('change');
 
                 applyTableRules();
+                window.isDocSearched = true;
+                updateQcPlan2Fields();
             })
             .fail(function () {
                 Swal.fire({ icon: 'error', title: 'Error', text: 'Gagal menghubungi server. Cek koneksi / konfigurasi database pusat.' });
@@ -560,7 +566,7 @@ $(function () {
         saveForm(function (headerId) {
             window.open(BASE_URL + 'print-form/preview/' + headerId, '_blank');
         }, function () {}, function () {
-            $btn.prop('disabled', false).html('<i class="bi bi-printer me-2"></i> Print Label');
+            $btn.prop('disabled', false).html('<i class="bi bi-printer me-2"></i> Print');
         }, true); // true = isPreview
     });
 
@@ -675,4 +681,33 @@ $(function () {
                 if (typeof onAlways === 'function') onAlways();
             });
     }
+
+    function updateQcPlan2Fields() {
+        if (typeof USER_FULL_NAME !== 'undefined' && USER_FULL_NAME.toLowerCase() === 'qc plant 2') {
+            const isMitsuba = $('input[name="product_name"]:checked').val() === 'mitsuba';
+            const isOmronOuter = $('#omron_outer').is(':checked') && $('.omron-only').css('display') !== 'none';
+            const customerName = $('#customer option:selected').text().toUpperCase();
+            const isCustomerMitsuba = customerName.indexOf('MITSUBA') !== -1;
+            
+            if (!window.isDocSearched) {
+                $('.user-initial-container').hide();
+                $('.weight-container').hide();
+            } else if (isMitsuba || isOmronOuter || isCustomerMitsuba) {
+                $('.user-initial-container').hide();
+                $('.weight-container').hide();
+            } else {
+                $('.user-initial-container').show().css('display', 'flex');
+                $('.weight-container').show().css('display', 'flex');
+            }
+        }
+    }
+
+    $('#customer').on('change', function() {
+        updateQcPlan2Fields();
+    });
+
+    $('#doc_number').on('input', function() {
+        window.isDocSearched = false;
+        updateQcPlan2Fields();
+    });
 });

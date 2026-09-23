@@ -154,6 +154,50 @@ $isMitsuba = strpos($uri, 'mitsuba') !== false;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+.hamburger-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    color: #0e1318;
+    cursor: pointer;
+    padding: 0;
+}
+@media (max-width: 768px) {
+    .hamburger-btn {
+        display: block;
+    }
+    .canva-nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        box-shadow: 0 8px 16px rgba(14, 19, 24, 0.1);
+        padding: 16px 24px;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .canva-nav-links.show {
+        display: flex;
+    }
+    .canva-nav-link {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .canva-divider {
+        width: 100%;
+        height: 1px;
+        margin: 4px 0;
+    }
+    .canva-user-pill {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 4px;
+    }
+}
 </style>
 
 <!-- ── Canva Navbar ── -->
@@ -163,7 +207,11 @@ $isMitsuba = strpos($uri, 'mitsuba') !== false;
         <span>LOT FINISH GOOD</span>
     </a>
 
-    <div class="canva-nav-links">
+    <button class="hamburger-btn" onclick="document.getElementById('mobileMenu').classList.toggle('show')">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <div class="canva-nav-links" id="mobileMenu">
         <?php if (session()->get('username') !== 'ppic'): ?>
         <a href="<?= base_url('print-form') ?>" class="canva-nav-link <?= $isPrintForm ? 'canva-active' : '' ?>">
             <i class="bi bi-printer"></i>
@@ -178,10 +226,12 @@ $isMitsuba = strpos($uri, 'mitsuba') !== false;
         </a>
         <?php endif; ?>
 
+        <?php if (strtolower((string)session()->get('full_name')) !== 'qc plant 2'): ?>
         <a href="<?= base_url('omron') ?>" class="canva-nav-link <?= $isOmron ? 'canva-active' : '' ?>">
             <i class="bi bi-tags"></i> <span>Multi-Print Omron</span>
         </a>
-        <?php if (session()->get('username') !== 'ppic'): ?>
+        <?php endif; ?>
+        <?php if (session()->get('username') !== 'ppic' && strtolower((string)session()->get('full_name')) !== 'qc plant 1'): ?>
         <a href="<?= base_url('mitsuba') ?>" class="canva-nav-link <?= $isMitsuba ? 'canva-active' : '' ?>">
             <i class="bi bi-tags"></i> <span>Multi-Print Mitsuba</span>
         </a>

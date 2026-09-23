@@ -16,12 +16,13 @@ use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
 
 // ── Helper: Barcode SVG ────────────────────────────────────────────────
-$barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor = 1.3): string {
+$barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor = 1.3, bool $center = false): string {
     if ($value === '') return '';
     $generator = new BarcodeGeneratorSVG();
     $svg = $generator->getBarcode($value, BarcodeGeneratorSVG::TYPE_CODE_128, $widthFactor, $heightMm * 3.78);
     $encoded = 'data:image/svg+xml;base64,' . base64_encode($svg);
-    return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm; width:auto; display:block;" alt="' . htmlspecialchars($value) . '">';
+    $display = $center ? 'inline-block' : 'block';
+    return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm; width:auto; max-width:100%; display:' . $display . ';" alt="' . htmlspecialchars($value) . '">';
 };
 
 // ── Helper: QR Code ────────────────────────────────────────────────────
@@ -97,7 +98,7 @@ $dtWib = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
 $printDateLong = $dtWib->format('d-M-Y');
 
 // Fake $grid untuk partial templates yang perlu $grid
-$grid = ['font_size_pt' => 8, 'barcode_h_mm' => 10];
+$grid = ['font_size_pt' => 7, 'barcode_h_mm' => 9];
 ?>
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
@@ -142,7 +143,7 @@ if ($type === 'inner'):
             $qrRightOriginal = implode(',', [$itemCode, $lotno, $lotQty, $refNo]);
             $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);
 ?>
-<table style="width:195mm;border-collapse:separate;border:none;">
+<table style="width:195mm;border-collapse:collapse;border:none;">
   <tr>
     <?php $qrRight = $qrRightOriginal; ?>
     <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplLeft; ?></td>
@@ -151,7 +152,7 @@ if ($type === 'inner'):
     <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $tplRight; ?></td>
   </tr>
 </table>
-<div style="height:3mm;"></div>
+<div style="height:10mm;"></div>
 <?php
         endforeach;
     endforeach;

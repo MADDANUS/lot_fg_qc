@@ -45,12 +45,13 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
         <div class="action-bar d-flex justify-content-end align-items-center gap-2">
             <span class="selected-info" id="infoInner">0 dipilih</span>
             <button class="btn-print-selected" id="btnPrintInner" onclick="batchPrint('inner')">
-                🖨️ Print Label
+                🖨️ Print
             </button>
             <button class="btn-delete-selected" id="btnDeleteInner" onclick="deleteSelected('inner')">
-                🗑️ Delete Selected
+                🗑️ Delete
             </button>
         </div>
+        <div class="table-responsive">
         <table id="tableInner" class="table table-hover table-bordered w-100" style="font-size:13px;">
             <thead class="table-primary">
                 <tr>
@@ -68,6 +69,7 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
             </thead>
             <tbody></tbody>
         </table>
+        </div>
     </div>
     <?php endif; ?>
 
@@ -77,12 +79,13 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
         <div class="action-bar d-flex justify-content-end align-items-center gap-2">
             <span class="selected-info" id="infoOuter">0 dipilih</span>
             <button class="btn-print-selected" id="btnPrintOuter" onclick="batchPrint('outer')" style="background: #3b82f6;">
-                🖨️ Print Label
+                🖨️ Print
             </button>
             <button class="btn-delete-selected" id="btnDeleteOuter" onclick="deleteSelected('outer')">
-                🗑️ Delete Selected
+                🗑️ Delete
             </button>
         </div>
+        <div class="table-responsive">
         <table id="tableOuter" class="table table-hover table-bordered w-100" style="font-size:13px;">
             <thead class="table-primary">
                 <tr>
@@ -99,6 +102,7 @@ $isQc   = (strpos(strtolower(session()->get('username') ?? ''), 'qc') !== false)
             </thead>
         <tbody></tbody>
         </table>
+        </div>
     </div><!-- /tab pane outer -->
 
     <!-- Tab Form Outer -->

@@ -45,7 +45,7 @@ $displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
     <table style="margin:auto; border:none; border-collapse:collapse;">
       <tr>
         <td style="border:none; text-align:center; padding:0;">
-          <?= $barcodeSvg($displayItemCode, 5) ?>
+          <?= $barcodeSvg($displayItemCode, 8, 1.0) ?>
         </td>
       </tr>
       <tr>
@@ -158,7 +158,7 @@ $displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
   <td colspan="5" style="border-left:0.3mm solid #000; padding:1mm; font-size:8pt;">
     Lot No
   </td>
-  <td rowspan="3" style="border-bottom:0.3mm solid #000; border-right:0.3mm solid #000; border-left:0.3mm solid #000; padding:1mm; text-align:center; font-size:8pt; vertical-align:top;">
+  <td rowspan="3" style="border-bottom:0.3mm solid #000; border-right:0.3mm solid #000; border-left:0.3mm solid #000; padding:1mm; text-align:center; font-size:7.5pt; vertical-align:top; white-space:nowrap;">
     Approval/Stamp
   </td>
 </tr>
@@ -167,7 +167,7 @@ $displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
 <tr>
   <td colspan="5" style="border-left:0.3mm solid #000; padding:1mm; text-align:center;">
     <div style="margin:auto; display:inline-block;">
-      <?= $barcodeSvg($lotno, 6) ?>
+      <?= $barcodeSvg($lotno, 6, 1.0) ?>
     </div>
   </td>
 </tr>

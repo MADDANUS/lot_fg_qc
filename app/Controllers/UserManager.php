@@ -47,8 +47,8 @@ class UserManager extends Controller
             return $this->response->setJSON(['success' => false, 'message' => 'Username minimal 2 karakter.']);
         }
 
-        if (strlen($password) < 5) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Password minimal 5 karakter.']);
+        if (strlen($password) < 3) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Password minimal 3 karakter.']);
         }
 
         // Cek unique username
@@ -94,8 +94,8 @@ class UserManager extends Controller
 
         // Update password hanya jika diisi
         if ($password !== '') {
-            if (strlen($password) < 5) {
-                return $this->response->setJSON(['success' => false, 'message' => 'Password minimal 5 karakter.']);
+            if (strlen($password) < 3) {
+                return $this->response->setJSON(['success' => false, 'message' => 'Password minimal 3 karakter.']);
             }
             $data['password'] = password_hash($password, PASSWORD_BCRYPT);
         }

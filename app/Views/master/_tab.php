@@ -5,7 +5,7 @@
     <button type="button"
             class="canva-btn-add"
             onclick="openMasterModal('<?= esc($type) ?>', '<?= esc($label) ?>', <?= $manualId ? 'true' : 'false' ?>)">
-        <i class="bi bi-plus-lg"></i> Tambah <?= esc($label) ?>
+        <i class="bi bi-plus-lg"></i> Tambah
     </button>
 </div>
 

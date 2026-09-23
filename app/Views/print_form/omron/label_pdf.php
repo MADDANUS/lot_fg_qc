@@ -22,12 +22,13 @@ use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
 
 // ── Helper: Barcode SVG ────────────────────────────────────────────────────────
-$barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor = 1.3) use ($grid): string {
+$barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor = 1.3, bool $center = false) use ($grid): string {
     if ($value === '') return '';
     $generator = new BarcodeGeneratorSVG();
     $svg = $generator->getBarcode($value, BarcodeGeneratorSVG::TYPE_CODE_128, $widthFactor, $heightMm * 3.78);
     $encoded = 'data:image/svg+xml;base64,' . base64_encode($svg);
-    return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm; width:auto; display:block;" alt="' . htmlspecialchars($value) . '">';
+    $display = $center ? 'inline-block' : 'block';
+    return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm; width:auto; max-width:100%; display:' . $display . ';" alt="' . htmlspecialchars($value) . '">';
 };
 
 /**

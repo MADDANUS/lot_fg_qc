@@ -41,7 +41,7 @@
         <!-- ── Main Form ─────────────────────────────────────────────── -->
         <div class="row g-0" style="margin-bottom:14px;">
             <!-- Left Col -->
-            <div class="col-4" style="padding-right:16px;">
+            <div class="col-12 col-lg-4" style="padding-right:16px;">
 
                 <div class="row-item omron-only" style="display:none;">
                     <span class="lbl-width" style="font-weight:700;">Omron Label</span>
@@ -53,7 +53,11 @@
                     </div>
                 </div>
 
-                <div class="row-item user-initial-container" style="display:flex;">
+                <?php
+                $isQcPlant2 = strtolower((string)session()->get('full_name')) === 'qc plant 2';
+                $initialDisplay = $isQcPlant2 ? 'none' : 'flex';
+                ?>
+                <div class="row-item user-initial-container" style="display:<?= $initialDisplay ?>;">
                     <span class="lbl-width-long" style="line-height:1.3;">
                         User Initial Name<br>
                         <span style="font-size:11px; color:#6b7280; font-weight:400;">(3 Digit Char)</span>
@@ -61,7 +65,7 @@
                     <input type="text" class="fi upper-input" id="user_initial" name="user_initial" maxlength="3" style="width:60px;">
                 </div>
 
-                <div class="row-item weight-container" style="display:flex;">
+                <div class="row-item weight-container" style="display:<?= $initialDisplay ?>;">
                     <span class="lbl-width-long" style="line-height:1.3;">
                         Berat
                         <span style="font-size:11px; color:#6b7280; font-weight:400;">(kg, opsional)</span>
@@ -134,7 +138,7 @@
             </div>
 
             <!-- Middle Col -->
-            <div class="col-5" style="padding-right:16px;">
+            <div class="col-12 col-lg-5" style="padding-right:16px;">
 
                 <div class="row-item epson-only" style="display:none;">
                     <span style="width:100px; text-align:right; margin-right:10px;" class="radio-lbl">
@@ -201,7 +205,7 @@
             </div>
 
             <!-- Right Col -->
-            <div class="col-3">
+            <div class="col-12 col-lg-3">
                 <div class="epson-only" style="display:none; flex-direction:column; height:100%;">
                     <fieldset class="groupbox h-100" style="margin-bottom:0;">
                         <legend class="groupbox-legend">Additional</legend>
@@ -225,6 +229,7 @@
 
         <!-- ── Data Grid ─────────────────────────────────────────────── -->
         <div class="grid-container" id="dataGridContainer">
+            <div class="table-responsive">
             <table class="grid-table" id="tableItems">
                 <thead>
                     <tr>
@@ -245,6 +250,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            </div>
         </div>
 
         <!-- ── Bottom Action Bar ─────────────────────────────────────── -->
@@ -261,7 +267,7 @@
             </div>
             <div class="d-flex gap-2">
                 <button type="button" class="btn-desktop btn-print-selected" id="btnDirectPrint">
-                    <i class="bi bi-printer"></i> Print Label
+                    <i class="bi bi-printer"></i> Print
                 </button>
                 <button type="button" class="btn-desktop btn-success-modern" id="btnSaveToDb" style="display:none;">
                     <i class="bi bi-floppy"></i> Save
@@ -298,5 +304,6 @@
 
 <script>
     const BASE_URL = <?= json_encode(base_url()) ?>;
+    const USER_FULL_NAME = <?= json_encode((string)session()->get('full_name')) ?>;
 </script>
 <script src="<?= base_url('assets/js/print_form.js?v=' . time()) ?>"></script>

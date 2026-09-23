@@ -466,6 +466,45 @@ table.dataTable thead th {
 table.dataTable td { font-size: 13px; vertical-align: middle; }
 table.dataTable tbody tr:hover td { background: #f8faff !important; }
 
+/* ── Print Adjustments ────────────────────────────────────────────────────── */
+@media print {
+    body, .page-wrapper { background: #fff !important; margin: 0; padding: 0; }
+    .app-navbar, .card-header-bar, .search-panel, .btn-desktop { display: none !important; }
+    .card-surface { border: none !important; box-shadow: none !important; }
+}
+
+/* ── Mobile Responsiveness ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .page-wrapper { padding: 12px; }
+    .card-surface { border-radius: 8px; }
+    .card-body-pad { padding: 16px 12px; }
+    
+    .search-panel { flex-direction: column; align-items: stretch; }
+    .search-panel-left, .search-panel-right { flex-direction: column; align-items: stretch; width: 100%; }
+    
+    /* Make inputs flexible */
+    .fi, .form-control-desktop, .form-select-desktop { width: 100% !important; max-width: 100%; }
+    
+    /* Reset label widths */
+    .lbl-width, .lbl-width-long, .lbl-omron { 
+        width: 100%; 
+        text-align: left; 
+        margin-right: 0; 
+        margin-bottom: 4px; 
+    }
+    .row-item { flex-direction: column; align-items: flex-start; }
+    
+    .btn-desktop { width: 100%; justify-content: center; margin-top: 8px; }
+    
+    /* Ensure table doesn't break layout */
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 /* ── Locked & Misc ──────────────────────────────────────────────────────── */
 .locked-field { background: #f3f4f6 !important; color: #000000 !important; cursor: not-allowed !important; }
 .upper-input { text-transform: uppercase; }

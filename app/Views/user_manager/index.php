@@ -126,7 +126,7 @@
             <div class="form-row">
                 <div class="form-grp">
                     <label class="form-lbl">Password <span id="pwdRequired" style="color:#ef4444;">*</span></label>
-                    <input type="password" id="inputPassword" name="password" class="form-inp" placeholder="min. 5 karakter">
+                    <input type="password" id="inputPassword" name="password" class="form-inp" placeholder="min. 3 karakter">
                     <small id="pwdHint" style="color:#94a3b8; font-size:11px;"></small>
                 </div>
                 <div class="form-grp">

@@ -13,10 +13,11 @@
     <div class="card-body-pad">
         <div class="action-bar d-flex justify-content-end align-items-center gap-2">
             <span class="selected-info" id="infoMitsuba">0 dipilih</span>
-            <button class="btn-print-selected" id="btnPrintMitsuba" onclick="batchPrint()">🖨️ Print Label</button>
+            <button class="btn-print-selected" id="btnPrintMitsuba" onclick="batchPrint()">🖨️ Print</button>
             <button class="btn-delete-selected" id="btnDeleteMitsuba" onclick="deleteSelected()">🗑️ Delete</button>
         </div>
 
+    <div class="table-responsive">
     <table id="tableMitsuba" class="table table-hover table-bordered w-100" style="font-size:13px;">
         <thead class="table-info">
             <tr>
@@ -32,6 +33,7 @@
         </thead>
         <tbody></tbody>
     </table>
+    </div>
     </div><!-- /card-body-pad -->
 </div><!-- /global-container -->
 </div><!-- /page-wrapper -->
@@ -115,7 +117,7 @@ function batchPrint() {
         })
         .fail(function() { alert('Gagal menghubungi server.'); })
         .always(function() {
-            $('#btnPrintMitsuba').prop('disabled', false).html('🖨️ Print Label');
+            $('#btnPrintMitsuba').prop('disabled', false).html('🖨️ Print');
         });
 }
 

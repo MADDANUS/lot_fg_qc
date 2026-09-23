@@ -162,7 +162,13 @@
                     <!-- Full Name -->
                     <div class="um-form-group">
                         <label class="um-label">Nama Lengkap <span style="color:#df1b41;">*</span></label>
-                        <input type="text" id="umFullName" class="um-input" placeholder="Masukkan nama lengkap..." required>
+                        <input type="text" id="umFullName" class="um-input" list="role_list" placeholder="Masukkan nama lengkap..." required autocomplete="off">
+                        <datalist id="role_list">
+                            <option value="Administrator"></option>
+                            <option value="PPIC"></option>
+                            <option value="QC Plant 1"></option>
+                            <option value="QC Plant 2"></option>
+                        </datalist>
                     </div>
 
                     <!-- Password -->

@@ -105,7 +105,7 @@ $displayItemCode = $itemCode;
 <!-- ═══ R9 ═══: A9 bdr-L | B9:I9=barcode cs8 bdr-BLR center | J9 bdr-LR -->
 <tr>
   <td style="height:6mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="8" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($displayItemCode, 5, 1.0) ?></td>
+  <td colspan="8" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($displayItemCode, 5, 0.8) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -129,7 +129,7 @@ $displayItemCode = $itemCode;
 <!-- ═══ R12 ═══: A12 bdr-L | B12:D13=barcode(lotno) cs3,rs2 bdr-BLR | (E-F covered) | (G-I covered) | J12 bdr-LR -->
 <tr>
   <td style="height:1.87mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($lotno, 5, 1.0) ?></td>
+  <td colspan="3" rowspan="2" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($lotno, 5, 0.7) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -178,7 +178,7 @@ $displayItemCode = $itemCode;
 <!-- R18 (weight mode): barcode colspan 3, rowspan 2 agar R19 di sebelahnya bebas -->
 <tr>
   <td style="height:2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5.5, 1.0) ?></td>
+  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:center;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5.5, 0.6, true) ?></td>
   <td></td><td></td><td></td><td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
@@ -193,7 +193,7 @@ $displayItemCode = $itemCode;
 <!-- R18 (no weight): barcode rowspan=2 seperti asli -->
 <tr>
   <td style="height:2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="4" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5, 1.0) ?></td>
+  <td colspan="4" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:center;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5, 0.6, true) ?></td>
   <td></td><td></td><td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>

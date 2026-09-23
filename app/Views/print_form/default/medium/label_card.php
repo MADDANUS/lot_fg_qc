@@ -9,7 +9,7 @@
  *         R18=3.2 R19=4.2 R20=3.8 R21=4.2 → ≈80mm
  */
 ?>
-<table style="width:95mm;min-width:95mm;max-width:95mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:9pt;">
+<table style="width:95mm;min-width:95mm;max-width:95mm;table-layout:fixed;border-collapse:collapse;font-family:'Calibri','dejavusans',Arial,sans-serif;font-size:11pt;">
 <colgroup>
   <col style="width:3mm">  <!-- A -->
   <col style="width:25mm"> <!-- B -->
@@ -26,52 +26,52 @@
 <!-- R1 -->
 <tr>
   <td style="height:5.4mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
-  <td colspan="2" style="border-top:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">REV : 2/190916</td>
-  <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
-  <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">FM-QCA-18</td>
+  <td colspan="2" style="border-top:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;">REV : 2/190916</td>
+  <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:11pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
+  <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;">FM-QCA-18</td>
 </tr>
 <!-- R2 -->
 <tr>
   <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
+  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;">PT. NIHON SEIKI INDONESIA</td>
   <td colspan="5" rowspan="5" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0;line-height:0;"><?= $qrCodeImg($qrRight, 200, '19mm', 0) ?></td>
   <td style="border-right:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
 </tr>
 <!-- R3 -->
 <tr>
   <td style="height:5.4mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">QUALITY CONTROL OK</td>
+  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;">QUALITY CONTROL OK</td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R4 -->
 <tr>
   <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;"><?= esc($customer) ?></td>
+  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;"><?= esc($customer) ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R5 -->
 <tr>
   <td style="height:4.2mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>DATE :</b> <?= $displayDate ?></td>
+  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;"><b>DATE :</b> <?= $displayDate ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R6 -->
 <tr>
   <td style="height:4.5mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">PART NAME :</td>
+  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;">PART NAME :</td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R7 -->
 <tr>
   <td style="height:4.8mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><?= esc($description) ?></td>
-  <td colspan="5" style="border:0.3mm solid #000;text-align:center;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">BACK NO <?= esc($backNo) ?></td>
+  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;"><?= esc($description) ?></td>
+  <td colspan="5" style="border:0.3mm solid #000;text-align:center;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;">BACK NO <?= esc($backNo) ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R8 -->
 <tr>
   <td style="height:5.1mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="8" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>PART NO :</b> <?= esc($itemCode) ?></td>
+  <td colspan="8" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:middle;"><b>PART NO :</b> <?= esc($itemCode) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R9 -->
@@ -83,16 +83,16 @@
 <!-- R10 -->
 <tr>
   <td style="height:4.2mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:top;"><b>LOTNO :</b> <?= esc($lotno) ?></td>
-  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm;font-size:9pt;vertical-align:middle;">Treat/Plat</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;">Inspection</td>
+  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:top;"><b>LOTNO :</b> <?= esc($lotno) ?></td>
+  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm;font-size:11pt;vertical-align:middle;">Treat/Plat</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:11pt;vertical-align:middle;">Inspection</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R11 -->
 <tr>
   <td style="height:0.6mm;border-left:0.3mm solid #000;"></td>
   <td colspan="2" rowspan="2" style="border:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;font-weight:bold;font-size:9pt;"><?= esc($operator) ?></td>
+  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;text-align:center;vertical-align:middle;font-weight:bold;font-size:11pt;"><?= esc($operator) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R12 -->
@@ -104,23 +104,23 @@
 <!-- R13 -->
 <tr>
   <td style="height:3.5mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm;font-size:9pt;vertical-align:middle;">Marking</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;">ROHS FREE</td>
+  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm;font-size:11pt;vertical-align:middle;">Marking</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:11pt;vertical-align:middle;">ROHS FREE</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R14 -->
 <tr>
   <td style="height:2.9mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:top;"><b>QTY :</b> <?= esc($lotQty) ?></td>
+  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:11pt;vertical-align:top;"><b>QTY :</b> <?= esc($lotQty) ?></td>
   <td colspan="2" style="border:0.3mm solid #000;"></td>
-  <td colspan="3" style="border:0.3mm solid #000;padding:0.3mm;font-size:9pt;vertical-align:middle;"><?= $rohsFree ? 'YES' : 'NO' ?></td>
+  <td colspan="3" style="border:0.3mm solid #000;padding:0.3mm;font-size:11pt;vertical-align:middle;"><?= $rohsFree ? 'YES' : 'NO' ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R15 -->
 <tr>
   <td style="height:1.6mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
   <td colspan="2" rowspan="2" style="border:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;padding:0.3mm;font-size:9pt;vertical-align:middle;"><?= esc($warehouse) ?></td>
+  <td colspan="3" rowspan="2" style="border:0.3mm solid #000;padding:0.3mm;font-size:11pt;vertical-align:middle;"><?= esc($warehouse) ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R16 -->
@@ -132,8 +132,8 @@
 <!-- R17 -->
 <tr>
   <td style="height:3.8mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;text-align:center;font-size:7pt;vertical-align:middle;padding:0.3mm;white-space:nowrap;">PRINT DATE</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;"><?= $printDateLong ?></td>
+  <td colspan="2" style="border:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;padding:0.3mm;white-space:nowrap;">PRINT DATE</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:11pt;vertical-align:middle;"><?= $printDateLong ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <!-- R18 -->
@@ -148,8 +148,8 @@
 <!-- R19 (weight mode): user initial sejajar PRINT DATE (B,C), berat sejajar tanggal (D,E,F) -->
 <tr>
   <td style="height:6.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;overflow:hidden;white-space:nowrap;"><?= esc(str_replace(',', '.', $weight)) ?> KG</td>
+  <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:11pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:center;font-size:11pt;font-weight:bold;vertical-align:middle;overflow:hidden;white-space:nowrap;"><?= esc(str_replace(',', '.', $weight)) ?> KG</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 <?php else: ?>
@@ -163,7 +163,7 @@
 <!-- R19 (no weight): user initial seperti asli -->
 <tr>
   <td style="height:6.2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:9pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
+  <td colspan="2" style="border:0.8mm solid #000;text-align:center;font-size:11pt;font-weight:bold;vertical-align:middle;"><?= esc($userInitial) ?></td>
   <td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
@@ -171,7 +171,7 @@
 <!-- R20 -->
 <tr>
   <td style="height:3.8mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="4" style="text-align:center;font-size:9pt;vertical-align:middle;padding:0.5mm;"><?= esc($refNo) ?></td>
+  <td colspan="4" style="text-align:center;font-size:11pt;vertical-align:middle;padding:0.5mm;"><?= esc($refNo) ?></td>
   <td></td><td></td><td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>

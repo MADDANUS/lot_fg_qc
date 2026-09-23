@@ -292,12 +292,13 @@ class Omron extends Controller
         $mpdf = new Mpdf([
             'mode'          => 'utf-8',
             'format'        => 'A4',
-            'margin_top'    => 10,
-            'margin_bottom' => 10,
-            'margin_left'   => 10,
-            'margin_right'  => 10,
+            'margin_top'    => 5,
+            'margin_bottom' => 5,
+            'margin_left'   => 5,
+            'margin_right'  => 5,
             'default_font'  => 'dejavusans',
         ]);
+        $mpdf->shrink_tables_to_fit = 0;
 
         $mpdf->SetAutoPageBreak(false);
         $mpdf->SetTitle('Omron Label - ' . strtoupper($type));

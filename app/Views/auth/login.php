@@ -224,6 +224,23 @@
             left: 0;
             z-index: 1;
         }
+
+        @media (max-width: 768px) {
+            .login-card {
+                margin: 16px;
+                padding: 32px 24px;
+                border-radius: 16px;
+            }
+            .brand {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+                margin-bottom: 24px;
+            }
+            .brand-text h1 {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -301,7 +318,7 @@
 
             <button type="submit" class="btn-login" id="btnLogin">
                 <i class="bi bi-box-arrow-in-right"></i>
-                &nbsp; Masuk ke Sistem
+                &nbsp; Login
             </button>
         </form>
 
@@ -357,6 +374,15 @@
             },
             "retina_detect": true
         });
+
+        // Batasi klik animasi maksimal 7 kali untuk mencegah crash
+        let particleClickCount = 0;
+        document.getElementById('particles-js').addEventListener('click', function(e) {
+            particleClickCount++;
+            if (particleClickCount > 20) {
+                e.stopPropagation();
+            }
+        }, true);
     </script>
 </body>
 </html>
