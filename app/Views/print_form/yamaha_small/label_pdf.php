@@ -138,6 +138,7 @@ foreach ($pages as $pageIdx => $pageLots):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
+    $weight        = $lot['weight']          ?? null;
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
     $itemCodeClean = str_replace('-', '', $itemCode);
     $qrBottom = implode('-', [$itemCodeClean, $lotQty, $lotno, $refNo]);

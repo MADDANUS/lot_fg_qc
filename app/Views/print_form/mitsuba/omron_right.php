@@ -48,7 +48,7 @@ $displayItemCode = $itemCode;
   <td style="height:4.59mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;width:3mm;max-width:3mm;"><div style="width:3mm;"></div></td>
   <td colspan="2" style="border-top:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:9pt;vertical-align:middle;">REV : 2/190916</td>
   <td colspan="3" style="border-top:0.3mm solid #000;border-bottom:0.3mm solid #000;text-align:center;font-size:9pt;vertical-align:middle;white-space:nowrap;">NR <?= esc($docNumber) ?></td>
-  <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:8pt;vertical-align:middle;white-space:nowrap;">FM-QCA-18</td>
+  <td colspan="4" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:right;font-weight:bold;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;">FM-QCA-18</td>
 </tr>
 
 <!-- ═══ R2 ═══: A2 bdr-L | B2:D2="PT.NIHON" cs3 bdr-TLR bold | E2:I6=QR rs5,cs5 bdr-all | J2 bdr-R -->
@@ -76,7 +76,7 @@ $displayItemCode = $itemCode;
 <!-- ═══ R5 ═══: A5 bdr-L | B5:D5="DATE" cs3 bdr-BLR | (QR covered) | J5 bdr-R -->
 <tr>
   <td style="height:3.57mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>DATE :</b> <?= str_replace(' ', '&nbsp;', strtotime($displayDate) ? date('d M Y', strtotime($displayDate)) : esc($displayDate)) ?></td>
+  <td colspan="3" style="border-bottom:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:middle;"><b>DATE :</b> <?= strtotime($displayDate) ? date('d M Y', strtotime($displayDate)) : esc($displayDate) ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -113,7 +113,7 @@ $displayItemCode = $itemCode;
 <tr>
   <td style="height:3.57mm;border-left:0.3mm solid #000;"></td>
   <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-size:9pt;vertical-align:top;"><b>LOTNO :</b> <?= esc($lotno) ?></td>
-  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 0.3mm 0.3mm 1mm;font-size:8pt;vertical-align:middle;white-space:nowrap;">Treat/Plat</td>
+  <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 0.3mm 0.3mm 1mm;font-size:9pt;vertical-align:middle;">Treat/Plat</td>
   <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding-left:1mm;font-size:9pt;vertical-align:middle;">Inspection</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
@@ -137,7 +137,7 @@ $displayItemCode = $itemCode;
 <tr>
   <td style="height:2.98mm;border-left:0.3mm solid #000;"></td>
   <td colspan="2" style="border:0.3mm solid #000;padding:0.3mm 0.3mm 0.3mm 1mm;font-size:9pt;vertical-align:middle;">Marking</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding-left:1mm;font-size:8pt;vertical-align:middle;white-space:nowrap;">ROHS&nbsp;FREE</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding-left:1mm;font-size:9pt;vertical-align:middle;">ROHS FREE</td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -168,8 +168,8 @@ $displayItemCode = $itemCode;
 <!-- ═══ R17 ═══: A17 bdr-LR | (B-D covered barcode) | E17:F17="PRINT DATE" cs2 bdr-all center | G17:I17=date cs3 bdr-all center | J17 bdr-LR -->
 <tr>
   <td style="height:3.23mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="2" style="border:0.3mm solid #000;text-align:left;padding-left:0.5mm;font-size:7pt;vertical-align:middle;white-space:nowrap;">PRINT DATE</td>
-  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding-left:0.5mm;font-size:7pt;vertical-align:middle;white-space:nowrap;"><?= str_replace(' ', '&nbsp;', $dtWib->format('d M Y')) ?></td>
+  <td colspan="2" style="border:0.3mm solid #000;text-align:left;padding-left:1mm;font-size:9pt;vertical-align:middle;white-space:nowrap;">Print Date</td>
+  <td colspan="3" style="border:0.3mm solid #000;text-align:left;padding-left:1mm;font-size:9pt;vertical-align:middle;"><?= $dtWib->format('d M Y') ?></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
 
@@ -178,7 +178,7 @@ $displayItemCode = $itemCode;
 <!-- R18 (weight mode): barcode colspan 3, rowspan 2 agar R19 di sebelahnya bebas -->
 <tr>
   <td style="height:2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5.5, 0.7, true) ?></td>
+  <td colspan="3" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5.5, 0.8, true) ?></td>
   <td></td><td></td><td></td><td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>
@@ -193,7 +193,7 @@ $displayItemCode = $itemCode;
 <!-- R18 (no weight): barcode rowspan=2 seperti asli -->
 <tr>
   <td style="height:2mm;border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
-  <td colspan="4" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5, 0.7, true) ?></td>
+  <td colspan="4" rowspan="2" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;text-align:left;vertical-align:middle;padding:1mm;"><?= $barcodeSvg($refNo, 5, 0.8, true) ?></td>
   <td></td><td></td><td></td><td></td>
   <td style="border-left:0.3mm solid #000;border-right:0.3mm solid #000;"></td>
 </tr>

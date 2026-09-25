@@ -65,13 +65,7 @@
                     <input type="text" class="fi upper-input" id="user_initial" name="user_initial" maxlength="3" style="width:60px;">
                 </div>
 
-                <div class="row-item weight-container" style="display:<?= $initialDisplay ?>;">
-                    <span class="lbl-width-long" style="line-height:1.3;">
-                        Berat
-                        <span style="font-size:11px; color:#6b7280; font-weight:400;">(kg, opsional)</span>
-                    </span>
-                    <input type="text" class="fi" id="weight" name="weight" placeholder="cth: 1.5" style="width:80px;" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-                </div>
+
 
                 <div class="row-item omron-extra-fields" style="display:none;">
                     <span class="lbl-width-long">Notification</span>
@@ -244,6 +238,7 @@
                         <th class="col-backno">Back No</th>
                         <th class="col-stdpack">Standard Pack</th>
                         <th class="col-operator">Operator</th>
+                        <th>Weight (kg/pc)</th>
                         <th class="col-postingdate" style="display:none;">Posting Date</th>
                         <th style="width:28px;"></th>
                     </tr>
@@ -293,7 +288,10 @@
         <td class="col-backno"><input type="text" data-field="back_no"></td>
         <td class="col-stdpack"><input type="text" data-field="standard_pack"></td>
         <td class="col-operator"><input type="text" data-field="operator"></td>
-        <td class="col-postingdate" style="display:none;"><input type="text" data-field="doc_date" readonly class="locked-field"></td>
+        <td><input type="text" data-field="sweight1" readonly class="locked-field" style="width:70px;"></td>
+        <td class="col-postingdate" style="display:none;">
+            <input type="text" data-field="doc_date" readonly class="locked-field">
+        </td>
         <td style="text-align:center; padding:4px;">
             <button type="button" class="btn-desktop btn-danger-modern btnRemoveRow" style="min-width:auto;">&times;</button>
         </td>

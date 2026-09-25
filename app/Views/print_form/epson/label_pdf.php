@@ -135,17 +135,19 @@ foreach ($groups as $gi => $group):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
+    $weight        = $lot['weight']          ?? null;
     $qrLeft  = implode('|', ["Z1{$itemCodeLeft}", "Z7015", "Z2{$lotNoCombined}", "Z3{$lotQty}", "Z4{$remark}", "Z5{$refNo}", "Z6"]);
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
-<div style="width:209mm;">
-  <div style="float:left; width:7mm;">&nbsp;</div>
-  <div style="float:left; width:96mm;"><?php include $leftTpl; ?></div>
-  <div style="float:left; width:8mm;">&nbsp;</div>
-  <div style="float:left; width:94mm;"><?php include $rightTpl; ?></div>
-  <div style="float:left; width:4mm;">&nbsp;</div>
-  <div style="clear:both;"></div>
-</div>
+<table style="width:210mm; border-collapse:collapse; border:none; margin:0; padding:0; table-layout:fixed;">
+  <tr>
+    <td style="width:7mm; border:none; padding:0;"></td>
+    <td style="width:96mm; border:none; padding:0; vertical-align:top;"><?php include $leftTpl; ?></td>
+    <td style="width:7mm; border:none; padding:0;"></td>
+    <td style="width:95mm; border:none; padding:0; vertical-align:top;"><?php include $rightTpl; ?></td>
+    <td style="width:5mm; border:none; padding:0;"></td>
+  </tr>
+</table>
 <?php if ($pi < count($group) - 1): ?>
 <div style="height:10mm;"></div>
 <?php endif; ?>

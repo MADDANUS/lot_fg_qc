@@ -146,18 +146,15 @@ $(function () {
             $('.user-initial-container').insertAfter($('.omron-only'));
             $('.user-initial-container').find('.lbl-width-long').css('width', '140px');
             $('.user-initial-container').css('margin-top', '0');
-
-            $('.weight-container').insertAfter($('.user-initial-container'));
-            $('.weight-container').find('.lbl-width-long').css('width', '140px');
-            $('.weight-container').css('margin-top', '0');
             
             // Auto-trigger inner/outer
             $('.omron-label-type:checked').trigger('change');
             $('#size_mode').html('<option value="Omron" selected>Omron</option>');
             $('#btnSaveToDb').show();
         } else if (isMitsuba) {
-            $('.user-initial-container').hide(); // Sembunyikan user initial
-            $('.weight-container').hide(); // Sembunyikan berat untuk Mitsuba
+            $('.user-initial-container').insertAfter($('.omron-only'));
+            $('.user-initial-container').find('.lbl-width-long').css('width', '140px');
+            $('.user-initial-container').css('margin-top', '0');
             $('#size_mode').html('<option value="Mitsuba" selected>Mitsuba</option>');
             $('#btnSaveToDb').show();
         } else {
@@ -165,10 +162,6 @@ $(function () {
             $('.user-initial-container').insertAfter($('.omron-only'));
             $('.user-initial-container').find('.lbl-width-long').css('width', '140px');
             $('.user-initial-container').css('margin-top', '0');
-
-            $('.weight-container').insertAfter($('.user-initial-container'));
-            $('.weight-container').find('.lbl-width-long').css('width', '140px');
-            $('.weight-container').css('margin-top', '0');
             
             $('#size_mode').html(`
                 <option value="Small">Small</option>
@@ -509,6 +502,7 @@ $(function () {
                         back_no      : item.U_MIS_BackNo,
                         standard_pack: stdPack,
                         operator     : item.U_MIS_Operator,
+                        sweight1     : item.SWeight1,
                         doc_date     : item.DocDate ? item.DocDate.substring(0, 10) : '',
                     }, true); // parameter `true` untuk mengunci kolom selain qty & stdPack
                     
@@ -610,7 +604,7 @@ $(function () {
             lot_guarantee:   $('#lot_guarantee').is(':checked') ? 1 : 0,
             lot_sa:          $('#lot_sa').is(':checked') ? 1 : 0,
             flag_4m:         $('#flag_4m').is(':checked') ? 1 : 0,
-            weight:          $('#weight').val().trim(),
+            weight:          $('#weight').length ? $('#weight').val().trim() : null,
             size_mode:       $('#size_mode').val(),
             is_preview:      isPreview ? 1 : 0,
             items:           JSON.stringify(collectRows())
@@ -684,15 +678,12 @@ $(function () {
 
     function updateQcPlan2Fields() {
         if (typeof USER_FULL_NAME !== 'undefined' && USER_FULL_NAME.toLowerCase() === 'qc plant 2') {
-            const isMitsuba = $('input[name="product_name"]:checked').val() === 'mitsuba';
             const isOmronOuter = $('#omron_outer').is(':checked') && $('.omron-only').css('display') !== 'none';
-            const customerName = $('#customer option:selected').text().toUpperCase();
-            const isCustomerMitsuba = customerName.indexOf('MITSUBA') !== -1;
             
             if (!window.isDocSearched) {
                 $('.user-initial-container').hide();
                 $('.weight-container').hide();
-            } else if (isMitsuba || isOmronOuter || isCustomerMitsuba) {
+            } else if (isOmronOuter) {
                 $('.user-initial-container').hide();
                 $('.weight-container').hide();
             } else {

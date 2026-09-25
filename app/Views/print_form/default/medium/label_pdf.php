@@ -137,6 +137,7 @@ foreach ($pages as $pageIdx => $pageLots):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
+    $weight        = $lot['weight']          ?? null;
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <td style="width:95mm;padding:0;vertical-align:top;border:none;"><?php include $cardTpl; ?></td>

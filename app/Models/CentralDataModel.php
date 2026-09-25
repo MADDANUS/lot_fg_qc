@@ -154,7 +154,8 @@ class CentralDataModel
                     T2.[U_MIS_BackNo],
                     T2.[U_MIS_StdPacking],
                     T0.[U_MIS_Operator],
-                    T3.[PostDate] as 'Tanggal PDO'
+                    T3.[PostDate] as 'Tanggal PDO',
+                    T2.[SWeight1]
                 FROM OIGN T0
                 INNER JOIN IGN1 T1 ON T0.[DocEntry] = T1.[DocEntry]
                 INNER JOIN OITM T2 ON T1.[ItemCode]  = T2.[ItemCode]

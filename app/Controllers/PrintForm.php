@@ -264,12 +264,16 @@ class PrintForm extends Controller
 
             $savedRows = [];
             foreach ($items as $item) {
+                $qty = (int) ($item['quantity'] ?? 0);
+                $sWeight = (float) ($item['sweight1'] ?? 0);
+                $lotWeight = $sWeight > 0 ? round($sWeight * $qty, 2) : ($headerData['weight'] ?? null);
+
                 $savedRows[] = [
                     'doc_number'      => $headerData['doc_number']   ?? '',
                     'doc_date'        => $docDate,
                     'item_code'       => $item['item_code']           ?? '',
                     'description'     => $item['description']         ?? ($item['Dscription'] ?? ''),
-                    'quantity'        => (int) ($item['quantity']     ?? 0),
+                    'quantity'        => $qty,
                     'standard_pack'   => (int) ($item['standard_pack'] ?? 0),
                     'lotno'           => $item['lotno']               ?? ($item['U_MIS_LotNo'] ?? ''),
                     'whs_code'        => $item['warehouse']           ?? ($item['WhsCode']      ?? ''),
@@ -278,7 +282,7 @@ class PrintForm extends Controller
                     'production_date' => $productionDate,
                     'machine'         => $headerData['machine']       ?? '',
                     'notification'    => $headerData['notification']  ?? '',
-                    'weight'          => $headerData['weight']        ?? null,
+                    'weight'          => $lotWeight,
                     'user_initial'    => $headerData['user_initial']  ?? '',
                     'job_order'       => $headerData['job_order']     ?? null,
                     'shift_id'        => $headerData['shift_id']      ?? null,
@@ -306,16 +310,47 @@ class PrintForm extends Controller
         if ($isMitsuba && !$isPreview) {
             $model = new \App\Models\MitsubaLabelModel();
             
+            $docDate = null;
+            if (! empty($headerData['doc_date'])) {
+                $ts = strtotime($headerData['doc_date']);
+                $docDate = $ts ? date('Y-m-d', $ts) : null;
+            }
+
+            $productionDate = null;
+            if (! empty($headerData['production_date'])) {
+                $ts = strtotime($headerData['production_date']);
+                $productionDate = $ts ? date('Y-m-d', $ts) : null;
+            }
+
             $savedRows = [];
             foreach ($items as $item) {
+                $qty = (int) ($item['quantity'] ?? 0);
+                $sWeight = (float) ($item['sweight1'] ?? 0);
+                $lotWeight = $sWeight > 0 ? round($sWeight * $qty, 2) : ($headerData['weight'] ?? null);
+
                 $savedRows[] = [
                     'doc_number'      => $headerData['doc_number']   ?? '',
+                    'doc_date'        => $docDate,
                     'item_code'       => $item['item_code']           ?? '',
                     'description'     => $item['description']         ?? ($item['Dscription'] ?? ''),
-                    'quantity'        => (int) ($item['quantity']     ?? 0),
+                    'quantity'        => $qty,
+                    'standard_pack'   => (int) ($item['standard_pack'] ?? 0),
                     'lotno'           => $item['lotno']               ?? ($item['U_MIS_LotNo'] ?? ''),
-                    'machine'         => $headerData['machine']       ?? '',
+                    'whs_code'        => $item['warehouse']           ?? ($item['WhsCode']      ?? ''),
+                    'back_no'         => $item['back_no']             ?? ($item['U_MIS_BackNo'] ?? ''),
                     'operator'        => $item['operator']            ?? ($item['U_MIS_Operator'] ?? ''),
+                    'production_date' => $productionDate,
+                    'machine'         => $headerData['machine']       ?? '',
+                    'notification'    => $headerData['notification']  ?? '',
+                    'weight'          => $lotWeight,
+                    'user_initial'    => $headerData['user_initial']  ?? '',
+                    'job_order'       => $headerData['job_order']     ?? null,
+                    'shift_id'        => $headerData['shift_id']      ?? null,
+                    'cavity'          => $headerData['omron_cavity']  ?? null,
+                    'shift'           => $headerData['omron_shift']   ?? null,
+                    'remark'          => $headerData['remark']        ?? null,
+                    'customer'        => $headerData['customer']      ?? null,
+                    'flag_4m'         => !empty($headerData['flag_4m']) ? 1 : 0,
                     'is_printed'      => 0,
                 ];
             }
@@ -419,6 +454,9 @@ class PrintForm extends Controller
                     $lotQty = $standardPack;
                 }
 
+                $sWeight = (float) ($item['sweight1'] ?? 0);
+                $lotWeight = $sWeight > 0 ? round($sWeight * $lotQty, 2) : ($headerData['weight'] ?? null);
+
                 $rows[] = [
                     'header_id'       => $headerId,
                     'item_code'       => $item['item_code']     ?? null,
@@ -444,6 +482,7 @@ class PrintForm extends Controller
                     ),
                     'lot_sequence'    => $seq,
                     'lot_qty'         => $lotQty,
+                    'weight'          => $lotWeight,
                 ];
             }
         }
@@ -491,7 +530,7 @@ class PrintForm extends Controller
 
         if ($isMitsuba) {
             $tplView = 'print_form/mitsuba/label_pdf';
-            $perPage = 10;
+            $perPage = 3;
         } elseif ($sizeMode === 'mediumepson') {
             // Template lama: label kiri + kanan berdampingan
             $tplView    = 'print_form/epson/label_pdf';

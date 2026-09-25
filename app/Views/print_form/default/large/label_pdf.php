@@ -115,6 +115,7 @@ foreach ($pages as $pageIdx => $pageLots):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
+    $weight        = $lot['weight']          ?? null;
     $qrRight = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
 ?>
 <?php if ($lotIdx > 0): ?><div style="height:<?= $gapRow ?>;"></div><?php endif; ?>

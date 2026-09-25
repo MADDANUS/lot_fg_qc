@@ -260,6 +260,9 @@ class Omron extends Controller
             $qty          = (int) ($row['quantity']     ?? 0);
             $standardPack = (int) ($row['standard_pack'] ?? 0);
             if ($standardPack <= 0) $standardPack = $qty ?: 1;
+            
+            $dbWeight     = $row['weight'] ?? null;
+            $sWeight      = (is_numeric($dbWeight) && $qty > 0) ? ((float)$dbWeight / $qty) : null;
 
             $totalLots = $qty > 0 ? (int) ceil($qty / $standardPack) : 1;
             if ($totalLots < 1) $totalLots = 1;
@@ -270,8 +273,11 @@ class Omron extends Controller
                     : $standardPack;
                 if ($lotQty <= 0) $lotQty = $standardPack;
 
+                $lotWeight = ($sWeight !== null) ? round($sWeight * $lotQty, 2) : $dbWeight;
+
                 $lots[] = array_merge($row, [
                     'lot_qty'       => $lotQty,
+                    'weight'        => $lotWeight,
                     'lot_sequence'  => $seq,
                     'omron_label_type' => $type,
                     'ref_no'        => 'IT1' . \App\Helpers\LabelHelper::generateHexRefNo(13),

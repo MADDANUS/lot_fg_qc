@@ -26,7 +26,7 @@ $barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor 
 };
 
 // ── Helper: QR Code ────────────────────────────────────────────────────
-$qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '18mm', int $margin = 2): string {
+$qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm', int $margin = 0): string {
     if ($data === '') return '';
     try {
         $qrCode = new QrCode(
@@ -34,14 +34,24 @@ $qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '18mm
             new Encoding('UTF-8'),
             ErrorCorrectionLevel::Medium,
             $sizePx,
-            $margin,
-            \Endroid\QrCode\RoundBlockSizeMode::Enlarge,
+            0, // Force 0 margin to prevent white box overlapping borders
+            \Endroid\QrCode\RoundBlockSizeMode::Margin,
             new Color(0, 0, 0),
             new Color(255, 255, 255)
         );
-        $writer = new PngWriter();
+        $writer = new \Endroid\QrCode\Writer\SvgWriter();
         $result = $writer->write($qrCode);
-        return '<img src="' . $result->getDataUri() . '" width="' . $sizePx . '" height="' . $sizePx . '" style="width:' . $displayMm . ';height:' . $displayMm . ';" alt="QR">';
+        
+        $svg = $result->getString();
+        
+        // Buang deklarasi <?xml...
+        $svg = preg_replace('/<\?xml[^>]*\?>/', '', $svg);
+        
+        // Ubah width dan height bawaan library (pixel) menjadi milimeter ($displayMm)
+        $svg = preg_replace('/width="[^"]+"/', 'width="' . $displayMm . '"', $svg, 1);
+        $svg = preg_replace('/height="[^"]+"/', 'height="' . $displayMm . '"', $svg, 1);
+        
+        return $svg;
     } catch (\Throwable $e) {
         return '<div style="width:' . $displayMm . ';height:' . $displayMm . ';border:0.1mm solid #000;font-size:6pt;text-align:center;padding-top:5px;">QR ERR</div>';
     }
@@ -137,10 +147,11 @@ if ($type === 'inner'):
             $operator    = $lot['operator'] ?? '';
             $warehouse   = $lot['whs_code'] ?? '';
             $uniq          = strtoupper(substr(uniqid(), -13));
-            $refNo         = 'IT1' . $uniq;
+            $refNo         = $lot['ref_no'] ?? '';
+            if ($refNo === '') { $refNo = 'IT1' . $uniq; }
             $randomRefNo   = strtoupper(substr(uniqid(), -8));
             $cleanItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
-            $qrRightOriginal = implode(',', [$itemCode, $lotno, $lotQty, $refNo]);
+            $qrRightOriginal = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
             $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);
 ?>
 <table style="width:195mm;border-collapse:collapse;border:none;">
@@ -186,7 +197,8 @@ else:
             $operator    = $lot['operator'] ?? '';
             $warehouse   = $lot['whs_code'] ?? '';
             $uniq          = strtoupper(substr(uniqid(), -13));
-            $refNo         = 'IT1' . $uniq;
+            $refNo         = $lot['ref_no'] ?? '';
+            if ($refNo === '') { $refNo = 'IT1' . $uniq; }
             $randomRefNo   = strtoupper(substr(uniqid(), -8));
             $cleanItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
             $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);
@@ -218,7 +230,8 @@ else:
                 $operator    = $lot['operator'] ?? '';
                 $warehouse   = $lot['whs_code'] ?? '';
                 $uniq          = strtoupper(substr(uniqid(), -13));
-                $refNo         = 'IT1' . $uniq;
+                $refNo         = $lot['ref_no'] ?? '';
+                if ($refNo === '') { $refNo = 'IT1' . $uniq; }
                 $randomRefNo   = strtoupper(substr(uniqid(), -8));
                 $cleanItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
                 $qrOmronLong  = $generateOmronQr($lot, $displayDate, $randomRefNo);

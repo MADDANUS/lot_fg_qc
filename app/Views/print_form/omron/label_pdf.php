@@ -1,6 +1,6 @@
 <?php
 /**
- * MAIN PDF TEMPLATE — label_pdf.php
+ * MAIN PDF TEMPLATE â€” label_pdf.php
  * ====================================
  * File ini hanya bertugas sebagai WRAPPER yang:
  * 1. Menyiapkan semua variabel shared (barcode, QR, helper)
@@ -8,10 +8,10 @@
  * 3. Include label_left.php (kiri) dan label_right.php (kanan) berdampingan
  *
  * Variabel dari controller:
- *   $header    — array header print
- *   $lots      — array lot items
- *   $shiftName — nama shift
- *   $grid      — konfigurasi ukuran
+ *   $header    â€” array header print
+ *   $lots      â€” array lot items
+ *   $shiftName â€” nama shift
+ *   $grid      â€” konfigurasi ukuran
  */
 
 use Picqer\Barcode\BarcodeGeneratorSVG;
@@ -21,7 +21,7 @@ use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
 
-// ── Helper: Barcode SVG ────────────────────────────────────────────────────────
+// â”€â”€ Helper: Barcode SVG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $barcodeSvg = function (string $value, float $heightMm = 10, float $widthFactor = 1.3, bool $center = false) use ($grid): string {
     if ($value === '') return '';
     $generator = new BarcodeGeneratorSVG();
@@ -72,14 +72,14 @@ $qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm
     }
 };
 
-// ── Format tanggal ─────────────────────────────────────────────────────────────
+// â”€â”€ Format tanggal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $fmtDate = function (?string $d): string {
     if (!$d) return '';
     $ts = strtotime($d);
     return $ts ? date('d-M-Y', $ts) : $d;
 };
 
-// ── Helper: Omron QR Format (Mendekati Sistem Lama) ────────────────────────
+// â”€â”€ Helper: Omron QR Format (Mendekati Sistem Lama) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $generateOmronQr = function($lot, $header, $displayDate, $randomRefNo) {
     $kode_supplier = "I01041";
     // Menghapus huruf dan spasi di belakang part no untuk QR Code
@@ -116,7 +116,7 @@ $generateOmronQr = function($lot, $header, $displayDate, $randomRefNo) {
     return $kode_supplier . $no_omron . $qty_str . $mfgdate2 . $cavity . "  " . $machine . $dieno . $shift . $uniq1 . $lotno_str;
 };
 
-// ── Variabel dari Header ───────────────────────────────────────────────────────
+// â”€â”€ Variabel dari Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $productName  = $header['product_name']    ?? '';
 $dateMode     = $header['date_mode']       ?? 'production_date';
 // DATE di label: pakai DocDate dari SAP jika ada; fallback ke production_date / job_order
@@ -135,7 +135,7 @@ $rohsFree     = true;
 $docNumber    = $header['doc_number'] ?? '';
 $weight       = $header['weight'] ?? null;
 
-// ── Konfigurasi Grid ───────────────────────────────────────────────────────────
+// â”€â”€ Konfigurasi Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $fontPt   = $grid['font_size_pt'];
 $barcodeH = $grid['barcode_h_mm'];
 $qrSize   = match(true) {
@@ -148,11 +148,11 @@ $dtWib         = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
 $now           = $dtWib->format('d/m/Y H:i');
 $printDateLong = $dtWib->format('d-M-Y');
 
-// ── Path partial templates ─────────────────────────────────────────────────────
+// â”€â”€ Path partial templates â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $leftTpl   = __DIR__ . '/inner_left.php';
 $rightTpl  = __DIR__ . '/inner_right.php';
 
-// ── Variabel Tambahan Omron ──────────────────────────────────────────────────
+// â”€â”€ Variabel Tambahan Omron â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $omronLabelType = $header['omron_label_type'] ?? 'inner';
 $machine        = $header['machine'] ?? '';
 $notification   = $header['notification'] ?? '';
@@ -192,11 +192,12 @@ if ($omronLabelType === 'outer'):
           $warehouse     = $lot['warehouse']       ?? '';
           $backNo        = $lot['back_no']         ?? '';
           $operator      = $lot['operator']        ?? '';
-          $dieNo         = $lot['die_no']          ?? '';
+          $weight = $lot['weight'] ?? null;
+$dieNo         = $lot['die_no']          ?? '';
           $dwgNo         = $lot['dwg_no']          ?? '';
           $cavity        = $lot['cavity']          ?? '';
           $uniq          = strtoupper(substr(uniqid(), -13));
-          $refNo         = 'IT1' . $uniq;
+          if ($refNo === '') { $refNo = 'IT1' . $uniq; }
           $randomRefNo   = strtoupper(substr(uniqid(), -8));
           $qrLeft  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
           $qrRight = $qrLeft;
@@ -216,11 +217,12 @@ if ($omronLabelType === 'outer'):
               $warehouse     = $lot['warehouse']       ?? '';
               $backNo        = $lot['back_no']         ?? '';
               $operator      = $lot['operator']        ?? '';
-              $dieNo         = $lot['die_no']          ?? '';
+              $weight = $lot['weight'] ?? null;
+$dieNo         = $lot['die_no']          ?? '';
               $dwgNo         = $lot['dwg_no']          ?? '';
               $cavity        = $lot['cavity']          ?? '';
               $uniq          = strtoupper(substr(uniqid(), -13));
-              $refNo         = 'IT1' . $uniq;
+              if ($refNo === '') { $refNo = 'IT1' . $uniq; }
               $randomRefNo   = strtoupper(substr(uniqid(), -8));
               $qrLeft  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
               $qrRight = $qrLeft;
@@ -253,11 +255,12 @@ if ($omronLabelType === 'outer'):
     $warehouse     = $lot['warehouse']       ?? '';
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
-    $dieNo         = $lot['die_no']          ?? '';
+    $weight = $lot['weight'] ?? null;
+$dieNo         = $lot['die_no']          ?? '';
     $dwgNo         = $lot['dwg_no']          ?? '';
     $cavity        = $lot['cavity']          ?? '';
     $uniq          = strtoupper(substr(uniqid(), -13));
-    $refNo         = 'IT1' . $uniq;
+    if ($refNo === '') { $refNo = 'IT1' . $uniq; }
     $randomRefNo   = strtoupper(substr(uniqid(), -8));
     $qrRightOriginal = implode(',', [$customer, $itemCode, $lotno, $lotQty, $refNo]);
     $qrOmronLong  = $generateOmronQr($lot, $header, $displayDate, $randomRefNo);
