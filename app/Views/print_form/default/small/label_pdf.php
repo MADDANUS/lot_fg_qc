@@ -23,15 +23,35 @@ $barcodeSvg = function (string $value, float $heightMm = 3.5, float $widthFactor
     return '<img src="' . $encoded . '" style="height:' . $heightMm . 'mm;max-width:100%;display:block;" alt="' . htmlspecialchars($value) . '">';
 };
 
-$qrCodeImg = function (string $data, int $sizePx = 45, string $displayMm = '15mm', int $margin = 1): string {
+$qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm', int $margin = 0): string {
     if ($data === '') return '';
     try {
-        $qrCode = new QrCode($data, new Encoding('UTF-8'), ErrorCorrectionLevel::Medium, $sizePx, $margin,
-            \Endroid\QrCode\RoundBlockSizeMode::Margin, new Color(0,0,0), new Color(255,255,255));
-        $result = (new PngWriter())->write($qrCode);
-        return '<img src="' . $result->getDataUri() . '" style="width:' . $displayMm . ';height:' . $displayMm . ';" alt="QR">';
+        $qrCode = new QrCode(
+            $data,
+            new Encoding('UTF-8'),
+            ErrorCorrectionLevel::Medium,
+            $sizePx,
+            0, // Force 0 margin to prevent white box overlapping borders
+            \Endroid\QrCode\RoundBlockSizeMode::Margin,
+            new Color(0, 0, 0),
+            new Color(255, 255, 255)
+        );
+        $writer = new \Endroid\QrCode\Writer\SvgWriter();
+        $result = $writer->write($qrCode);
+        
+        $svg = $result->getString();
+        
+        // Buang deklarasi <?xml...
+        $svg = preg_replace('/<\?xml[^>]*\?>/', '', $svg);
+        
+        // Ubah width dan height bawaan library (pixel) menjadi milimeter ($displayMm)
+        // Pastikan hanya mereplace attribute width dan height pertama (pada tag <svg>)
+        $svg = preg_replace('/width="[^"]+"/', 'width="' . $displayMm . '"', $svg, 1);
+        $svg = preg_replace('/height="[^"]+"/', 'height="' . $displayMm . '"', $svg, 1);
+        
+        return $svg;
     } catch (\Throwable $e) {
-        return '<div style="width:' . $displayMm . ';height:' . $displayMm . ';border:0.1mm solid #000;font-size:5pt;text-align:center;">QR</div>';
+        return '<div style="width:' . $displayMm . ';height:' . $displayMm . ';border:0.1mm solid #000;font-size:6pt;text-align:center;padding-top:5px;">QR ERR</div>';
     }
 };
 

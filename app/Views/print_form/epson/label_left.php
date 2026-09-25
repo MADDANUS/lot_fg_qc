@@ -41,7 +41,7 @@
 <!-- R3: A3="Part Code:" bdr-TL | B3:C3=barcode(cs2) bdr-T | D3:G3=description(cs4) bdr-TR -->
 <tr>
   <td style="height:4.36mm;border-top:0.3mm solid #000;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:10pt;vertical-align:middle;white-space:nowrap;">Part Code:</td>
-  <td colspan="2" style="border-top:0.3mm solid #000;padding:1mm;vertical-align:middle;"><?= $barcodeSvg($itemCodeLeft, 4.5, 1.0) ?></td>
+  <td colspan="2" style="border-top:0.3mm solid #000;padding:0.5mm 1mm;vertical-align:middle;"><?= $barcodeSvg($itemCodeLeft, 5.5, 0.8) ?></td>
   <td colspan="5" style="border-top:0.3mm solid #000;border-right:0.3mm solid #000;text-align:center;vertical-align:middle;padding:0.3mm 1mm;font-size:10pt;"><?= esc($description) ?></td>
 </tr>
 
@@ -56,7 +56,7 @@
 <!-- R5: A5="Lot No.:" bdr-L | B5:C5=barcode(cs2) | D-F empty | G5 bdr-R -->
 <tr>
   <td style="height:3.89mm;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:10pt;vertical-align:middle;white-space:nowrap;">Lot No.:</td>
-  <td colspan="2" style="padding:1mm;vertical-align:middle;"><?= $barcodeSvg($lotNoCombined, 3.5, 1.0) ?></td>
+  <td colspan="2" style="padding:0.5mm 1mm;vertical-align:middle;"><?= $barcodeSvg($lotNoCombined, 4.5, 0.8) ?></td>
   <td></td><td></td><td></td>
 </tr>
 
@@ -70,7 +70,7 @@
 <!-- R7: A7="Qty:" bdr-L | B7:C7=barcode(cs2) | D-F empty | G7 bdr-R -->
 <tr>
   <td style="height:4.14mm;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:10pt;vertical-align:middle;white-space:nowrap;">Qty:</td>
-  <td colspan="2" style="padding:1mm;vertical-align:middle;"><?= $barcodeSvg($lotQty, 3.5, 1.0) ?></td>
+  <td colspan="2" style="padding:0.5mm 1mm;vertical-align:middle;"><?= $barcodeSvg($lotQty, 4.5, 0.8) ?></td>
   <td></td><td></td><td></td>
 </tr>
 
@@ -84,7 +84,7 @@
 <!-- R9: A9="Ref No.:" bdr-L | B9:C9=barcode(cs2) | D-F empty | G9 bdr-R -->
 <tr>
   <td style="height:3.65mm;border-left:0.3mm solid #000;padding:0.3mm 0.5mm;font-size:10pt;vertical-align:middle;white-space:nowrap;">Ref No.:</td>
-  <td colspan="2" style="padding:1mm;vertical-align:middle;"><?= $barcodeSvg($refNo, 3.5, 1.0) ?></td>
+  <td colspan="2" style="padding:0.5mm 1mm;vertical-align:middle;"><?= $barcodeSvg($refNo, 4.5, 0.8) ?></td>
   <td></td><td></td><td></td>
 </tr>
 

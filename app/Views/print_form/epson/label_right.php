@@ -28,7 +28,8 @@
  *   B20:C20(cs2)
  */
 ?>
-<table style="width:94mm;min-width:94mm;max-width:94mm;height:97mm;min-height:97mm;max-height:97mm;table-layout:fixed;border-collapse:collapse;font-family:Arial,sans-serif;font-size:11pt;">
+<?php $tableHeight = (!empty($weight)) ? '101mm' : '97mm'; ?>
+<table style="width:94mm;min-width:94mm;max-width:94mm;height:<?= $tableHeight ?>;min-height:<?= $tableHeight ?>;max-height:<?= $tableHeight ?>;table-layout:fixed;border-collapse:collapse;font-family:Arial,sans-serif;font-size:11pt;">
 <colgroup>
   <col style="width:5mm">  <!-- A -->
   <col style="width:23mm"> <!-- B -->
@@ -67,8 +68,9 @@
 
 <!-- ═══ R4 ═══: A4 bdr-L | B4:D4="PT.CUSTOMER" cs3 bdr-TLR bold | (QR covered) | J4 bdr-R -->
 <tr>
-  <td style="height:5.58mm;border-left:0.3mm solid #000;"></td>
-  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;"><?= esc($customer) ?></td>
+  <?php $r4Height = (!empty($weight)) ? '9.58mm' : '5.58mm'; ?>
+  <td style="height:<?= $r4Height ?>;border-left:0.3mm solid #000;"></td>
+  <td colspan="3" style="border-top:0.3mm solid #000;border-left:0.3mm solid #000;border-right:0.3mm solid #000;padding:0.3mm 1mm;font-weight:bold;font-size:11pt;vertical-align:middle;"><?= (!empty($weight)) ? str_ireplace('EPSON INDUSTRY', 'EPSON<br>INDUSTRY', esc($customer)) : esc($customer) ?></td>
   <td style="border-right:0.3mm solid #000;"></td>
 </tr>
 

@@ -40,7 +40,7 @@ $leftTpl  = __DIR__ . '/inner_left.php';
 $rightTpl = __DIR__ . '/inner_right.php';
 
 // Helper QR Code generator
-$qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm', int $margin = 2): string {
+$qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm', int $margin = 0): string {
     if ($data === '') return '';
     try {
         $qrCode = new QrCode(
@@ -48,14 +48,25 @@ $qrCodeImg = function (string $data, int $sizePx = 70, string $displayMm = '30mm
             new Encoding('UTF-8'),
             ErrorCorrectionLevel::Medium,
             $sizePx,
-            $margin,
-            \Endroid\QrCode\RoundBlockSizeMode::Enlarge,
+            0, // Force 0 margin to prevent white box overlapping borders
+            \Endroid\QrCode\RoundBlockSizeMode::Margin,
             new Color(0, 0, 0),
             new Color(255, 255, 255)
         );
-        $writer = new PngWriter();
+        $writer = new \Endroid\QrCode\Writer\SvgWriter();
         $result = $writer->write($qrCode);
-        return '<img src="' . $result->getDataUri() . '" width="' . $sizePx . '" height="' . $sizePx . '" style="width:' . $displayMm . ';height:' . $displayMm . ';" alt="QR">';
+        
+        $svg = $result->getString();
+        
+        // Buang deklarasi <?xml...
+        $svg = preg_replace('/<\?xml[^>]*\?>/', '', $svg);
+        
+        // Ubah width dan height bawaan library (pixel) menjadi milimeter ($displayMm)
+        // Pastikan hanya mereplace attribute width dan height pertama (pada tag <svg>)
+        $svg = preg_replace('/width="[^"]+"/', 'width="' . $displayMm . '"', $svg, 1);
+        $svg = preg_replace('/height="[^"]+"/', 'height="' . $displayMm . '"', $svg, 1);
+        
+        return $svg;
     } catch (\Throwable $e) {
         return '<div style="width:' . $displayMm . ';height:' . $displayMm . ';border:0.1mm solid #000;font-size:6pt;text-align:center;padding-top:5px;">QR ERR</div>';
     }

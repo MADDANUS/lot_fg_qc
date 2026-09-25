@@ -45,7 +45,7 @@ $displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
     <table style="margin:auto; border:none; border-collapse:collapse;">
       <tr>
         <td style="border:none; text-align:center; padding:0;">
-          <?= $barcodeSvg($displayItemCode, 8, 1.0) ?>
+          <?= $barcodeSvg($displayItemCode, 5) ?>
         </td>
       </tr>
       <tr>
@@ -167,7 +167,7 @@ $displayItemCode = preg_replace('/[a-zA-Z\s]+$/', '', $itemCode);
 <tr>
   <td colspan="5" style="border-left:0.3mm solid #000; padding:1mm; text-align:center;">
     <div style="margin:auto; display:inline-block;">
-      <?= $barcodeSvg($lotno, 6, 1.0) ?>
+      <?= $barcodeSvg($lotno, 6) ?>
     </div>
   </td>
 </tr>
