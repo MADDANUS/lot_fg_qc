@@ -82,7 +82,7 @@ foreach ($groups as $gi => $group):
     $lotNoCombined = $lot['lot_no_combined'] ?? '';
     $refNo         = $lot['ref_no']          ?? '';
     $lotQty        = (string)($lot['lot_qty'] ?? ($lot['standard_pack'] ?? ''));
-    $warehouse     = $lot['warehouse']       ?? '';
+    $warehouse     = $lot['warehouse']       ?? ($lot['whs_code'] ?? '');
     $backNo        = $lot['back_no']         ?? '';
     $operator      = $lot['operator']        ?? '';
 

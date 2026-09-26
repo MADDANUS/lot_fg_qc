@@ -331,11 +331,22 @@ class PrintForm extends Controller
                 $savedRows[] = [
                     'doc_number'      => $headerData['doc_number']   ?? '',
                     'doc_date'        => $docDate,
+                    'ref_no'          => \App\Helpers\LabelHelper::generateRefNo(),
                     'item_code'       => $item['item_code']           ?? '',
                     'description'     => $item['description']         ?? ($item['Dscription'] ?? ''),
                     'quantity'        => $qty,
                     'standard_pack'   => (int) ($item['standard_pack'] ?? 0),
                     'lotno'           => $item['lotno']               ?? ($item['U_MIS_LotNo'] ?? ''),
+                    'lot_no_combined' => \App\Helpers\LabelHelper::generateLotNo(
+                        dateStr:    $headerData['production_date'] ?? '',
+                        dateMode:   $headerData['date_mode'] ?? 'production_date',
+                        shiftId:    $headerData['shift_id'] ?? '',
+                        lineMode:   $headerData['line_mode'] ?? 'line',
+                        lineId:     $headerData['line_id'] ?? null,
+                        moldId:     $headerData['mold_id'] ?? null,
+                        cavityId:   $headerData['cavity_id'] ?? null,
+                        fromSeries: $headerData['from_series'] ?? ''
+                    ),
                     'whs_code'        => $item['warehouse']           ?? ($item['WhsCode']      ?? ''),
                     'back_no'         => $item['back_no']             ?? ($item['U_MIS_BackNo'] ?? ''),
                     'operator'        => $item['operator']            ?? ($item['U_MIS_Operator'] ?? ''),
